@@ -931,6 +931,7 @@ def plot_analysis(folder_path: str, save_path: str = None,
     if save_path:
         plt.savefig(save_path, dpi=150, bbox_inches='tight')
         print(f"Plot saved: {save_path}")
+        plt.close(fig)  # Free memory for batch processing
     else:
         plt.show()
     
@@ -941,13 +942,52 @@ def plot_analysis(folder_path: str, save_path: str = None,
 # BATCH ANALYSIS & EXPORT
 # ============================================================================
 
-def analyze_all_folders(base_path: str, exponent: float = 2.0) -> list[AnalysisResult]:
+def find_data_folders(base_path: Path) -> list[Path]:
+    """
+    Recursively find all data folders that contain CSV files.
+    
+    Handles nested structures like:
+        defects_data/
+            cdefects_data/cdefects_002_data/*.csv
+            cyanodefects/cyanodefects_data/cyanodefects_003_data/*.csv
+            ndefects_data/ndefects_001_data/*.csv
+    
+    Returns:
+        List of folder paths that contain analyzable CSV files
+    """
+    data_folders = []
+    
+    # Recursively find all *_data directories
+    for folder in base_path.rglob('*_data'):
+        if not folder.is_dir():
+            continue
+        
+        # Check if folder contains CSV files (not just subdirectories)
+        csv_files = list(folder.glob('*.csv'))
+        
+        # Filter: must have data files (abs or tauc), not just result files
+        has_data = any(
+            '_abs_' in f.name or '_tauc' in f.name 
+            for f in csv_files
+        )
+        
+        if has_data:
+            data_folders.append(folder)
+    
+    return sorted(data_folders)
+
+
+def analyze_all_folders(base_path: str, exponent: float = 2.0, 
+                        save_plots: bool = False) -> list[AnalysisResult]:
     """
     Analyze all data folders and return combined results.
+    
+    Recursively searches for all *_data folders containing CSV files.
     
     Args:
         base_path: path to base data directory
         exponent: Tauc exponent
+        save_plots: if True, save analysis plots for each folder
     
     Returns:
         List of all AnalysisResult objects
@@ -955,19 +995,39 @@ def analyze_all_folders(base_path: str, exponent: float = 2.0) -> list[AnalysisR
     base = Path(base_path)
     all_results = []
     
-    # Find all data folders
-    folders = sorted([f for f in base.glob('*_data') if f.is_dir()])
+    # Find all data folders recursively
+    folders = find_data_folders(base)
+    
+    if not folders:
+        print(f"No data folders found in {base_path}")
+        return all_results
+    
+    print(f"Found {len(folders)} data folders to analyze")
     
     for folder in folders:
+        # Create relative path for better display
+        try:
+            rel_path = folder.relative_to(base)
+        except ValueError:
+            rel_path = folder.name
+        
         print(f"\n{'='*70}")
-        print(f"Processing: {folder.name}")
+        print(f"Processing: {rel_path}")
         print('='*70)
         
-        results = analyze_folder(str(folder), exponent)
+        if save_plots:
+            # Use plot_analysis which saves plots and returns results
+            exp_suffix = '05' if exponent == 0.5 else str(int(exponent))
+            plot_path = folder / f"{folder.name}_analysis_n{exp_suffix}.png"
+            results = plot_analysis(str(folder), str(plot_path), exponent)
+            if results is None:
+                results = []
+        else:
+            results = analyze_folder(str(folder), exponent)
         
-        # Add folder info to results
+        # Add folder info to results (use relative path)
         for r in results:
-            r.folder = folder.name
+            r.folder = str(rel_path)
         
         all_results.extend(results)
     
@@ -1044,17 +1104,19 @@ def print_summary_table(results: list[AnalysisResult]):
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python analyze_spectra.py <folder_path> [output.png] [--exponent N] [--all] [--csv FILE]")
+        print("Usage: python analyze_spectra.py <folder_path> [output.png] [--exponent N] [--all] [--csv FILE] [--plots]")
         print()
         print("Options:")
         print("  --exponent N    Tauc exponent: 2 for direct (default), 0.5 for indirect")
         print("  --all           Analyze ALL subfolders in the given path")
         print("  --csv FILE      Export results to CSV file")
+        print("  --plots         Save analysis plots for each folder (use with --all)")
         print()
         print("Examples:")
         print("  python analyze_spectra.py ndefects_data/ndefects_003_data")
         print("  python analyze_spectra.py ndefects_data/ndefects_003_data analysis.png")
         print("  python analyze_spectra.py ndefects_data --all --csv results.csv")
+        print("  python analyze_spectra.py ndefects_data --all --plots --exponent 0.5 --csv results.csv")
         sys.exit(1)
     
     folder_path = sys.argv[1]
@@ -1062,6 +1124,7 @@ def main():
     exponent = 2.0
     analyze_all = False
     csv_path = None
+    save_plots = False
     
     # Parse arguments
     i = 2
@@ -1077,6 +1140,8 @@ def main():
                     sys.exit(1)
         elif arg == '--all':
             analyze_all = True
+        elif arg == '--plots':
+            save_plots = True
         elif arg == '--csv':
             if i + 1 < len(sys.argv):
                 csv_path = sys.argv[i + 1]
@@ -1087,7 +1152,7 @@ def main():
     
     if analyze_all:
         # Analyze all folders
-        results = analyze_all_folders(folder_path, exponent)
+        results = analyze_all_folders(folder_path, exponent, save_plots)
         print_summary_table(results)
         
         if csv_path:
