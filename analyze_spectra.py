@@ -1017,8 +1017,11 @@ def analyze_all_folders(base_path: str, exponent: float = 2.0,
         
         if save_plots:
             # Use plot_analysis which saves plots and returns results
+            # Save all plots in figures/ folder at repo root
             exp_suffix = '05' if exponent == 0.5 else str(int(exponent))
-            plot_path = folder / f"{folder.name}_analysis_n{exp_suffix}.png"
+            figures_dir = base / 'figures'
+            figures_dir.mkdir(exist_ok=True)
+            plot_path = figures_dir / f"{folder.name}_analysis_n{exp_suffix}.png"
             results = plot_analysis(str(folder), str(plot_path), exponent)
             if results is None:
                 results = []

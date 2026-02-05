@@ -255,13 +255,30 @@ def recommend_scaler(X: np.ndarray, feature_names: list) -> str:
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python cluster_spectra.py <results.csv> [output.png]")
-        print("\nExample:")
-        print("  python cluster_spectra.py ndefects_data/analysis_results.csv clustering.png")
+        print("Usage: python cluster_spectra.py <results.csv> [output.png] [--scaler NAME]")
+        print("\nOptions:")
+        print("  --scaler NAME   Force specific scaler: StandardScaler, RobustScaler,")
+        print("                  MinMaxScaler, PowerTransformer (default: auto-recommend)")
+        print("\nExamples:")
+        print("  python cluster_spectra.py results.csv clustering.png")
+        print("  python cluster_spectra.py results.csv clustering.png --scaler RobustScaler")
         sys.exit(1)
     
     csv_path = sys.argv[1]
-    save_path = sys.argv[2] if len(sys.argv) > 2 else None
+    save_path = None
+    forced_scaler = None
+    
+    # Parse arguments
+    i = 2
+    while i < len(sys.argv):
+        arg = sys.argv[i]
+        if arg == '--scaler':
+            if i + 1 < len(sys.argv):
+                forced_scaler = sys.argv[i + 1]
+                i += 1
+        elif not arg.startswith('--'):
+            save_path = arg
+        i += 1
     
     # Load data
     print(f"Loading data from: {csv_path}")
@@ -275,15 +292,23 @@ def main():
     # Compare scalers
     scaled_data = compare_scalers(X, feature_names)
     
-    # Get recommendation
-    recommended = recommend_scaler(X, feature_names)
+    # Get scaler to use
+    if forced_scaler:
+        if forced_scaler not in scaled_data:
+            print(f"Error: Unknown scaler '{forced_scaler}'")
+            print(f"Available: {', '.join(scaled_data.keys())}")
+            sys.exit(1)
+        selected_scaler = forced_scaler
+        print(f"\n→ Using forced scaler: {selected_scaler}")
+    else:
+        selected_scaler = recommend_scaler(X, feature_names)
     
-    # Run HDBSCAN with recommended scaler
+    # Run HDBSCAN with selected scaler
     print("\n" + "="*70)
-    print(f"HDBSCAN CLUSTERING (using {recommended})")
+    print(f"HDBSCAN CLUSTERING (using {selected_scaler})")
     print("="*70)
     
-    X_scaled = scaled_data[recommended]
+    X_scaled = scaled_data[selected_scaler]
     
     # Try different min_cluster_size values
     for min_cs in [3, 4, 5]:
@@ -318,7 +343,7 @@ def main():
     analyze_clusters(df, labels, feature_names)
     
     # Plot
-    plot_clustering(df, X_scaled, labels, recommended, save_path)
+    plot_clustering(df, X_scaled, labels, selected_scaler, save_path)
     
     # Save results
     output_csv = csv_path.replace('.csv', '_clustered.csv')
