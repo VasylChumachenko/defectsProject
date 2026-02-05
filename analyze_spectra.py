@@ -801,7 +801,7 @@ def analyze_folder(folder_path: str, exponent: float = 2.0) -> list[AnalysisResu
 def plot_analysis(folder_path: str, save_path: str = None, 
                   exponent: float = 2.0):
     """
-    Create combined visualization with Tauc and Urbach plots.
+    Create combined visualization with Tauc, Urbach, and A_sub plots.
     """
     folder = Path(folder_path)
     
@@ -815,8 +815,8 @@ def plot_analysis(folder_path: str, save_path: str = None,
         print("No results to plot")
         return
     
-    # Create figure with two subplots
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 7))
+    # Create figure with three subplots
+    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(20, 6))
     
     colors = plt.cm.tab10(np.linspace(0, 1, max(10, len(results))))
     
@@ -845,11 +845,14 @@ def plot_analysis(folder_path: str, save_path: str = None,
         else:
             continue
         
+        bg = result.bandgap
+        ur = result.urbach
+        asub = result.a_sub
+        
         # ===== TAUC PLOT (left) =====
         ax1.plot(energy, tauc, color=color, linewidth=1, alpha=0.6)
         
         # Highlight linear region
-        bg = result.bandgap
         lin_mask = (energy >= bg.start_energy) & (energy <= bg.end_energy)
         ax1.plot(energy[lin_mask], tauc[lin_mask], color=color, linewidth=2.5,
                 label=f'{result.sample_name}: E_g={bg.bandgap:.2f} eV')
@@ -864,7 +867,7 @@ def plot_analysis(folder_path: str, save_path: str = None,
         ax1.scatter([bg.bandgap], [0], color=color, s=80, marker='v',
                    edgecolors='black', linewidths=0.5, zorder=5)
         
-        # ===== URBACH PLOT (right) =====
+        # ===== URBACH PLOT (middle) =====
         # Baseline correction for plotting
         baseline = estimate_baseline(energy, absorbance, bg.bandgap)
         abs_corr = absorbance - baseline
@@ -876,7 +879,6 @@ def plot_analysis(folder_path: str, save_path: str = None,
         ax2.plot(E_plot, ln_alpha, color=color, linewidth=1, alpha=0.5)
         
         # Highlight Urbach region
-        ur = result.urbach
         ur_mask = (E_plot >= ur.start_energy) & (E_plot <= ur.end_energy)
         ax2.plot(E_plot[ur_mask], ln_alpha[ur_mask], color=color, linewidth=2.5,
                 label=f'{result.sample_name}: E_u={ur.urbach_energy:.0f} meV')
@@ -888,9 +890,49 @@ def plot_analysis(folder_path: str, save_path: str = None,
         
         # Bandgap line
         ax2.axvline(x=bg.bandgap, color=color, linestyle=':', alpha=0.3)
+        
+        # ===== A_SUB PLOT (right) =====
+        # Normalize absorbance using UV window
+        norm_mask = (energy >= ASUB_NORM_WINDOW[0]) & (energy <= ASUB_NORM_WINDOW[1])
+        if np.sum(norm_mask) >= 3:
+            norm_factor = np.mean(absorbance[norm_mask])
+        else:
+            norm_factor = np.percentile(absorbance, 90)
+        if norm_factor <= 0:
+            norm_factor = np.max(absorbance)
+        
+        abs_normalized = absorbance / norm_factor
+        
+        # Plot normalized absorption
+        ax3.plot(energy, abs_normalized, color=color, linewidth=1.5, alpha=0.7,
+                label=f'{result.sample_name}: A_sub={asub.a_sub:.3f}')
+        
+        # Calculate and plot Urbach extrapolation in sub-gap region
+        E_sub_range = np.linspace(asub.start_energy, asub.end_energy, 100)
+        urbach_ln_alpha = ur.slope * E_sub_range + ur.intercept
+        urbach_alpha = np.exp(urbach_ln_alpha)
+        urbach_normalized = urbach_alpha / norm_factor
+        
+        ax3.plot(E_sub_range, urbach_normalized, '--', color=color, linewidth=1, alpha=0.5)
+        
+        # Shade A_sub region (excess absorption over Urbach)
+        sub_mask = (energy >= asub.start_energy) & (energy <= asub.end_energy)
+        if np.sum(sub_mask) > 2:
+            E_sub = energy[sub_mask]
+            abs_sub = abs_normalized[sub_mask]
+            
+            # Urbach prediction at these energies
+            urbach_at_E = np.exp(ur.slope * E_sub + ur.intercept) / norm_factor
+            
+            # Fill between (only where absorption exceeds Urbach)
+            ax3.fill_between(E_sub, urbach_at_E, abs_sub, 
+                           where=(abs_sub > urbach_at_E),
+                           color=color, alpha=0.3, interpolate=True)
+        
+        # Mark bandgap
+        ax3.axvline(x=bg.bandgap, color=color, linestyle=':', alpha=0.3)
     
     # Styling - Tauc plot
-    # Determine common exponent from results (use first one or most common)
     plot_exp = results[0].exponent if results else 2.0
     if plot_exp == 0.5:
         ylabel_tauc = r'$(\alpha h\nu)^{0.5}$'
@@ -903,17 +945,28 @@ def plot_analysis(folder_path: str, save_path: str = None,
         exp_label = f'{plot_exp}'
     ax1.set_xlabel('Energy, eV', fontsize=12)
     ax1.set_ylabel(f'{ylabel_tauc}, eV$^{{{exp_label}}}$', fontsize=12)
-    ax1.set_title(f'Tauc Plot: {folder.name} (n={exp_label})', fontsize=14)
-    ax1.legend(loc='upper left', fontsize=8, framealpha=0.9)
+    ax1.set_title(f'Tauc Plot (n={exp_label})', fontsize=13)
+    ax1.legend(loc='upper left', fontsize=7, framealpha=0.9)
     ax1.grid(True, alpha=0.3)
     ax1.set_ylim(bottom=0)
     
     # Styling - Urbach plot
     ax2.set_xlabel('Energy, eV', fontsize=12)
     ax2.set_ylabel(r'ln($\alpha$)', fontsize=12)
-    ax2.set_title(f'Urbach Analysis: {folder.name}', fontsize=14)
-    ax2.legend(loc='upper left', fontsize=8, framealpha=0.9)
+    ax2.set_title('Urbach Analysis', fontsize=13)
+    ax2.legend(loc='upper left', fontsize=7, framealpha=0.9)
     ax2.grid(True, alpha=0.3)
+    
+    # Styling - A_sub plot
+    ax3.set_xlabel('Energy, eV', fontsize=12)
+    ax3.set_ylabel(r'Normalized $\alpha$', fontsize=12)
+    ax3.set_title('Sub-gap Absorption (A_sub)', fontsize=13)
+    ax3.legend(loc='upper left', fontsize=7, framealpha=0.9)
+    ax3.grid(True, alpha=0.3)
+    ax3.set_ylim(bottom=0)
+    
+    # Add folder name as super title
+    fig.suptitle(f'{folder.name}', fontsize=14, fontweight='bold', y=1.02)
     
     plt.tight_layout()
     
