@@ -1,55 +1,40 @@
-# Virtual environment
-defects/
-venv/
-.venv/
-env/
-
-# Python cache
+# Python
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
+*.pyc
+*.pyo
+defects/
 
-# Generated images/plots
-*.png
-*.jpg
-*.jpeg
-*.gif
-*.svg
+# Visualizations
 figures/
+*.png
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
+# Data (large / generated)
+sources/
+defects_data/
+*_data/
+*.pdf
+*.pptx
+*.ppsx
 
-# Jupyter Notebook
-.ipynb_checkpoints/
+# API keys
+*_api_key.txt
 
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
-*~
+# Generated outputs (reproducible)
+*.log
+clustering_nested_log.txt
+clustering_nested_metrics.json
+analysis_output.log
 
-# OS
+# Intermediate / generated CSV & JSON (keep only key results)
+cluster_synthesis_merged.csv
+cluster_representatives_*.csv
+experimental_sections_summary.csv
+
+# Environment / secrets
+.env
+
+# OS / lock files
 .DS_Store
 Thumbs.db
-
-# Logs
-*.log
-
+.~lock.*
+*.swp

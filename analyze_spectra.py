@@ -54,9 +54,9 @@ SMOOTH_ORDER = 2          # Polynomial order
 
 # A_sub (sub-gap absorption) constraints
 ASUB_NORM_WINDOW = (3.2, 3.6)     # UV normalization window (eV)
-ASUB_DELTA_UPPER = 0.5            # Start A_sub region this far below E_g
-ASUB_DELTA_LOWER = 1.0            # End A_sub region this far below E_g
-ASUB_MIN_ENERGY = 1.5             # Absolute minimum energy for A_sub
+ASUB_REGION_WIDTH = 0.5           # Width of A_sub integration region below Urbach end (eV)
+ASUB_MIN_ENERGY = 1.3             # Absolute minimum energy for A_sub
+ASUB_MIN_COVERAGE = 0.5           # Minimum data coverage for valid A_sub
 
 
 # ============================================================================
@@ -100,15 +100,17 @@ class UrbachResult:
 @dataclass
 class AsubResult:
     """Result of sub-gap absorption analysis."""
-    a_sub: float              # Integrated sub-gap absorption (normalized)
-    a_sub_raw: float          # Raw integrated value
+    a_sub: float              # Normalized sub-gap absorption (per eV)
+    a_sub_raw: float          # Raw integrated value (area)
     norm_factor: float        # Normalization factor used
-    start_energy: float       # Integration start (eV)
-    end_energy: float         # Integration end (eV)
+    start_energy: float       # Integration start (eV) - actual data limit
+    end_energy: float         # Integration end (eV) - Urbach end
+    coverage: float           # Fraction of ideal region covered by data (0-1)
+    ideal_start: float        # Ideal lower limit (Urbach end - width)
     confidence: str
     
     def __str__(self):
-        return f"A_sub = {self.a_sub:.4f} ({self.confidence})"
+        return f"A_sub = {self.a_sub:.4f} (cov={self.coverage:.0%}, {self.confidence})"
 
 
 @dataclass
@@ -588,23 +590,27 @@ def find_urbach_energy(energy: np.ndarray, absorbance: np.ndarray,
 # ============================================================================
 
 def calculate_a_sub(energy: np.ndarray, absorbance: np.ndarray,
-                    bandgap: float, urbach_slope: float, 
+                    urbach_end_energy: float, urbach_slope: float, 
                     urbach_intercept: float) -> AsubResult:
     """
     Calculate sub-gap absorption index (A_sub).
     
-    Uses Variant 2: excess over Urbach tail.
-    A_sub = ∫ max(0, F̃(E) - F̃_urbach(E)) dE
+    Uses improved method:
+    - Upper limit = Urbach end energy (real data point, not extrapolated E_g)
+    - Lower limit = adaptive based on available data
+    - Normalized by integration width for comparability
+    
+    A_sub_norm = (1/ΔE) ∫ max(0, α̃(E) - α̃_urbach(E)) dE
     
     Args:
         energy: energy array (eV)
         absorbance: absorbance values
-        bandgap: band gap energy (eV)
-        urbach_slope: slope from Urbach fit
+        urbach_end_energy: end of Urbach region (upper limit for A_sub)
+        urbach_slope: slope from Urbach fit (in ln(α) vs E)
         urbach_intercept: intercept from Urbach fit
     
     Returns:
-        AsubResult with A_sub value and metadata
+        AsubResult with normalized A_sub value and metadata
     """
     # Step 1: Normalize absorbance using UV window
     norm_mask = (energy >= ASUB_NORM_WINDOW[0]) & (energy <= ASUB_NORM_WINDOW[1])
@@ -621,28 +627,47 @@ def calculate_a_sub(energy: np.ndarray, absorbance: np.ndarray,
     abs_normalized = absorbance / norm_factor
     
     # Step 2: Define sub-gap integration window
-    E_upper = bandgap - ASUB_DELTA_UPPER
-    E_lower = max(ASUB_MIN_ENERGY, bandgap - ASUB_DELTA_LOWER)
+    # Upper limit = Urbach end (where Urbach tail ends, band-edge begins)
+    E_upper = urbach_end_energy
+    
+    # Ideal lower limit = fixed width below Urbach end
+    E_lower_ideal = urbach_end_energy - ASUB_REGION_WIDTH
+    
+    # Actual lower limit = constrained by available data
+    min_data_energy = np.min(energy)
+    E_lower_actual = max(E_lower_ideal, min_data_energy, ASUB_MIN_ENERGY)
+    
+    # Calculate coverage (how much of ideal region is covered)
+    ideal_width = ASUB_REGION_WIDTH
+    actual_width = E_upper - E_lower_actual
+    coverage = actual_width / ideal_width if ideal_width > 0 else 0
+    coverage = min(1.0, max(0.0, coverage))  # Clamp to [0, 1]
     
     # Ensure valid window
-    if E_lower >= E_upper:
-        E_lower = E_upper - 0.3
+    if E_lower_actual >= E_upper:
+        return AsubResult(
+            a_sub=0.0,
+            a_sub_raw=0.0,
+            norm_factor=norm_factor,
+            start_energy=E_lower_actual,
+            end_energy=E_upper,
+            coverage=0.0,
+            ideal_start=E_lower_ideal,
+            confidence='invalid'
+        )
     
-    # Step 3: Calculate Urbach baseline in this region
-    # Urbach: ln(α) = slope * E + intercept
-    # So: α_urbach = exp(slope * E + intercept)
-    # Normalized: α̃_urbach = α_urbach / norm_factor
-    
-    # Step 4: Integrate excess absorption
-    sub_mask = (energy >= E_lower) & (energy <= E_upper)
+    # Step 3: Integrate excess absorption
+    sub_mask = (energy >= E_lower_actual) & (energy <= E_upper)
     
     if np.sum(sub_mask) < 3:
         return AsubResult(
             a_sub=0.0,
             a_sub_raw=0.0,
             norm_factor=norm_factor,
-            start_energy=E_lower,
+            start_energy=E_lower_actual,
             end_energy=E_upper,
+            coverage=coverage,
+            ideal_start=E_lower_ideal,
             confidence='invalid'
         )
     
@@ -650,19 +675,15 @@ def calculate_a_sub(energy: np.ndarray, absorbance: np.ndarray,
     abs_sub = abs_normalized[sub_mask]
     
     # Calculate Urbach prediction (normalized)
-    # We need to convert from ln(α) to α, then normalize
+    # Urbach: ln(α) = slope * E + intercept → α = exp(slope * E + intercept)
     urbach_ln_alpha = urbach_slope * E_sub + urbach_intercept
     urbach_alpha = np.exp(urbach_ln_alpha)
-    
-    # Normalize Urbach the same way
-    # The Urbach was fit on raw absorbance, so we need to normalize it
     urbach_normalized = urbach_alpha / norm_factor
     
     # Calculate excess (only positive values)
     excess = np.maximum(0, abs_sub - urbach_normalized)
     
     # Integrate using trapezoidal rule
-    # Sort by energy first
     sort_idx = np.argsort(E_sub)
     E_sorted = E_sub[sort_idx]
     excess_sorted = excess[sort_idx]
@@ -670,29 +691,32 @@ def calculate_a_sub(energy: np.ndarray, absorbance: np.ndarray,
     # Use numpy.trapezoid (numpy 2.x) or np.trapz (numpy 1.x)
     try:
         a_sub_raw = np.trapezoid(excess_sorted, E_sorted)
-        total_area = np.trapezoid(abs_sub[sort_idx], E_sorted)
     except AttributeError:
         a_sub_raw = np.trapz(excess_sorted, E_sorted)
-        total_area = np.trapz(abs_sub[sort_idx], E_sorted)
     
-    # Normalize A_sub by window width for comparability
-    window_width = E_upper - E_lower
-    a_sub = a_sub_raw / window_width if window_width > 0 else 0
+    # Normalize A_sub by actual window width for comparability
+    # This gives "average excess absorption per eV"
+    a_sub_norm = a_sub_raw / actual_width if actual_width > 0 else 0
     
-    # Determine confidence
-    if np.sum(sub_mask) >= 10 and total_area > 0:
+    # Determine confidence based on coverage and data points
+    n_points = np.sum(sub_mask)
+    if coverage >= 0.8 and n_points >= 10:
         confidence = 'high'
-    elif np.sum(sub_mask) >= 5:
+    elif coverage >= ASUB_MIN_COVERAGE and n_points >= 5:
         confidence = 'medium'
-    else:
+    elif coverage >= 0.3 and n_points >= 3:
         confidence = 'low'
+    else:
+        confidence = 'invalid'
     
     return AsubResult(
-        a_sub=a_sub,
+        a_sub=a_sub_norm,
         a_sub_raw=a_sub_raw,
         norm_factor=norm_factor,
-        start_energy=E_lower,
+        start_energy=E_lower_actual,
         end_energy=E_upper,
+        coverage=coverage,
+        ideal_start=E_lower_ideal,
         confidence=confidence
     )
 
@@ -743,10 +767,10 @@ def analyze_sample(filepath: Path, target_exponent: float = 2.0) -> AnalysisResu
     # Find Urbach energy using the bandgap
     ur_result = find_urbach_energy(energy, absorbance, bg_result.bandgap)
     
-    # Calculate A_sub using bandgap and Urbach parameters
+    # Calculate A_sub using Urbach end as upper limit (more physically grounded)
     asub_result = calculate_a_sub(
         energy, absorbance, 
-        bg_result.bandgap,
+        ur_result.end_energy,  # Use Urbach end, not extrapolated E_g
         ur_result.slope, 
         ur_result.intercept
     )
@@ -827,8 +851,9 @@ def plot_analysis(folder_path: str, save_path: str = None,
         target_exp = result.exponent
         
         # Get data for plotting - reload using same logic as analysis
-        abs_files = list(folder.glob(f'*_abs_*{result.sample_name}.csv'))
-        tauc_files = list(folder.glob(f'*_tauc*{result.sample_name}.csv'))
+        # Use exact match at end to avoid partial matches (e.g., '1la' matching '01la', '001la')
+        abs_files = list(folder.glob(f'*_abs_{result.sample_name}.csv'))
+        tauc_files = list(folder.glob(f'*_tauc*_{result.sample_name}.csv'))
         
         if abs_files:
             energy, absorbance, _ = read_abs_data(abs_files[0])
@@ -903,12 +928,15 @@ def plot_analysis(folder_path: str, save_path: str = None,
         
         abs_normalized = absorbance / norm_factor
         
-        # Plot normalized absorption
+        # Plot normalized absorption with coverage info in legend
+        cov_pct = int(asub.coverage * 100)
         ax3.plot(energy, abs_normalized, color=color, linewidth=1.5, alpha=0.7,
-                label=f'{result.sample_name}: A_sub={asub.a_sub:.3f}')
+                label=f'{result.sample_name}: A_sub={asub.a_sub:.3f} ({cov_pct}%)')
         
         # Calculate and plot Urbach extrapolation in sub-gap region
-        E_sub_range = np.linspace(asub.start_energy, asub.end_energy, 100)
+        # Extend slightly beyond the integration region for visualization
+        E_plot_lower = min(asub.start_energy, asub.ideal_start) - 0.1
+        E_sub_range = np.linspace(E_plot_lower, asub.end_energy + 0.1, 100)
         urbach_ln_alpha = ur.slope * E_sub_range + ur.intercept
         urbach_alpha = np.exp(urbach_ln_alpha)
         urbach_normalized = urbach_alpha / norm_factor
@@ -929,8 +957,12 @@ def plot_analysis(folder_path: str, save_path: str = None,
                            where=(abs_sub > urbach_at_E),
                            color=color, alpha=0.3, interpolate=True)
         
-        # Mark bandgap
-        ax3.axvline(x=bg.bandgap, color=color, linestyle=':', alpha=0.3)
+        # Mark Urbach end (upper limit of A_sub region)
+        ax3.axvline(x=asub.end_energy, color=color, linestyle=':', alpha=0.4)
+        
+        # Mark ideal lower limit if different from actual (data was truncated)
+        if asub.coverage < 0.99:
+            ax3.axvline(x=asub.ideal_start, color=color, linestyle='--', alpha=0.2)
     
     # Styling - Tauc plot
     plot_exp = results[0].exponent if results else 2.0
@@ -957,13 +989,14 @@ def plot_analysis(folder_path: str, save_path: str = None,
     ax2.legend(loc='upper left', fontsize=7, framealpha=0.9)
     ax2.grid(True, alpha=0.3)
     
-    # Styling - A_sub plot
+    # Styling - A_sub plot (log scale for better visibility of sub-gap features)
     ax3.set_xlabel('Energy, eV', fontsize=12)
-    ax3.set_ylabel(r'Normalized $\alpha$', fontsize=12)
+    ax3.set_ylabel(r'Normalized $\alpha$ (log scale)', fontsize=12)
     ax3.set_title('Sub-gap Absorption (A_sub)', fontsize=13)
     ax3.legend(loc='upper left', fontsize=7, framealpha=0.9)
-    ax3.grid(True, alpha=0.3)
-    ax3.set_ylim(bottom=0)
+    ax3.grid(True, alpha=0.3, which='both')
+    ax3.set_yscale('log')
+    ax3.set_ylim(bottom=1e-3, top=2)
     
     # Add folder name as super title
     fig.suptitle(f'{folder.name}', fontsize=14, fontweight='bold', y=1.02)
@@ -971,14 +1004,15 @@ def plot_analysis(folder_path: str, save_path: str = None,
     plt.tight_layout()
     
     # Summary table
-    print("-" * 85)
-    print(f"{'Sample':<18} {'E_g (eV)':<10} {'E_u (meV)':<10} {'A_sub':<10} {'R²_g':<8} {'R²_u':<8} {'Conf':<8}")
-    print("-" * 85)
+    print("-" * 95)
+    print(f"{'Sample':<18} {'E_g (eV)':<10} {'E_u (meV)':<10} {'A_sub':<10} {'Cov':<6} {'R²_g':<8} {'R²_u':<8} {'Conf':<8}")
+    print("-" * 95)
     for r in results:
         conf = f"{r.bandgap.confidence[0]}/{r.urbach.confidence[0]}/{r.a_sub.confidence[0]}"
+        cov_pct = f"{r.a_sub.coverage:.0%}"
         print(f"{r.sample_name:<18} {r.bandgap.bandgap:<10.3f} {r.urbach.urbach_energy:<10.1f} "
-              f"{r.a_sub.a_sub:<10.4f} {r.bandgap.r_squared:<8.4f} {r.urbach.r_squared:<8.4f} {conf:<8}")
-    print("-" * 85)
+              f"{r.a_sub.a_sub:<10.4f} {cov_pct:<6} {r.bandgap.r_squared:<8.4f} {r.urbach.r_squared:<8.4f} {conf:<8}")
+    print("-" * 95)
     
     # Save or show
     if save_path:
@@ -1101,11 +1135,12 @@ def export_results_csv(results: list[AnalysisResult], output_path: str):
     with open(output_path, 'w') as f:
         # Header
         f.write("folder,sample,E_g_eV,E_g_R2,E_g_conf,")
+        f.write("edge_slope,transition_width,")
         f.write("E_u_meV,E_u_R2,E_u_conf,")
-        f.write("A_sub,A_sub_conf,")
+        f.write("A_sub,A_sub_raw,A_sub_coverage,A_sub_conf,")
         f.write("E_g_region_start,E_g_region_end,")
         f.write("E_u_region_start,E_u_region_end,")
-        f.write("A_sub_region_start,A_sub_region_end\n")
+        f.write("A_sub_region_start,A_sub_region_end,A_sub_ideal_start\n")
         
         # Data rows
         for r in results:
@@ -1114,28 +1149,38 @@ def export_results_csv(results: list[AnalysisResult], output_path: str):
             ur = r.urbach
             asub = r.a_sub
             
+            # Calculate derived parameters
+            edge_slope = bg.slope  # Slope of Tauc linear region
+            transition_width = bg.end_energy - bg.start_energy  # Width of transition in eV
+            
             f.write(f"{folder},{r.sample_name},")
             f.write(f"{bg.bandgap:.4f},{bg.r_squared:.6f},{bg.confidence},")
+            f.write(f"{edge_slope:.4f},{transition_width:.4f},")
             f.write(f"{ur.urbach_energy:.2f},{ur.r_squared:.6f},{ur.confidence},")
-            f.write(f"{asub.a_sub:.6f},{asub.confidence},")
+            f.write(f"{asub.a_sub:.6f},{asub.a_sub_raw:.6f},{asub.coverage:.4f},{asub.confidence},")
             f.write(f"{bg.start_energy:.4f},{bg.end_energy:.4f},")
             f.write(f"{ur.start_energy:.4f},{ur.end_energy:.4f},")
-            f.write(f"{asub.start_energy:.4f},{asub.end_energy:.4f}\n")
+            f.write(f"{asub.start_energy:.4f},{asub.end_energy:.4f},{asub.ideal_start:.4f}\n")
     
     print(f"\nResults exported to: {output_path}")
 
 
 def print_summary_table(results: list[AnalysisResult]):
     """Print a formatted summary table of all results."""
-    print("\n" + "=" * 95)
+    print("\n" + "=" * 130)
     print("COMPLETE ANALYSIS SUMMARY")
-    print("=" * 95)
-    print(f"{'Folder':<20} {'Sample':<18} {'E_g (eV)':<10} {'E_u (meV)':<10} {'A_sub':<10} {'Quality':<10}")
-    print("-" * 95)
+    print("=" * 130)
+    print(f"{'Folder':<18} {'Sample':<15} {'E_g':<7} {'Slope':<8} {'ΔE':<6} {'E_u':<8} {'A_sub':<8} {'Cov':<5} {'Quality':<8}")
+    print(f"{'':18} {'':15} {'(eV)':<7} {'':8} {'(eV)':<6} {'(meV)':<8} {'':8} {'':5} {'':8}")
+    print("-" * 130)
     
     for r in results:
-        folder = getattr(r, 'folder', 'unknown')[:18]
-        sample = r.sample_name[:16]
+        folder = getattr(r, 'folder', 'unknown')[:16]
+        sample = r.sample_name[:13]
+        
+        # Derived parameters
+        edge_slope = r.bandgap.slope
+        transition_width = r.bandgap.end_energy - r.bandgap.start_energy
         
         # Quality score: count high confidence
         quality = sum([
@@ -1143,13 +1188,15 @@ def print_summary_table(results: list[AnalysisResult]):
             r.urbach.confidence == 'high',
             r.a_sub.confidence == 'high'
         ])
-        quality_str = ['★' * quality + '☆' * (3-quality), 'low', 'medium', 'high'][quality] if quality <= 3 else 'high'
         quality_str = '★' * quality + '☆' * (3-quality)
         
-        print(f"{folder:<20} {sample:<18} {r.bandgap.bandgap:<10.3f} "
-              f"{r.urbach.urbach_energy:<10.1f} {r.a_sub.a_sub:<10.4f} {quality_str:<10}")
+        # Coverage percentage
+        cov_str = f"{r.a_sub.coverage:.0%}"
+        
+        print(f"{folder:<18} {sample:<15} {r.bandgap.bandgap:<7.3f} {edge_slope:<8.2f} "
+              f"{transition_width:<6.3f} {r.urbach.urbach_energy:<8.1f} {r.a_sub.a_sub:<8.4f} {cov_str:<5} {quality_str:<8}")
     
-    print("-" * 95)
+    print("-" * 130)
     print(f"Total samples analyzed: {len(results)}")
     print("=" * 95)
 

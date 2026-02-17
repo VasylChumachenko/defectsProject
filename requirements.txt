@@ -3,5 +3,9 @@ scipy>=1.10.0
 matplotlib>=3.7.0
 pandas>=2.0.0
 scikit-learn>=1.2.0
+seaborn>=0.12.0
 hdbscan>=0.8.29
-
+PyMuPDF>=1.23.0
+pypdf>=3.0.0
+openai>=1.0.0
+groq>=0.4.0
