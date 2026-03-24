@@ -164,3 +164,20 @@ echo "your-groq-key" > groq_api_key.txt
 
 This project is part of research on spectral phenotyping of g-C3N4 photocatalytic materials.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

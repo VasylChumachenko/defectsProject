@@ -136,7 +136,7 @@ def load_reference_data(script_dir: Path):
     return df, X_scaled, scaler, gmm, n_clusters, label_map
 
 
-def extract_features(filepath: Path, exponent: float = 2.0) -> dict:
+def extract_features(filepath: Path, exponent: float = 0.5) -> dict:
     """Analyze a spectrum file and return features dict."""
     result = analyze_sample(filepath, exponent)
 
@@ -435,8 +435,8 @@ Examples:
     )
     parser.add_argument('spectrum', type=str,
                         help='Path to spectrum CSV file (absorption or Tauc data)')
-    parser.add_argument('--exponent', type=float, default=2.0,
-                        help='Tauc exponent (default: 2.0 for direct)')
+    parser.add_argument('--exponent', type=float, default=0.5,
+                        help='Tauc exponent (default: 0.5 for indirect g-C3N4)')
     parser.add_argument('--output', type=str, default=None,
                         help='Output directory for report (default: figures/)')
     parser.add_argument('--no-plot', action='store_true',

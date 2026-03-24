@@ -13,6 +13,7 @@ import sys
 import os
 import json
 from datetime import datetime
+from pathlib import Path
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -20,9 +21,14 @@ import seaborn as sns
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler, PowerTransformer
 from sklearn.metrics import silhouette_score, calinski_harabasz_score, davies_bouldin_score
 from sklearn.mixture import GaussianMixture
-from sklearn.cluster import AgglomerativeClustering
+from sklearn.cluster import AgglomerativeClustering, SpectralClustering
 from scipy.cluster.hierarchy import dendrogram, linkage
 import hdbscan
+
+from run_utils import resolve_run, create_step, DEFAULT_CSV_NAME
+from viz_style import (apply_style, CLUSTER_COLORS, FEATURE_DISPLAY,
+                       feat_label, scatter_clusters, boxplot_by_cluster,
+                       kde_by_cluster, save_fig, save_subplot, cluster_color)
 
 
 # Global log storage
@@ -161,171 +167,53 @@ def save_clustering_results(df: pd.DataFrame, labels: np.ndarray, X_scaled: np.n
 def plot_cluster_distributions(df: pd.DataFrame, labels: np.ndarray, 
                                 feature_names: list, save_path: str = None,
                                 cluster_names: dict = None) -> None:
-    """
-    Plot scaled parameter distributions for each cluster.
-    
-    Args:
-        df: DataFrame with samples and features
-        labels: Cluster labels
-        feature_names: List of feature names
-        save_path: Path to save figure
-        cluster_names: Optional dict mapping cluster_id -> name
-    """
+    """KDE distributions of each feature split by cluster."""
     df_plot = df.copy()
-    df_plot['cluster'] = labels
-    
-    # Filter out noise for main plot
-    df_plot = df_plot[df_plot['cluster'] != -1]
-    
-    if len(df_plot) == 0:
-        print("No non-noise samples to plot")
+    if 'full_label' not in df_plot.columns:
+        if cluster_names is None:
+            n_cl = len(set(labels) - {-1})
+            cluster_names = {i: chr(65 + i) for i in range(n_cl)}
+        df_plot['full_label'] = [cluster_names.get(l, 'Noise') for l in labels]
+    df_plot = df_plot[df_plot['full_label'] != 'Noise']
+    if df_plot.empty:
         return
-    
-    n_clusters = len(df_plot['cluster'].unique())
-    n_features = len(feature_names)
-    
-    # Create cluster labels
-    if cluster_names is None:
-        cluster_names = {i: f'Cluster {chr(65+i)}' for i in range(n_clusters)}
-    
-    # Create figure with subplots
-    fig, axes = plt.subplots(1, n_features, figsize=(5*n_features, 6))
-    if n_features == 1:
-        axes = [axes]
-    
-    # Color palette
-    colors = sns.color_palette('husl', n_clusters)
-    
-    # Feature display names
-    feature_display = {
-        'E_g_eV': r'$E_g$ (eV)',
-        'E_u_meV': r'$E_u$ (meV)',
-        'A_sub': r'$A_{sub}$',
-        'edge_slope': 'Edge Slope',
-        'transition_width': 'Transition Width'
-    }
-    
+
+    n = len(feature_names)
+    fig, axes = plt.subplots(1, n, figsize=(3.8 * n, 3.5), squeeze=False)
+    ordered = sorted(df_plot['full_label'].unique())
     for idx, feat in enumerate(feature_names):
-        ax = axes[idx]
-        
-        # Plot KDE for each cluster
-        for cluster_id in sorted(df_plot['cluster'].unique()):
-            cluster_data = df_plot[df_plot['cluster'] == cluster_id][feat]
-            
-            if len(cluster_data) > 1:
-                # Use KDE
-                try:
-                    sns.kdeplot(data=cluster_data, ax=ax, 
-                               label=cluster_names.get(cluster_id, f'Cluster {cluster_id}'),
-                               color=colors[cluster_id], linewidth=2, fill=True, alpha=0.3)
-                except:
-                    # Fallback to histogram if KDE fails
-                    ax.hist(cluster_data, bins=10, alpha=0.5, 
-                           label=cluster_names.get(cluster_id, f'Cluster {cluster_id}'),
-                           color=colors[cluster_id], density=True)
-            else:
-                # Single point - show as vertical line
-                ax.axvline(cluster_data.values[0], color=colors[cluster_id], 
-                          linestyle='--', linewidth=2,
-                          label=cluster_names.get(cluster_id, f'Cluster {cluster_id}'))
-        
-        ax.set_xlabel(feature_display.get(feat, feat), fontsize=12)
-        ax.set_ylabel('Density', fontsize=12)
-        ax.set_title(f'Distribution of {feature_display.get(feat, feat)}', fontsize=13)
-        ax.legend(fontsize=9)
-        ax.grid(True, alpha=0.3)
-    
-    plt.suptitle('Parameter Distributions by Cluster', fontsize=14, fontweight='bold', y=1.02)
-    plt.tight_layout()
-    
+        kde_by_cluster(axes.flat[idx], df_plot, feat, labels=ordered)
+
     if save_path:
-        plt.savefig(save_path, dpi=150, bbox_inches='tight')
+        save_fig(fig, os.path.dirname(save_path) or '.', 
+                 Path(save_path).stem, formats=("png",))
         log_message(f"Distributions plot saved to: {save_path}")
-    
-    plt.close()
 
 
 def plot_cluster_boxplots(df: pd.DataFrame, labels: np.ndarray,
                           feature_names: list, save_path: str = None,
                           cluster_names: dict = None) -> None:
-    """
-    Plot boxplots comparing clusters for each feature.
-    
-    Args:
-        df: DataFrame with samples and features
-        labels: Cluster labels
-        feature_names: List of feature names  
-        save_path: Path to save figure
-        cluster_names: Optional dict mapping cluster_id -> name
-    """
+    """Boxplots comparing clusters for each feature."""
     df_plot = df.copy()
-    df_plot['cluster'] = labels
-    
-    # Filter out noise
-    df_plot = df_plot[df_plot['cluster'] != -1]
-    
-    if len(df_plot) == 0:
-        print("No non-noise samples to plot")
+    if 'full_label' not in df_plot.columns:
+        if cluster_names is None:
+            n_cl = len(set(labels) - {-1})
+            cluster_names = {i: chr(65 + i) for i in range(n_cl)}
+        df_plot['full_label'] = [cluster_names.get(l, 'Noise') for l in labels]
+    df_plot = df_plot[df_plot['full_label'] != 'Noise']
+    if df_plot.empty:
         return
-    
-    n_clusters = len(df_plot['cluster'].unique())
-    n_features = len(feature_names)
-    
-    # Create cluster labels
-    if cluster_names is None:
-        cluster_names = {i: chr(65+i) for i in range(n_clusters)}
-    
-    df_plot['cluster_name'] = df_plot['cluster'].map(cluster_names)
-    
-    # Feature display names
-    feature_display = {
-        'E_g_eV': r'$E_g$ (eV)',
-        'E_u_meV': r'$E_u$ (meV)',
-        'A_sub': r'$A_{sub}$',
-        'edge_slope': 'Edge Slope',
-        'transition_width': 'Transition Width'
-    }
-    
-    # Create figure
-    fig, axes = plt.subplots(1, n_features, figsize=(4*n_features, 5))
-    if n_features == 1:
-        axes = [axes]
-    
-    colors = sns.color_palette('husl', n_clusters)
-    
+
+    n = len(feature_names)
+    fig, axes = plt.subplots(1, n, figsize=(3.5 * n, 3.8), squeeze=False)
+    ordered = sorted(df_plot['full_label'].unique())
     for idx, feat in enumerate(feature_names):
-        ax = axes[idx]
-        
-        # Boxplot
-        box = ax.boxplot([df_plot[df_plot['cluster'] == c][feat].values 
-                         for c in sorted(df_plot['cluster'].unique())],
-                        tick_labels=[cluster_names.get(c, str(c)) for c in sorted(df_plot['cluster'].unique())],
-                        patch_artist=True)
-        
-        # Color boxes
-        for patch, color in zip(box['boxes'], colors):
-            patch.set_facecolor(color)
-            patch.set_alpha(0.6)
-        
-        # Add individual points
-        for i, cluster_id in enumerate(sorted(df_plot['cluster'].unique())):
-            cluster_data = df_plot[df_plot['cluster'] == cluster_id][feat]
-            x = np.random.normal(i + 1, 0.04, size=len(cluster_data))
-            ax.scatter(x, cluster_data, alpha=0.5, color=colors[i], s=20, zorder=3)
-        
-        ax.set_ylabel(feature_display.get(feat, feat), fontsize=11)
-        ax.set_xlabel('Cluster', fontsize=11)
-        ax.set_title(feature_display.get(feat, feat), fontsize=12)
-        ax.grid(True, alpha=0.3, axis='y')
-    
-    plt.suptitle('Feature Comparison Across Clusters', fontsize=14, fontweight='bold', y=1.02)
-    plt.tight_layout()
-    
+        boxplot_by_cluster(axes.flat[idx], df_plot, feat, labels=ordered)
+
     if save_path:
-        plt.savefig(save_path, dpi=150, bbox_inches='tight')
+        save_fig(fig, os.path.dirname(save_path) or '.',
+                 Path(save_path).stem, formats=("png",))
         log_message(f"Boxplots saved to: {save_path}")
-    
-    plt.close()
 
 
 def load_data(csv_path: str) -> pd.DataFrame:
@@ -708,8 +596,9 @@ def plot_clustermap(df: pd.DataFrame, feature_names: list,
     # Standardize for visualization (z-scores)
     data_scaled = (data_df - data_df.mean()) / data_df.std()
     
-    # Create figure with clustermap
-    # Use diverging colormap centered at 0
+    # Temporarily disable constrained_layout (incompatible with clustermap)
+    prev_cl = plt.rcParams.get("figure.constrained_layout.use", False)
+    plt.rcParams["figure.constrained_layout.use"] = False
     g = sns.clustermap(
         data_scaled,
         method='ward',
@@ -812,30 +701,67 @@ def plot_clustermap(df: pd.DataFrame, feature_names: list,
         
         plt.close()
 
+    plt.rcParams["figure.constrained_layout.use"] = prev_cl
+
+
+def _plot_sub_scatter(df_macro, sub_feat_names, sub_labels, macro_name, save_dir):
+    """Scatter of sub-clusters using viz_style helpers."""
+    from itertools import combinations
+    pairs = list(combinations(range(len(sub_feat_names)), 2))
+    if not pairs:
+        return
+    n = len(pairs)
+    fig, axes = plt.subplots(1, n, figsize=(4.5 * n, 3.8), squeeze=False)
+    for idx, (i, j) in enumerate(pairs):
+        scatter_clusters(axes.flat[idx], df_macro,
+                         sub_feat_names[i], sub_feat_names[j],
+                         label_col="full_label", labels=sub_labels)
+    save_fig(fig, save_dir, f"nested_sub_{macro_name}_scatter")
+    for idx, (i, j) in enumerate(pairs):
+        xf, yf = sub_feat_names[i], sub_feat_names[j]
+        fig_s, ax = plt.subplots(figsize=(4.5, 3.8))
+        scatter_clusters(ax, df_macro, xf, yf,
+                         label_col="full_label", labels=sub_labels)
+        save_fig(fig_s, save_dir, f"nested_sub_{macro_name}_{xf}_vs_{yf}")
+
 
 def run_nested_clustering(df: pd.DataFrame, X_scaled: np.ndarray, 
                           feature_names: list, save_dir: str = None,
-                          min_subcluster_samples: int = 8) -> pd.DataFrame:
+                          min_subcluster_samples: int = 8,
+                          sub_method: str = 'hierarchical',
+                          no_split: list = None,
+                          macro_k: int = None,
+                          sub_features: list = None,
+                          sub_k: int = None) -> pd.DataFrame:
     """
-    Two-stage clustering: GMM for macro-clusters, then Hierarchical within each.
+    Two-stage clustering: GMM for macro-clusters, then sub-clustering within each.
     
     Args:
         df: DataFrame with samples and features
-        X_scaled: Scaled feature matrix
-        feature_names: List of feature names
+        X_scaled: Scaled feature matrix (for macro features)
+        feature_names: List of macro feature names
         save_dir: Directory to save figures
         min_subcluster_samples: Minimum samples to attempt sub-clustering
+        sub_method: 'hierarchical', 'gmm', or 'spectral'
+        no_split: list of macro-cluster names to skip sub-clustering.
+        macro_k: Force number of macro-clusters (default: BIC auto-select).
+        sub_features: Separate feature names for sub-clustering (default: same as macro).
+        sub_k: Force number of sub-clusters (default: auto-select).
     
     Returns:
         DataFrame with macro_cluster and sub_cluster columns
     """
     from scipy.cluster.hierarchy import fcluster
     
+    sub_method_labels = {'hierarchical': 'Hierarchical', 'gmm': 'GMM (BIC)', 'spectral': 'Spectral'}
+    sub_method_label = sub_method_labels.get(sub_method, sub_method)
+    sub_feat_label = ", ".join(sub_features) if sub_features else "(same as macro)"
+
     print("\n" + "="*70)
     print("TWO-STAGE NESTED CLUSTERING")
     print("="*70)
-    print("Stage 1: GMM for macro-clusters")
-    print("Stage 2: Hierarchical within each macro-cluster")
+    print(f"Stage 1: GMM for macro-clusters (features: {', '.join(feature_names)})")
+    print(f"Stage 2: {sub_method_label} within each macro-cluster (features: {sub_feat_label})")
     print("="*70)
     
     # Stage 1: GMM clustering
@@ -843,15 +769,37 @@ def run_nested_clustering(df: pd.DataFrame, X_scaled: np.ndarray,
     print("STAGE 1: GMM MACRO-CLUSTERING")
     print("-"*40)
     
-    gmm_labels, gmm_model, probs, optimal_k = run_gmm(X_scaled, max_components=10)
+    if macro_k is not None:
+        print(f"\n  Forced K={macro_k}")
+        gmm_model = GaussianMixture(
+            n_components=macro_k, covariance_type='full',
+            n_init=10, random_state=42
+        )
+        gmm_model.fit(X_scaled)
+        gmm_labels = gmm_model.predict(X_scaled)
+        probs = gmm_model.predict_proba(X_scaled)
+        optimal_k = macro_k
+    else:
+        gmm_labels, gmm_model, probs, optimal_k = run_gmm(X_scaled, max_components=10)
     
     df_result = df.copy()
     df_result['macro_cluster'] = gmm_labels
+    
+    # Fix semantics: A = low-defect (low A_sub), B = high-defect (high A_sub).
+    # Remap GMM labels so that cluster 0 has lower mean A_sub → A, cluster 1 higher → B.
+    if optimal_k == 2 and 'A_sub' in df_result.columns:
+        mean_asub_0 = df_result.loc[gmm_labels == 0, 'A_sub'].mean()
+        mean_asub_1 = df_result.loc[gmm_labels == 1, 'A_sub'].mean()
+        if mean_asub_0 > mean_asub_1:
+            gmm_labels = 1 - gmm_labels
+            df_result['macro_cluster'] = gmm_labels
+            print("\n  (Labels swapped so A = low-defect, B = high-defect by mean A_sub)")
+    
     df_result['macro_cluster_prob'] = probs.max(axis=1)
     df_result['sub_cluster'] = -1  # Will be filled per macro-cluster
     df_result['full_label'] = ''   # Combined label like "A.1", "B.2"
     
-    # Cluster names
+    # Cluster names: A = low-defect, B = high-defect
     cluster_names = [chr(65 + i) for i in range(optimal_k)]  # A, B, C, ...
     
     print(f"\nMacro-clusters found: {optimal_k}")
@@ -859,9 +807,9 @@ def run_nested_clustering(df: pd.DataFrame, X_scaled: np.ndarray,
         n = (gmm_labels == i).sum()
         print(f"  Cluster {cluster_names[i]}: {n} samples")
     
-    # Stage 2: Hierarchical within each macro-cluster
+    # Stage 2: Sub-clustering within each macro-cluster
     print("\n" + "-"*40)
-    print("STAGE 2: HIERARCHICAL SUB-CLUSTERING")
+    print(f"STAGE 2: {sub_method_label.upper()} SUB-CLUSTERING")
     print("-"*40)
     
     all_subclusters = []
@@ -875,6 +823,19 @@ def run_nested_clustering(df: pd.DataFrame, X_scaled: np.ndarray,
         print(f"MACRO-CLUSTER {macro_name} ({n_samples} samples)")
         print("="*50)
         
+        # Skip sub-clustering if explicitly excluded
+        if no_split and macro_name in no_split:
+            print(f"  Skipped (--no-split {macro_name})")
+            df_result.loc[mask, 'sub_cluster'] = 0
+            df_result.loc[mask, 'full_label'] = macro_name
+            all_subclusters.append({
+                'macro': macro_name,
+                'sub': None,
+                'n_samples': n_samples,
+                'samples': df_result.loc[mask, 'sample'].tolist()
+            })
+            continue
+        
         if n_samples < min_subcluster_samples:
             print(f"  Too few samples for sub-clustering (min={min_subcluster_samples})")
             df_result.loc[mask, 'sub_cluster'] = 0
@@ -887,13 +848,20 @@ def run_nested_clustering(df: pd.DataFrame, X_scaled: np.ndarray,
             })
             continue
         
-        # Get subset
-        X_subset = X_scaled[mask]
+        # Get subset — use separate sub_features if provided
         df_subset = df[mask].copy()
-        
-        # Find optimal sub-cluster count using silhouette
-        max_k = min(n_samples // 3, 8)  # At most 8 sub-clusters
-        
+        sub_feat_names = sub_features if sub_features else feature_names
+
+        if sub_features:
+            sub_scaler = PowerTransformer(method='yeo-johnson')
+            X_subset = sub_scaler.fit_transform(df_subset[sub_features].values)
+            print(f"  Sub-features: {', '.join(sub_features)} (PowerTransformer)")
+        else:
+            X_subset = X_scaled[mask]
+
+        # Determine K for sub-clustering
+        max_k = min(n_samples // 3, 8)
+
         if max_k < 2:
             print(f"  Cannot subdivide (max_k < 2)")
             df_result.loc[mask, 'sub_cluster'] = 0
@@ -905,30 +873,103 @@ def run_nested_clustering(df: pd.DataFrame, X_scaled: np.ndarray,
                 'samples': df_result.loc[mask, 'sample'].tolist()
             })
             continue
-        
+
         best_k = 1
         best_sil = -1
-        
-        print(f"  Testing K=2..{max_k}:")
-        for k in range(2, max_k + 1):
+
+        if sub_k is not None:
+            # Forced K — just compute silhouette for this K
+            best_k = sub_k
             try:
-                sub_clusterer = AgglomerativeClustering(n_clusters=k, linkage='ward')
-                sub_labels = sub_clusterer.fit_predict(X_subset)
-                
-                # Check if all clusters have at least 2 samples
+                if sub_method == 'spectral':
+                    spec = SpectralClustering(n_clusters=sub_k, affinity='rbf',
+                                              n_init=10, random_state=42,
+                                              assign_labels='kmeans')
+                    sub_labels = spec.fit_predict(X_subset)
+                elif sub_method == 'gmm':
+                    sub_gmm = GaussianMixture(n_components=sub_k, covariance_type='full',
+                                               n_init=10, random_state=42)
+                    sub_gmm.fit(X_subset)
+                    sub_labels = sub_gmm.predict(X_subset)
+                else:
+                    sub_clusterer = AgglomerativeClustering(n_clusters=sub_k, linkage='ward')
+                    sub_labels = sub_clusterer.fit_predict(X_subset)
+
                 unique, counts = np.unique(sub_labels, return_counts=True)
-                if min(counts) < 2:
+                if min(counts) >= 2:
+                    best_sil = silhouette_score(X_subset, sub_labels)
+                print(f"  Forced K={sub_k} [{sub_method}]: Silhouette={best_sil:.3f}")
+            except Exception as e:
+                print(f"  Forced K={sub_k} [{sub_method}]: FAILED ({e})")
+
+        elif sub_method == 'spectral':
+            # ── Spectral sub-clustering (scan K) ─────────────────────────
+            print(f"  Testing Spectral K=2..{max_k}:")
+            for k in range(2, max_k + 1):
+                try:
+                    spec = SpectralClustering(n_clusters=k, affinity='rbf',
+                                              n_init=10, random_state=42,
+                                              assign_labels='kmeans')
+                    sub_labels = spec.fit_predict(X_subset)
+                    unique, counts = np.unique(sub_labels, return_counts=True)
+                    if min(counts) < 2:
+                        print(f"    K={k}: Silhouette=N/A (cluster too small)")
+                        continue
+                    sil = silhouette_score(X_subset, sub_labels)
+                    print(f"    K={k}: Silhouette={sil:.3f} (sizes: {dict(zip(unique, counts))})")
+                    if sil > best_sil:
+                        best_sil = sil
+                        best_k = k
+                except Exception as e:
+                    print(f"    K={k}: FAILED ({e})")
+
+        elif sub_method == 'gmm':
+            # ── GMM sub-clustering with BIC ──────────────────────────────
+            print(f"  Testing GMM K=2..{max_k} (BIC + Silhouette):")
+            bic_scores = []
+            for k in range(2, max_k + 1):
+                try:
+                    sub_gmm = GaussianMixture(
+                        n_components=k, covariance_type='full',
+                        n_init=10, random_state=42
+                    )
+                    sub_gmm.fit(X_subset)
+                    sub_labels = sub_gmm.predict(X_subset)
+                    bic = sub_gmm.bic(X_subset)
+                    bic_scores.append(bic)
+                    unique, counts = np.unique(sub_labels, return_counts=True)
+                    if min(counts) < 2:
+                        print(f"    K={k}: BIC={bic:.1f}, Silhouette=N/A (cluster too small)")
+                        continue
+                    sil = silhouette_score(X_subset, sub_labels)
+                    print(f"    K={k}: BIC={bic:.1f}, Silhouette={sil:.3f}")
+                    if sil > best_sil:
+                        best_sil = sil
+                        best_k = k
+                except Exception as e:
+                    bic_scores.append(np.inf)
+                    print(f"    K={k}: FAILED ({e})")
+            if bic_scores:
+                bic_best_k = np.argmin(bic_scores) + 2
+                print(f"  BIC-optimal K={bic_best_k}, Silhouette-optimal K={best_k}")
+        else:
+            # ── Hierarchical sub-clustering ──────────────────────────────
+            print(f"  Testing Hierarchical K=2..{max_k}:")
+            for k in range(2, max_k + 1):
+                try:
+                    sub_clusterer = AgglomerativeClustering(n_clusters=k, linkage='ward')
+                    sub_labels = sub_clusterer.fit_predict(X_subset)
+                    unique, counts = np.unique(sub_labels, return_counts=True)
+                    if min(counts) < 2:
+                        continue
+                    sil = silhouette_score(X_subset, sub_labels)
+                    print(f"    K={k}: Silhouette={sil:.3f}")
+                    if sil > best_sil:
+                        best_sil = sil
+                        best_k = k
+                except:
                     continue
-                    
-                sil = silhouette_score(X_subset, sub_labels)
-                print(f"    K={k}: Silhouette={sil:.3f}")
-                
-                if sil > best_sil:
-                    best_sil = sil
-                    best_k = k
-            except:
-                continue
-        
+
         # If silhouette is too low, don't subdivide
         if best_sil < 0.15 or best_k == 1:
             print(f"  → No clear sub-structure (best Silhouette={best_sil:.3f})")
@@ -941,36 +982,59 @@ def run_nested_clustering(df: pd.DataFrame, X_scaled: np.ndarray,
                 'samples': df_result.loc[mask, 'sample'].tolist()
             })
         else:
-            print(f"  → Optimal K={best_k} (Silhouette={best_sil:.3f})")
-            
-            # Final sub-clustering
-            sub_clusterer = AgglomerativeClustering(n_clusters=best_k, linkage='ward')
-            sub_labels = sub_clusterer.fit_predict(X_subset)
-            
+            print(f"  → Optimal K={best_k} (Silhouette={best_sil:.3f}) [{sub_method}]")
+
+            # Final sub-clustering with chosen method and chosen K
+            if sub_method == 'spectral':
+                spec = SpectralClustering(n_clusters=best_k, affinity='rbf',
+                                          n_init=10, random_state=42,
+                                          assign_labels='kmeans')
+                sub_labels = spec.fit_predict(X_subset)
+            elif sub_method == 'gmm':
+                sub_gmm_final = GaussianMixture(
+                    n_components=best_k, covariance_type='full',
+                    n_init=10, random_state=42
+                )
+                sub_gmm_final.fit(X_subset)
+                sub_labels = sub_gmm_final.predict(X_subset)
+            else:
+                sub_clusterer = AgglomerativeClustering(n_clusters=best_k, linkage='ward')
+                sub_labels = sub_clusterer.fit_predict(X_subset)
+
+            # Deterministic labeling: sub-cluster 0 has lower mean of first sub-feature
+            sort_feat = sub_feat_names[0]
+            means = [df_subset.iloc[sub_labels == sid][sort_feat].mean()
+                     for sid in range(best_k)]
+            order = np.argsort(means)
+            relabel = np.zeros_like(sub_labels)
+            for new_id, old_id in enumerate(order):
+                relabel[sub_labels == old_id] = new_id
+            sub_labels = relabel
+
             # Assign labels
             df_result.loc[mask, 'sub_cluster'] = sub_labels
-            
+
             for sub_id in range(best_k):
                 sub_mask = mask & (df_result['sub_cluster'] == sub_id)
                 df_result.loc[sub_mask, 'full_label'] = f"{macro_name}.{sub_id + 1}"
-                
+
                 n_sub = sub_mask.sum()
                 samples = df_result.loc[sub_mask, 'sample'].tolist()
-                
+
                 all_subclusters.append({
                     'macro': macro_name,
                     'sub': sub_id + 1,
                     'n_samples': n_sub,
                     'samples': samples
                 })
-                
-                # Print sub-cluster stats
+
+                # Print sub-cluster stats (show sub-features)
                 print(f"\n  Sub-cluster {macro_name}.{sub_id + 1} ({n_sub} samples):")
-                for feat in feature_names:
+                for feat in sub_feat_names:
                     mean_val = df_result.loc[sub_mask, feat].mean()
                     std_val = df_result.loc[sub_mask, feat].std()
                     print(f"    {feat}: {mean_val:.3f} ± {std_val:.3f}")
-                
+
                 if len(samples) <= 5:
                     print(f"    Samples: {', '.join(samples)}")
                 else:
@@ -979,9 +1043,15 @@ def run_nested_clustering(df: pd.DataFrame, X_scaled: np.ndarray,
         # Generate clustermap for this macro-cluster if enough samples
         if save_dir and n_samples >= min_subcluster_samples:
             clustermap_path = os.path.join(save_dir, f'nested_cluster_{macro_name}_clustermap.png')
-            sub_k = len(df_result.loc[mask, 'sub_cluster'].unique())
-            plot_clustermap(df_subset, feature_names, clustermap_path, n_clusters=sub_k if sub_k > 1 else None)
-    
+            n_sub_k = len(df_result.loc[mask, 'sub_cluster'].unique())
+            plot_clustermap(df_subset, feature_names, clustermap_path, n_clusters=n_sub_k if n_sub_k > 1 else None)
+
+        # Scatter plot for sub-clustering feature space
+        if save_dir and sub_features and not (no_split and macro_name in no_split):
+            unique_labels = sorted(df_result.loc[mask, 'full_label'].dropna().unique())
+            if len(unique_labels) > 1 and len(sub_feat_names) >= 2:
+                _plot_sub_scatter(df_result[mask], sub_feat_names, unique_labels, macro_name, save_dir)
+
     # Summary
     print("\n" + "="*70)
     print("NESTED CLUSTERING SUMMARY")
@@ -989,6 +1059,7 @@ def run_nested_clustering(df: pd.DataFrame, X_scaled: np.ndarray,
     
     total_subclusters = len(all_subclusters)
     print(f"\nTotal structure: {optimal_k} macro-clusters → {total_subclusters} sub-clusters")
+    print(f"Sub-clustering method: {sub_method_label}")
     print("\nHierarchy:")
     
     current_macro = None
@@ -997,7 +1068,10 @@ def run_nested_clustering(df: pd.DataFrame, X_scaled: np.ndarray,
             current_macro = sc['macro']
             macro_total = sum(s['n_samples'] for s in all_subclusters if s['macro'] == current_macro)
             print(f"\n{current_macro} ({macro_total} samples total)")
-        print(f"  └── {sc['macro']}.{sc['sub']}: {sc['n_samples']} samples")
+        if sc['sub'] is None:
+            print(f"  └── {sc['macro']}: {sc['n_samples']} samples (not sub-split)")
+        else:
+            print(f"  └── {sc['macro']}.{sc['sub']}: {sc['n_samples']} samples")
     
     return df_result
 
@@ -1049,97 +1123,37 @@ def plot_clustering(df: pd.DataFrame, X_scaled: np.ndarray,
                     labels: np.ndarray, scaler_name: str,
                     save_path: str = None, feature_names: list = None,
                     hide_noise: bool = False) -> None:
-    """Create 2D projections of clustering results for any number of features."""
+    """2D scatter projections of clustering results (all feature pairs)."""
     from itertools import combinations
-    
+
     if feature_names is None:
         feature_names = ['E_g_eV', 'E_u_meV', 'A_sub']
-    
-    # Feature display names (short versions for plots)
-    feature_display = {
-        'E_g_eV': 'E_g (eV)',
-        'edge_slope': 'Edge Slope',
-        'transition_width': 'ΔE (eV)',
-        'E_u_meV': 'E_u (meV)',
-        'A_sub': 'A_sub'
-    }
-    
-    # Color map for clusters (excluding noise)
-    cluster_labels = sorted([l for l in set(labels) if l != -1])
-    colors = plt.cm.tab10(np.linspace(0, 1, max(10, len(cluster_labels) + 1)))
-    color_map = {cl: colors[i % 10] for i, cl in enumerate(cluster_labels)}
-    
-    # Generate all unique pairs of features
+
+    df_plot = df.copy()
+    if 'full_label' not in df_plot.columns:
+        cl_ids = sorted(set(labels) - {-1})
+        name_map = {cid: chr(65 + i) for i, cid in enumerate(cl_ids)}
+        name_map[-1] = 'Noise'
+        df_plot['full_label'] = [name_map.get(l, str(l)) for l in labels]
+
+    ordered = sorted(df_plot['full_label'].unique())
+    if hide_noise and 'Noise' in ordered:
+        df_plot = df_plot[df_plot['full_label'] != 'Noise']
+        ordered = [o for o in ordered if o != 'Noise']
+
     pairs = list(combinations(range(len(feature_names)), 2))
-    n_pairs = len(pairs)
-    
-    # Determine subplot layout
-    if n_pairs == 1:
-        nrows, ncols = 1, 1
-        figsize = (8, 6)
-    elif n_pairs <= 3:
-        nrows, ncols = 1, n_pairs
-        figsize = (5 * n_pairs, 5)
-    elif n_pairs <= 6:
-        nrows, ncols = 2, 3
-        figsize = (15, 10)
-    else:  # n_pairs > 6 (10 pairs for 5 features)
-        nrows, ncols = 2, 5
-        figsize = (20, 8)
-    
-    n_clusters = len(cluster_labels)
-    n_noise = (labels == -1).sum()
-    title_suffix = f" (hiding {n_noise} noise)" if hide_noise and n_noise > 0 else ""
-    
-    fig, axes = plt.subplots(nrows, ncols, figsize=figsize)
-    fig.suptitle(f'HDBSCAN Clustering ({scaler_name}) - {n_clusters} clusters{title_suffix}', 
-                 fontsize=14, fontweight='bold')
-    
-    # Flatten axes for easy iteration
-    if n_pairs == 1:
-        axes = [axes]
-    else:
-        axes = axes.flatten() if hasattr(axes, 'flatten') else [axes]
-    
-    # Plot each pair
+    n = max(len(pairs), 1)
+    fig, axes = plt.subplots(1, n, figsize=(4.5 * n, 3.8), squeeze=False)
     for idx, (i, j) in enumerate(pairs):
-        ax = axes[idx]
-        x_feat = feature_names[i]
-        y_feat = feature_names[j]
-        
-        # Plot clusters first (with filled circles)
-        for cl in cluster_labels:
-            mask = labels == cl
-            ax.scatter(df[x_feat][mask], df[y_feat][mask], 
-                       c=[color_map[cl]], s=80, alpha=0.8, 
-                       edgecolors='black', linewidth=0.5,
-                       label=f'Cluster {cl} ({mask.sum()})')
-        
-        # Plot noise (with 'x' markers) unless hidden
-        if not hide_noise:
-            noise_mask = labels == -1
-            if noise_mask.sum() > 0:
-                ax.scatter(df[x_feat][noise_mask], df[y_feat][noise_mask], 
-                           c='gray', s=40, alpha=0.4, marker='x',
-                           label=f'Noise ({noise_mask.sum()})')
-        
-        ax.set_xlabel(feature_display.get(x_feat, x_feat), fontsize=11)
-        ax.set_ylabel(feature_display.get(y_feat, y_feat), fontsize=11)
-        ax.legend(fontsize=8, loc='best')
-        ax.grid(True, alpha=0.3)
-        ax.tick_params(labelsize=9)
-    
-    # Hide unused subplots
-    for idx in range(n_pairs, len(axes)):
-        axes[idx].set_visible(False)
-    
-    plt.tight_layout()
-    
+        scatter_clusters(axes.flat[idx], df_plot,
+                         feature_names[i], feature_names[j],
+                         label_col='full_label', labels=ordered)
+    for idx in range(len(pairs), n):
+        axes.flat[idx].set_visible(False)
+
     if save_path:
-        plt.savefig(save_path, dpi=150, bbox_inches='tight')
-        print(f"\nPlot saved to: {save_path}")
-    
-    plt.show()
+        save_fig(fig, os.path.dirname(save_path) or '.',
+                 Path(save_path).stem, formats=("png",))
 
 
 def recommend_scaler(X: np.ndarray, feature_names: list) -> str:
@@ -1193,12 +1207,50 @@ def recommend_scaler(X: np.ndarray, feature_names: list) -> str:
     return recommendation
 
 
+def _generate_nested_figures(df: pd.DataFrame, macro_features: list,
+                             sub_features: list | None, out_dir: str):
+    """Publication-quality figures for nested clustering results."""
+    ordered = sorted(df['full_label'].dropna().unique())
+    all_feats = list(dict.fromkeys(macro_features + (sub_features or [])))
+
+    # 1 — Macro scatter (E_g vs A_sub with full labels)
+    if len(macro_features) >= 2:
+        fig, ax = plt.subplots(figsize=(4.5, 3.8))
+        scatter_clusters(ax, df, macro_features[0], macro_features[1],
+                         label_col='full_label', labels=ordered)
+        save_fig(fig, out_dir, "macro_scatter")
+
+    # 2 — Boxplots for all relevant features
+    n_box = len(all_feats)
+    fig, axes = plt.subplots(1, n_box, figsize=(3.5 * n_box, 3.8), squeeze=False)
+    for i, feat in enumerate(all_feats):
+        boxplot_by_cluster(axes.flat[i], df, feat, labels=ordered)
+    save_fig(fig, out_dir, "cluster_boxplots")
+    for i, feat in enumerate(all_feats):
+        fig_s, ax = plt.subplots(figsize=(3.5, 3.8))
+        boxplot_by_cluster(ax, df, feat, labels=ordered)
+        save_fig(fig_s, out_dir, f"cluster_boxplot_{feat}")
+
+    # 3 — KDE distributions
+    fig, axes = plt.subplots(1, n_box, figsize=(3.8 * n_box, 3.5), squeeze=False)
+    for i, feat in enumerate(all_feats):
+        kde_by_cluster(axes.flat[i], df, feat, labels=ordered)
+    save_fig(fig, out_dir, "cluster_distributions")
+    for i, feat in enumerate(all_feats):
+        fig_s, ax = plt.subplots(figsize=(3.8, 3.5))
+        kde_by_cluster(ax, df, feat, labels=ordered)
+        save_fig(fig_s, out_dir, f"cluster_kde_{feat}")
+
+
 def main():
+    apply_style()
     # All available features for clustering
     ALL_FEATURES = ['E_g_eV', 'edge_slope', 'transition_width', 'E_u_meV', 'A_sub']
     
-    if len(sys.argv) < 2:
-        print("Usage: python cluster_spectra.py <results.csv> [output.png] [OPTIONS]")
+    has_run_dir = "--run-dir" in sys.argv
+    if len(sys.argv) < 2 or (len(sys.argv) < 3 and not has_run_dir):
+        print("Usage: python cluster_spectra.py [results.csv] [output.png] [OPTIONS]")
+        print("       python cluster_spectra.py --run-dir runs/latest [OPTIONS]")
         print("\nOptions:")
         print("  --algorithm ALG     Clustering algorithm: hdbscan (default), gmm, hierarchical, nested")
         print("  --scaler NAME       Force specific scaler: StandardScaler, RobustScaler,")
@@ -1208,6 +1260,13 @@ def main():
         print("  --min-cluster-size N  Minimum cluster size for HDBSCAN (default: 5)")
         print("  --n-clusters N      Number of clusters for GMM/Hierarchical (default: auto)")
         print("  --gmm-noise         Run GMM on HDBSCAN noise points (combine with --algorithm hdbscan)")
+        print("  --sub-method METHOD Sub-clustering method for nested: hierarchical, gmm, or spectral")
+        print("  --sub-features F,F  Comma-separated features for sub-clustering (default: same as macro)")
+        print("  --sub-k N           Force number of sub-clusters for nested (default: auto)")
+        print("  --no-split CLUSTERS Macro-clusters to skip sub-splitting (A=low-defect, B=high-defect; default: A)")
+        print("  --macro-k N         Force number of macro-clusters for nested (default: BIC auto)")
+        print("  --run-dir DIR       Use run directory (reads CSV from root, creates clustering_* step)")
+        print("  --output-dir DIR    Save all outputs (clustered CSV, figures, metrics) into DIR")
         print("  --clustermap        Generate clustermap (heatmap + dendrogram)")
         print("  --clip              Clip outliers using IQR method before scaling")
         print("  --log               Apply log transformation to all features")
@@ -1219,14 +1278,13 @@ def main():
         print("  hierarchical - Agglomerative clustering with dendrogram")
         print("  nested       - Two-stage: GMM macro-clusters → Hierarchical sub-clusters")
         print("\nExamples:")
+        print("  python cluster_spectra.py --run-dir runs/latest --algorithm nested --clustermap")
         print("  python cluster_spectra.py results.csv clustering.png")
         print("  python cluster_spectra.py results.csv clustering.png --algorithm gmm")
-        print("  python cluster_spectra.py results.csv clustering.png --algorithm nested --clustermap")
-        print("  python cluster_spectra.py results.csv clustering.png --gmm-noise")
         print("  python cluster_spectra.py results.csv clustering.png --exclude A_sub,edge_slope,transition_width")
         sys.exit(1)
-    
-    csv_path = sys.argv[1]
+
+    csv_path = sys.argv[1] if not sys.argv[1].startswith("--") else None
     save_path = None
     forced_scaler = None
     excluded_features = []
@@ -1239,12 +1297,23 @@ def main():
     n_clusters = None  # auto for GMM/Hierarchical
     gmm_noise_flag = False
     clustermap_flag = False
-    
-    # Parse arguments
-    i = 2
+    sub_method = 'hierarchical'  # default sub-clustering method for nested
+    sub_features_arg = None  # --sub-features: separate features for sub-clustering
+    sub_k = None  # --sub-k: force number of sub-clusters
+    no_split_clusters = None  # macro-clusters to skip sub-splitting; for nested default A (low-defect)
+    macro_k = None  # --macro-k: force number of macro-clusters for nested
+    output_dir_override = None  # --output-dir
+    run_dir_arg = None  # --run-dir
+
+    # Parse arguments (start from 1 if first arg is a flag, else 2)
+    i = 1 if csv_path is None else 2
     while i < len(sys.argv):
         arg = sys.argv[i]
-        if arg == '--scaler':
+        if arg == '--run-dir':
+            if i + 1 < len(sys.argv):
+                run_dir_arg = sys.argv[i + 1]
+                i += 1
+        elif arg == '--scaler':
             if i + 1 < len(sys.argv):
                 forced_scaler = sys.argv[i + 1]
                 i += 1
@@ -1268,6 +1337,30 @@ def main():
             if i + 1 < len(sys.argv):
                 n_clusters = int(sys.argv[i + 1])
                 i += 1
+        elif arg == '--sub-method':
+            if i + 1 < len(sys.argv):
+                sub_method = sys.argv[i + 1].lower()
+                i += 1
+        elif arg == '--sub-features':
+            if i + 1 < len(sys.argv):
+                sub_features_arg = [f.strip() for f in sys.argv[i + 1].split(',')]
+                i += 1
+        elif arg == '--sub-k':
+            if i + 1 < len(sys.argv):
+                sub_k = int(sys.argv[i + 1])
+                i += 1
+        elif arg == '--no-split':
+            if i + 1 < len(sys.argv):
+                no_split_clusters = [c.strip().upper() for c in sys.argv[i + 1].split(',')]
+                i += 1
+        elif arg == '--macro-k':
+            if i + 1 < len(sys.argv):
+                macro_k = int(sys.argv[i + 1])
+                i += 1
+        elif arg == '--output-dir':
+            if i + 1 < len(sys.argv):
+                output_dir_override = sys.argv[i + 1]
+                i += 1
         elif arg == '--clip':
             clip_outliers_flag = True
         elif arg == '--log':
@@ -1282,6 +1375,40 @@ def main():
             save_path = arg
         i += 1
     
+    # Default for nested: don't sub-split A (low-defect); only sub-split B (high-defect)
+    if algorithm == 'nested' and no_split_clusters is None:
+        no_split_clusters = ['A']
+
+    if csv_path is None and not run_dir_arg:
+        print("Error: provide either a CSV path or --run-dir")
+        sys.exit(1)
+
+    # --run-dir: resolve run, set CSV + create step subfolder
+    if run_dir_arg:
+        run_dir = resolve_run(run_dir_arg)
+        csv_path = str(run_dir / DEFAULT_CSV_NAME)
+        step_meta = {
+            "algorithm": algorithm,
+            "scaler": forced_scaler or "auto",
+            "sub_method": sub_method if algorithm == "nested" else None,
+            "sub_features": sub_features_arg,
+            "sub_k": sub_k,
+            "no_split": no_split_clusters,
+            "macro_k": macro_k,
+            "min_coverage": min_coverage,
+            "excluded_features": excluded_features,
+        }
+        step_dir = create_step(run_dir, "clustering", meta=step_meta)
+        output_dir_override = str(step_dir)
+
+    # If --output-dir is set, redirect save_path and all outputs there
+    if output_dir_override:
+        os.makedirs(output_dir_override, exist_ok=True)
+        if save_path:
+            save_path = os.path.join(output_dir_override, os.path.basename(save_path))
+        else:
+            save_path = os.path.join(output_dir_override, f'clustering_{algorithm}.png')
+
     # Load data
     print(f"Loading data from: {csv_path}")
     df = load_data(csv_path)
@@ -1448,8 +1575,13 @@ def main():
         else:
             save_dir = '.'
         
-        df_nested = run_nested_clustering(df, X_scaled, feature_names, 
-                                          save_dir=save_dir if clustermap_flag else None)
+        df_nested = run_nested_clustering(df, X_scaled, feature_names,
+                                          save_dir=save_dir if clustermap_flag else None,
+                                          sub_method=sub_method,
+                                          no_split=no_split_clusters,
+                                          macro_k=macro_k,
+                                          sub_features=sub_features_arg,
+                                          sub_k=sub_k)
         
         # Use full_label as the cluster identifier
         labels = df_nested['macro_cluster'].values
@@ -1468,44 +1600,32 @@ def main():
     if algorithm != 'nested':
         analyze_clusters(df, labels, feature_names)
     
-    # Plot
-    if algorithm != 'nested':
-        algo_name = algorithm.upper() if algorithm != 'hdbscan' else selected_scaler
-        plot_clustering(df, X_scaled, labels, algo_name, save_path, feature_names, 
-                       hide_noise_flag and algorithm == 'hdbscan')
-    else:
-        # For nested, plot macro-clusters
-        algo_name = 'NESTED (GMM→Hier)'
-        plot_clustering(df, X_scaled, labels, algo_name, save_path, feature_names, False)
-    
-    # Generate clustermap if requested (for non-nested algorithms)
-    if clustermap_flag and algorithm != 'nested':
-        clustermap_path = save_path.replace('.png', '_clustermap.png') if save_path else 'clustermap.png'
-        n_clusters_for_map = n_clusters if n_clusters else len(set(labels)) - (1 if -1 in labels else 0)
-        plot_clustermap(df, feature_names, clustermap_path, n_clusters=n_clusters_for_map)
-    
     # Determine output directory
     if save_path:
         output_dir = os.path.dirname(save_path) or '.'
     else:
         output_dir = '.'
-    
+
     # Calculate final metrics
     n_clusters_final = len(set(labels)) - (1 if -1 in labels else 0)
     n_noise = (labels == -1).sum() if -1 in labels else 0
-    
-    # Plot distributions for each cluster
-    if n_clusters_final > 0:
-        # Create cluster names
-        cluster_names = {i: chr(65 + i) for i in range(n_clusters_final)}
-        
-        # KDE distributions
-        dist_path = os.path.join(output_dir, f'clustering_{algorithm}_distributions.png')
-        plot_cluster_distributions(df, labels, feature_names, dist_path, cluster_names)
-        
-        # Boxplots
-        box_path = os.path.join(output_dir, f'clustering_{algorithm}_boxplots.png')
-        plot_cluster_boxplots(df, labels, feature_names, box_path, cluster_names)
+
+    if algorithm == 'nested':
+        _generate_nested_figures(df, feature_names, sub_features_arg, output_dir)
+    else:
+        algo_name = algorithm.upper() if algorithm != 'hdbscan' else selected_scaler
+        plot_clustering(df, X_scaled, labels, algo_name, save_path, feature_names,
+                        hide_noise_flag and algorithm == 'hdbscan')
+        if clustermap_flag:
+            cm_path = save_path.replace('.png', '_clustermap.png') if save_path else 'clustermap.png'
+            n_cm = n_clusters if n_clusters else n_clusters_final
+            plot_clustermap(df, feature_names, cm_path, n_clusters=n_cm)
+        if n_clusters_final > 0:
+            cluster_names = {i: chr(65 + i) for i in range(n_clusters_final)}
+            dist_path = os.path.join(output_dir, f'clustering_{algorithm}_distributions.png')
+            plot_cluster_distributions(df, labels, feature_names, dist_path, cluster_names)
+            box_path = os.path.join(output_dir, f'clustering_{algorithm}_boxplots.png')
+            plot_cluster_boxplots(df, labels, feature_names, box_path, cluster_names)
     
     # Extra info for metrics
     extra_info = {
@@ -1516,13 +1636,17 @@ def main():
         extra_info['min_cluster_size'] = min_cluster_size
     if algorithm == 'nested':
         extra_info['n_subclusters'] = len(df['full_label'].unique())
+        extra_info['sub_method'] = sub_method
     
     # Save clustering results (metrics JSON + log)
     metrics = save_clustering_results(df, labels, X_scaled, feature_names, 
                                       algorithm, output_dir, extra_info)
     
     # Save results CSV
-    output_csv = csv_path.replace('.csv', '_clustered.csv')
+    if output_dir_override:
+        output_csv = os.path.join(output_dir_override, 'results_all_clustered.csv')
+    else:
+        output_csv = csv_path.replace('.csv', '_clustered.csv')
     df.to_csv(output_csv, index=False)
     log_message(f"Results saved to: {output_csv}")
     
@@ -1541,8 +1665,10 @@ def main():
                 print("  (Noise points sub-clustered with GMM)")
     elif algorithm == 'nested':
         n_subclusters = len(df['full_label'].unique())
+        sub_labels_map = {'hierarchical': 'Hierarchical', 'gmm': 'GMM', 'spectral': 'Spectral'}
+        sub_label = sub_labels_map.get(sub_method, sub_method)
         print(f"→ {n_clusters_final} MACRO-CLUSTERS with {n_subclusters} SUB-CLUSTERS total")
-        print("  Two-stage clustering: GMM (macro) → Hierarchical (sub)")
+        print(f"  Two-stage clustering: GMM (macro) → {sub_label} (sub)")
     else:
         print(f"→ {n_clusters_final} CLUSTERS detected")
         if algorithm == 'gmm':

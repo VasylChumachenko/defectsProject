@@ -97,7 +97,7 @@ def read_abs_data(filepath: Path) -> tuple[np.ndarray, np.ndarray]:
 
 
 def convert_to_tauc(wavelength: np.ndarray, absorbance: np.ndarray, 
-                    exponent: float = 2.0) -> tuple[np.ndarray, np.ndarray]:
+                    exponent: float = 0.5) -> tuple[np.ndarray, np.ndarray]:
     """
     Convert absorption data to Tauc plot data.
     
@@ -144,7 +144,7 @@ def get_tauc_filename(abs_filename: str, exponent: float) -> str:
     return abs_filename.replace('_abs_', f'_tauc{exp_suffix}_')
 
 
-def process_folder(folder_path: str, exponent: float = 2.0):
+def process_folder(folder_path: str, exponent: float = 0.5):
     """
     Process folder: convert all abs files to tauc files.
     
@@ -216,7 +216,7 @@ def main():
         sys.exit(1)
     
     folder_path = sys.argv[1]
-    exponent = 2.0  # Default: direct band gap
+    exponent = 0.5  # Default: indirect band gap (g-C3N4)
     
     # Parse arguments
     for i, arg in enumerate(sys.argv[2:], start=2):

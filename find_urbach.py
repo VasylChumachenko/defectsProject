@@ -111,7 +111,7 @@ def get_ln_alpha_from_abs(filepath: Path) -> tuple[np.ndarray, np.ndarray]:
     return energy[sort_idx], ln_alpha[sort_idx]
 
 
-def get_ln_alpha_from_tauc(filepath: Path, exponent: float = 2.0) -> tuple[np.ndarray, np.ndarray]:
+def get_ln_alpha_from_tauc(filepath: Path, exponent: float = 0.5) -> tuple[np.ndarray, np.ndarray]:
     """
     Back-calculate ln(α) from Tauc data.
     
@@ -309,7 +309,7 @@ def find_urbach_energy(energy: np.ndarray, ln_alpha: np.ndarray,
 
 
 def analyze_folder(folder_path: str, bandgap: float = None, 
-                   exponent: float = 2.0) -> dict:
+                   exponent: float = 0.5) -> dict:
     """
     Analyze all samples in a folder for Urbach energy.
     
@@ -405,7 +405,7 @@ def analyze_folder(folder_path: str, bandgap: float = None,
 
 
 def plot_urbach(folder_path: str, save_path: str = None, 
-                bandgap: float = None, exponent: float = 2.0):
+                bandgap: float = None, exponent: float = 0.5):
     """
     Visualize Urbach analysis for all samples in folder.
     

@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
 """
-Detailed Synthesis Conditions Extractor (v2)
+Detailed Synthesis Conditions Extractor (v3 – config-driven)
 
 Extracts per-sample synthesis conditions with:
 - File-name matching (LLM maps file sample names to article sample names)
-- 7 standardized tags per sample (from TAG_SCHEMA)
+- Standardized tags per sample (schema loaded from extraction_configs/)
 - DRS instrument extraction (article-level)
 
 Supports both Groq (Llama) and OpenAI (GPT-4o-mini) backends.
+
+Usage:
+    python extract_synthesis_detailed.py                        # v1_flat (default)
+    python extract_synthesis_detailed.py --config v2_staged     # two-stage prompt
+    python extract_synthesis_detailed.py --output-dir runs/...  # custom output
 """
 
 import os
@@ -30,180 +35,54 @@ load_dotenv()
 DELAY_BETWEEN_REQUESTS = 1.0  # seconds
 
 MODELS = {
-    'openai': 'gpt-4o-mini',
+    'openai': 'gpt-4o',
     'groq': 'llama-3.1-8b-instant',
     'groq-70b': 'llama-3.3-70b-versatile',
 }
 
-# ============================================================================
-# TAG SCHEMA (mirrored from extract_structured_tags.py)
-# ============================================================================
+DEFAULT_CONFIG = "v1_flat"
 
-TAG_NAMES = [
-    "precursor_family",
-    "calcination_temperature_bin",
-    "atmosphere_class",
-    "primary_route",
-    "defect_introduction_mode",
-    "dopant_class",
-    "morphology_form",
-]
+# ── Active config (set in main()) ────────────────────────────────────────────
+# These module-level names are filled from the chosen extraction_configs module
+# so that the rest of the code can reference them without passing config around.
 
-TAG_ALLOWED = {
-    "precursor_family": ["urea", "thiourea", "cyanamide", "melamine", "other"],
-    "calcination_temperature_bin": ["lt520", "520_560", "560_600", "gt600"],
-    "atmosphere_class": ["inert", "N2", "air", "reducing", "etching_reactive", "co2_generated", "unknown"],
-    "primary_route": ["direct_thermal", "hydro_solvothermal_pre", "supramolecular_preassembly", "template_assisted", "unknown_or_other"],
-    "defect_introduction_mode": ["none_or_baseline", "two_step_overcalcination", "chemical_vapor_etching", "gas_assisted_etching", "dopant_induced"],
-    "dopant_class": ["none", "nonmetal", "metal", "codoped_or_multi"],
-    "morphology_form": ["bulk", "nanosheets_ultrathin", "porous_holey", "tubular", "3d_macroporous", "unknown"],
-}
-
-TAG_DEFAULTS = {
-    "precursor_family": "other",
-    "calcination_temperature_bin": "520_560",
-    "atmosphere_class": "unknown",
-    "primary_route": "unknown_or_other",
-    "defect_introduction_mode": "none_or_baseline",
-    "dopant_class": "none",
-    "morphology_form": "unknown",
-}
-
-# Additional categorical fields (not part of 7 main tags, but validated)
-EXTRA_CATEGORICAL = {
-    "synthesis_method": {
-        "allowed": ["thermal_polymerization", "solvothermal_exfoliation", "supramolecular", "other"],
-        "default": "other",
-    },
-    "duration_bin": {
-        "allowed": ["lt2h", "2_4h", "4_8h", "gt8h"],
-        "default": "2_4h",
-    },
-}
+TAG_NAMES: list = []
+TAG_ALLOWED: dict = {}
+TAG_DEFAULTS: dict = {}
+EXTRA_CATEGORICAL: dict = {}
+DETAILED_PROMPT: str = ""
+SAMPLE_FIELDS: list = []
+CONFIG_VERSION: str = ""
 
 
 # ============================================================================
-# PROMPT
+# CONFIG LOADING
 # ============================================================================
 
-DETAILED_PROMPT = """You are an expert in g-C3N4 (graphitic carbon nitride) materials science.
+def _load_config(name: str):
+    """Load extraction config and populate module-level variables."""
+    global TAG_NAMES, TAG_ALLOWED, TAG_DEFAULTS, EXTRA_CATEGORICAL
+    global DETAILED_PROMPT, SAMPLE_FIELDS, CONFIG_VERSION
 
-ARTICLE TITLE: {title}
+    # Allow path to a .py file as well as a bare name
+    if name.endswith(".py") or "/" in name:
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("_cfg", name)
+        cfg = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cfg)
+    else:
+        from extraction_configs import load
+        cfg = load(name)
 
-EXPERIMENTAL TEXT:
-{text}
+    TAG_NAMES = cfg.TAG_NAMES
+    TAG_ALLOWED = cfg.TAG_ALLOWED
+    TAG_DEFAULTS = cfg.TAG_DEFAULTS
+    EXTRA_CATEGORICAL = cfg.EXTRA_CATEGORICAL
+    DETAILED_PROMPT = cfg.PROMPT_TEMPLATE
+    SAMPLE_FIELDS = cfg.SAMPLE_FIELDS
+    CONFIG_VERSION = cfg.VERSION
 
-SPECTRAL DATA FILE NAMES for this article (lowercase, dash-separated):
-{file_samples}
-
-=== TASK ===
-1. Extract synthesis conditions for EACH SAMPLE described in the article.
-2. For each sample, assign a "file_match" — which file name from the list above corresponds to this sample. Use null if no match.
-   MATCHING RULES:
-   - File names are lowercase, dash-separated simplifications of article sample names.
-   - Examples: "bulk g-C3N4" → "bulk-g-c3n4", "CN-MIX-1" → "cn-mix1", "Ns-g-C3N4" → "ns-g-c3n4".
-   - CRITICAL: Each file name can be assigned to AT MOST ONE sample (no duplicates!).
-   - CRITICAL: Only match when you are confident. If unsure, use null — a wrong match is worse than null.
-   - Compare carefully: "CN-AT" ≠ "CN-T", "CN-MIX-1" ≠ "CN-AT". Match the FULL name, not a substring.
-3. For each sample, assign 7 standardized tags (see rules below).
-4. Extract the DRS instrument (UV-Vis spectrophotometer) used in this article.
-
-=== SAMPLE FIELDS ===
-For each sample provide:
-- sample_name: identifier used in the paper (e.g. "CN-500", "pristine g-C3N4")
-- file_match: matching file name from the list above, or null
-- sample_type: "reference" | "modified" | "doped" | "defective"
-- co_precursor: secondary precursor or additive used alongside the main precursor, or "none"
-- dopant_element: element symbol (S, P, Fe, La...) or "none"
-- synthesis_method: "thermal_polymerization" (includes calcination, thermal polycondensation, pyrolysis at high T) | "solvothermal_exfoliation" (hydrothermal, solvothermal, autoclave-based) | "supramolecular" (supramolecular preassembly, e.g. cyanuric acid + melamine) | "other"
-- temperature_C: max calcination/polymerization temperature as number, or null
-- heating_rate_C_min: heating rate as number, or null
-- duration_bin: total synthesis duration bin: "lt2h" (<2 hours) | "2_4h" (2-4 hours) | "4_8h" (4-8 hours) | "gt8h" (>8 hours)
-- atmosphere: gas atmosphere as string (N2, Ar, air, etc.) or "unknown"
-- pre_treatment: any pre-treatment steps or "none"
-- post_treatment: any post-treatment (exfoliation, etching, washing, etc.) or "none"
-- defect_type: specific defect type or "none"
-- defect_formation_method: how defects were introduced or "none"
-- special_notes: any other important conditions or "none"
-
-=== 7 STANDARDIZED TAGS (per sample) ===
-
-1. precursor_family — main condensation precursor (the primary one that forms the g-C3N4 backbone)
-   Allowed: urea, thiourea, cyanamide, melamine, other
-   Rule: cyanamide includes dicyandiamide (DCDA). Identify the PRIMARY g-C3N4 precursor even when mixed with additives/dopant sources. E.g. if DCDA + (NH4)2S2O3, precursor_family=cyanamide (the (NH4)2S2O3 is a dopant source, not a precursor). If none of the listed → other
-
-2. calcination_temperature_bin — highest calcination temp (NOT drying 60-105°C)
-   Allowed: lt520 (<520°C), 520_560 (520-559°C), 560_600 (560-599°C), gt600 (≥600°C)
-   Rule: MUST be consistent with temperature_C for this sample. 550→520_560, 560→560_600, 600→gt600. Use THIS sample's temperature, not the article's max.
-
-3. atmosphere_class — gas during thermal treatment
-   Allowed: inert, N2, air, reducing, etching_reactive, co2_generated, unknown
-   Rule: NH3→etching_reactive, N2→N2, H2→reducing, Ar/He→inert, CO2/NaHCO3→co2_generated, air/ambient→air
-
-4. primary_route — main synthesis path for THIS sample
-   Allowed: direct_thermal, hydro_solvothermal_pre, supramolecular_preassembly, template_assisted, unknown_or_other
-   Rule: autoclave/Teflon→hydro_solvothermal_pre, cyanuric acid+melamine→supramolecular_preassembly, template→template_assisted, else→direct_thermal
-
-5. defect_introduction_mode — how defects were introduced in THIS sample
-   Allowed: none_or_baseline, two_step_overcalcination, chemical_vapor_etching, gas_assisted_etching, dopant_induced
-   Rule: Mg vapor→chemical_vapor_etching, two-step/re-calcined→two_step_overcalcination, NH3/CO2 etching→gas_assisted_etching, doping→dopant_induced, else→none_or_baseline
-
-6. dopant_class — doping type for THIS sample
-   Allowed: none, nonmetal, metal, codoped_or_multi
-   Rule: P/S/B/F/O→nonmetal, Fe/Cu/Ag/La/Pt→metal, ≥2 elements→codoped_or_multi
-
-7. morphology_form — declared morphology for THIS sample
-   Allowed: bulk, nanosheets_ultrathin, porous_holey, tubular, 3d_macroporous, unknown
-   Rule: ultrathin/nanosheet→nanosheets_ultrathin, porous/holey→porous_holey, 3D→3d_macroporous, tubular→tubular, else→bulk
-
-=== OUTPUT FORMAT ===
-Return ONLY valid JSON:
-
-{{
-  "samples": [
-    {{
-      "sample_name": "...",
-      "file_match": "..." or null,
-      "sample_type": "...",
-      "co_precursor": "...",
-      "dopant_element": "...",
-      "synthesis_method": "...",
-      "temperature_C": number or null,
-      "heating_rate_C_min": number or null,
-      "duration_bin": "...",
-      "atmosphere": "...",
-      "pre_treatment": "...",
-      "post_treatment": "...",
-      "defect_type": "...",
-      "defect_formation_method": "...",
-      "special_notes": "...",
-      "precursor_family": "...",
-      "calcination_temperature_bin": "...",
-      "atmosphere_class": "...",
-      "primary_route": "...",
-      "defect_introduction_mode": "...",
-      "dopant_class": "...",
-      "morphology_form": "..."
-    }}
-  ],
-  "drs_instrument": "brand and model of UV-Vis/DRS spectrophotometer, or 'unknown'",
-  "general_notes": "overall synthesis approach or important context"
-}}
-
-IMPORTANT RULES:
-1. Extract ALL distinct samples (including reference/pristine).
-2. For temperature/concentration series, create separate entries for each variant.
-3. Use null for unknown numeric fields (temperature_C, heating_rate_C_min).
-4. "reference" = pristine/bulk/unmodified g-C3N4 for comparison.
-5. "modified" = exfoliated, porous, nanosheet without doping.
-6. "doped" = element doping. "defective" = intentional vacancy/defect creation.
-7. All categorical fields (tags, synthesis_method, duration_bin) must use ONLY allowed values.
-8. NEVER assign the same file_match to more than one sample. Verify no duplicates in your output.
-9. duration_bin: estimate total thermal treatment time. If multiple steps, sum them. lt2h=<2h, 2_4h=2-4h, 4_8h=4-8h, gt8h=>8h.
-10. calcination_temperature_bin MUST match temperature_C: 550→520_560, 560→560_600, 600→gt600 etc.
-11. precursor_family = the main g-C3N4 backbone precursor. Dopant sources, additives, co-reactants are NOT the precursor.
-
-JSON:"""
+    return cfg
 
 
 # ============================================================================
@@ -311,8 +190,13 @@ def validate_sample_tags(sample: dict) -> dict:
 
 
 def fix_temperature_bin(sample: dict) -> dict:
-    """Ensure calcination_temperature_bin is consistent with temperature_C."""
-    temp = sample.get('temperature_C')
+    """Ensure calcination_temperature_bin is consistent with the backbone temperature.
+
+    For v1_flat: uses temperature_C.
+    For v2_staged: uses backbone_temperature_C.
+    """
+    # Prefer backbone_temperature_C (v2) over temperature_C (v1)
+    temp = sample.get('backbone_temperature_C', sample.get('temperature_C'))
     if temp is not None and isinstance(temp, (int, float)):
         if temp < 520:
             sample['calcination_temperature_bin'] = 'lt520'
@@ -379,13 +263,15 @@ def article_id_to_base(article_id: str) -> str:
 # ============================================================================
 
 def process_article(client, article: Dict, backend: str, model: str,
-                    file_samples: List[str]) -> List[Dict]:
+                    file_samples: List[str],
+                    prompt_template: Optional[str] = None) -> List[Dict]:
     """Process a single article and return list of sample records."""
 
     if not article.get('experimental_text') or article.get('manual_entry', False):
         return []
 
-    # Build prompt
+    # Build prompt (use provided template or module-level DETAILED_PROMPT)
+    _prompt_tpl = prompt_template or DETAILED_PROMPT
     title = article.get('title', 'Unknown')
     text = article.get('experimental_text', '')[:12000]
     
@@ -394,7 +280,7 @@ def process_article(client, article: Dict, backend: str, model: str,
     else:
         file_samples_str = "[] (no spectral data files for this article)"
 
-    prompt = DETAILED_PROMPT.format(
+    prompt = _prompt_tpl.format(
         title=title,
         text=text,
         file_samples=file_samples_str
@@ -439,48 +325,44 @@ def process_article(client, article: Dict, backend: str, model: str,
         sample = fix_temperature_bin(sample)
         sample = validate_file_match(sample, file_samples)
 
+        # Build record: article info + all sample fields from config
         record = {
-            # Article info
+            # Article info (always present)
             'article_id': article['id'],
             'filename': article['filename'],
             'folder': article['folder'],
             'title': title,
             'sample_index': i + 1,
             'total_samples': len(samples),
-            # Sample identification
-            'sample_name': sample.get('sample_name', ''),
-            'file_match': sample.get('file_match'),
-            'sample_type': sample.get('sample_type', ''),
-            # Synthesis details
-            'co_precursor': sample.get('co_precursor', ''),
-            'dopant_element': sample.get('dopant_element', ''),
-            'synthesis_method': sample.get('synthesis_method', ''),
-            'temperature_C': sample.get('temperature_C'),
-            'heating_rate_C_min': sample.get('heating_rate_C_min'),
-            'duration_bin': sample.get('duration_bin', ''),
-            'atmosphere': sample.get('atmosphere', ''),
-            'pre_treatment': sample.get('pre_treatment', ''),
-            'post_treatment': sample.get('post_treatment', ''),
-            'defect_type': sample.get('defect_type', ''),
-            'defect_formation_method': sample.get('defect_formation_method', ''),
-            'special_notes': sample.get('special_notes', ''),
-            # 7 standardized tags
-            'precursor_family': sample.get('precursor_family', ''),
-            'calcination_temperature_bin': sample.get('calcination_temperature_bin', ''),
-            'atmosphere_class': sample.get('atmosphere_class', ''),
-            'primary_route': sample.get('primary_route', ''),
-            'defect_introduction_mode': sample.get('defect_introduction_mode', ''),
-            'dopant_class': sample.get('dopant_class', ''),
-            'morphology_form': sample.get('morphology_form', ''),
-            # Article-level
-            'drs_instrument': drs_instrument,
-            'general_notes': general_notes,
-            'extraction_status': 'success',
-            'error_message': ''
         }
+        # Copy all sample fields defined by the active config
+        for field in SAMPLE_FIELDS:
+            record[field] = sample.get(field, '' if field not in ('temperature_C', 'heating_rate_C_min',
+                                                                   'backbone_temperature_C', 'backbone_heating_rate_C_min',
+                                                                   'mod_temperature_C', 'file_match') else sample.get(field))
+        # Article-level fields
+        record['drs_instrument'] = drs_instrument
+        record['general_notes'] = general_notes
+        record['extraction_status'] = 'success'
+        record['error_message'] = ''
         records.append(record)
 
     return records
+
+
+def add_legacy_columns(df, cfg) -> None:
+    """Add v1-compatible legacy columns from v2 data (in-place).
+
+    If the config defines a V2_TO_V1 mapping, the corresponding legacy
+    columns are created so that downstream scripts that expect the old
+    flat column names (temperature_C, atmosphere, …) keep working.
+    """
+    mapping = getattr(cfg, 'V2_TO_V1', None)
+    if not mapping:
+        return
+    for legacy_name, v2_source in mapping.items():
+        if v2_source in df.columns and legacy_name not in df.columns:
+            df[legacy_name] = df[v2_source]
 
 
 # ============================================================================
@@ -488,7 +370,20 @@ def process_article(client, article: Dict, backend: str, model: str,
 # ============================================================================
 
 def main():
-    parser = argparse.ArgumentParser(description='Detailed synthesis extraction (v2)')
+    # Show available configs in help
+    try:
+        from extraction_configs import available as _avail
+        avail_str = ", ".join(_avail())
+    except Exception:
+        avail_str = "(discovery failed)"
+
+    parser = argparse.ArgumentParser(
+        description='Detailed synthesis extraction (config-driven)',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=f"available configs: {avail_str}",
+    )
+    parser.add_argument('--config', default=DEFAULT_CONFIG,
+                       help=f'Prompt/schema config name or .py path (default: {DEFAULT_CONFIG})')
     parser.add_argument('--backend', choices=['openai', 'groq'], default='openai',
                        help='LLM backend to use')
     parser.add_argument('--model', type=str, default=None,
@@ -497,25 +392,44 @@ def main():
                        help='Limit number of articles to process')
     parser.add_argument('--skip-cached', action='store_true',
                        help='Skip articles already in output file')
-    parser.add_argument('--only-with-spectra', action='store_true',
-                       help='Only process articles that have spectral data files')
+    parser.add_argument('--all-articles', action='store_true',
+                       help='Process ALL articles, including those without spectra')
+    parser.add_argument('--spectra-csv', type=str, default=None,
+                       help='Path to spectral results CSV (default: results_all.csv)')
+    parser.add_argument('--output-dir', type=str, default=None,
+                       help='Directory for output CSV/JSON (default: script dir)')
     args = parser.parse_args()
+
+    # Load config
+    cfg = _load_config(args.config)
 
     script_dir = Path(__file__).parent
     input_file = script_dir / 'experimental_sections.json'
-    results_csv = script_dir / 'results_all_clustered.csv'
-    output_csv = script_dir / 'synthesis_detailed.csv'
-    output_json = script_dir / 'synthesis_detailed.json'
+    spectra_csv = Path(args.spectra_csv) if args.spectra_csv else script_dir / 'results_all.csv'
+
+    if args.output_dir:
+        out_dir = Path(args.output_dir)
+        out_dir.mkdir(parents=True, exist_ok=True)
+    else:
+        out_dir = script_dir
+
+    output_csv = out_dir / 'synthesis_detailed.csv'
+    output_json = out_dir / 'synthesis_detailed.json'
+
+    only_with_spectra = not args.all_articles
 
     print("=" * 80)
-    print("DETAILED SYNTHESIS EXTRACTOR v2 (Per-Sample + Tags + File Matching)")
+    print("DETAILED SYNTHESIS EXTRACTOR v3 (Config-Driven)")
     print("=" * 80)
+    print(f"Config: {CONFIG_VERSION}")
 
     # Select backend and model
     backend = args.backend
     model = args.model or MODELS[backend]
     print(f"Backend: {backend}")
     print(f"Model: {model}")
+    print(f"Output: {out_dir}")
+    print(f"Filter: {'only articles with spectra' if only_with_spectra else 'ALL articles'}")
 
     # Initialize client
     if backend == 'openai':
@@ -523,8 +437,8 @@ def main():
     else:
         client = get_groq_client()
 
-    # Load file sample names from clustering results
-    file_samples_by_article = load_file_samples(results_csv)
+    # Load file sample names from spectral analysis results
+    file_samples_by_article = load_file_samples(spectra_csv)
     print(f"Articles with spectral data: {len(file_samples_by_article)}")
     total_file_samples = sum(len(v) for v in file_samples_by_article.values())
     print(f"Total file samples to match: {total_file_samples}")
@@ -539,8 +453,8 @@ def main():
     to_process = [a for a in articles
                   if a.get('experimental_text') and not a.get('manual_entry', False)]
 
-    # Optionally filter to only articles with spectra
-    if args.only_with_spectra:
+    # By default, only process articles that have at least 1 spectrum
+    if only_with_spectra:
         to_process = [a for a in to_process
                       if article_id_to_base(a['id']) in file_samples_by_article]
         print(f"Filtered to articles with spectra: {len(to_process)}")
@@ -590,6 +504,12 @@ def main():
 
         all_records.extend(records)
 
+        # Incremental save — protect against crashes / timeouts
+        if all_records and (i + 1) % 5 == 0:
+            _df = pd.DataFrame(all_records)
+            add_legacy_columns(_df, cfg)
+            _df.to_csv(output_csv, index=False, encoding='utf-8')
+
         # Rate limiting
         time.sleep(DELAY_BETWEEN_REQUESTS)
 
@@ -617,12 +537,17 @@ def main():
 
     # Save results
     df = pd.DataFrame(all_records)
+
+    # Add legacy columns for backward compatibility (v2 → v1 mapping)
+    add_legacy_columns(df, cfg)
+
     df.to_csv(output_csv, index=False, encoding='utf-8')
     print(f"\nCSV saved to: {output_csv}")
 
     # JSON output
     json_output = {
         'metadata': {
+            'config_version': CONFIG_VERSION,
             'total_articles': unique_articles,
             'total_samples': len(success_records),
             'file_matches': sum(1 for r in success_records if r.get('file_match')),

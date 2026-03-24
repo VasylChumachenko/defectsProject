@@ -49,6 +49,8 @@ EXPERIMENTAL_START_PATTERNS_STRICT = [
     r'^\s*\d+\.?\s*Experimental\s+Details?\s*$',
     r'^\s*\d+\.?\s*Experimental\s+Methods?\s*$',
     r'^\s*\d+\.?\s*Experimental\s*$',
+    r'^\s*\d+\.?\s*Experiments?\s*$',
+    r'^\s*\d+\.?\s*Experiments?\s+Section\s*$',
     r'^\s*\d+\.?\s*Materials?\s+and\s+Methods?\s*$',
     r'^\s*\d+\.?\s*Methods?\s+and\s+Materials?\s*$',
     r'^\s*\d+\.?\s*Methods\s*$',
@@ -57,9 +59,16 @@ EXPERIMENTAL_START_PATTERNS_STRICT = [
     r'^\s*Experimental\s+Procedures?\s*$',
     r'^\s*Experimental\s+Details?\s*$',
     r'^\s*Experimental\s*$',
+    r'^\s*Experiments?\s*$',
     r'^\s*EXPERIMENTAL\s*$',
+    r'^\s*EXPERIMENTAL\s+SECTION\s*$',
     r'^\s*Materials?\s+and\s+Methods?\s*$',
     r'^\s*MATERIALS\s+AND\s+METHODS\s*$',
+    # Cell/Joule/Nature-style
+    r'^\s*STAR\s*[\+\★]\s*METHODS\s*$',
+    r'^\s*STAR\s*METHODS\s*$',
+    r'^\s*Method\s+Details?\s*$',
+    r'^\s*METHOD\s+DETAILS?\s*$',
 ]
 
 EXPERIMENTAL_START_PATTERNS_RELAXED = [
@@ -67,9 +76,14 @@ EXPERIMENTAL_START_PATTERNS_RELAXED = [
     r'^\s*\d+\.\d+\.?\s*Synthesis\s+of\s+.{0,50}$',
     r'^\s*\d+\.\d+\.?\s*Preparation\s+of\s+.{0,50}$',
     r'^\s*\d+\.\d+\.?\s*Synthesis\s*$',
-    r'^\s*\d+\.\d+\.?\s*Sample\s+Preparation\s*$',
+    r'^\s*\d+\.\d+\.?\s*Sample\s+Preparation\s*\.?$',
     r'^\s*\d+\.\d+\.?\s*Materials?\s*$',
     r'^\s*\d+\.\d+\.?\s*Chemicals?\s*$',
+    # Standalone "Sample Preparation" / "Catalyst synthesis" (no number)
+    r'^\s*Sample\s+Preparation\s*\.?\s*$',
+    r'^\s*Catalyst\s+(?:synthesis|preparation)\s',
+    # "Experiment section" (some papers use singular)
+    r'^\s*\d+\.?\d*\.?\s*Experiment\s+[Ss]ection\s*$',
     # "2. Experimental" merged with next word (PDF artifact)
     r'^\s*\d+\.?\s*Experimental\s+\w',
     # Experimental without space after number
@@ -86,13 +100,17 @@ EXPERIMENTAL_START_PATTERNS_RELAXED = [
     r'^\s*Preparationof.{0,30}g-?C\s*3\s*N\s*4',
     # Characterizations section (often contains synthesis details)
     r'^\s*\d+\.?\s*Characterizations?\s*$',
+    # ESI-specific headers
+    r'^\s*Experimental\s+procedure\s+for\s+',
+    # "Detailed methods are provided" (Cell/STAR format)
+    r'^\s*Detailed\s+methods\s+are\s+provided\s+',
 ]
 
 # Combined for backward compatibility
 EXPERIMENTAL_START_PATTERNS = EXPERIMENTAL_START_PATTERNS_STRICT + EXPERIMENTAL_START_PATTERNS_RELAXED
 
-# Patterns for END of experimental section
-EXPERIMENTAL_END_PATTERNS = [
+# Strong end patterns — always terminate, even with little content
+EXPERIMENTAL_END_PATTERNS_STRONG = [
     # Numbered sections (most reliable)
     r'^\s*\d+\.?\s*Results?\s+and\s+Discussions?\s*$',
     r'^\s*\d+\.?\s*Results?\s*$',
@@ -102,14 +120,9 @@ EXPERIMENTAL_END_PATTERNS = [
     # Non-numbered headers
     r'^\s*Results?\s+and\s+Discussions?\s*$',
     r'^\s*RESULTS?\s+AND\s+DISCUSSIONS?\s*$',
-    r'^\s*Results?\s*$',
-    r'^\s*RESULTS\s*$',
-    r'^\s*Discussions?\s*$',
-    r'^\s*DISCUSSION\s*$',
+    r'^\s*Results?\s+and\s+Characterizations?\s*$',
     r'^\s*Conclusions?\s*$',
     r'^\s*CONCLUSIONS?\s*$',
-    r'^\s*Characterizations?\s*$',
-    r'^\s*Results?\s+and\s+Characterizations?\s*$',
     # Paper end sections
     r'^\s*\d*\.?\s*Acknowledg[e]?ments?\s*$',
     r'^\s*ACKNOWLEDG',
@@ -125,11 +138,25 @@ EXPERIMENTAL_END_PATTERNS = [
     r'^\s*\d*\.?\s*Supporting\s+Information\s*$',
     r'^\s*\d*\.?\s*Supplementary\s+',
     r'^\s*ASSOCIATED\s+CONTENT',
-    # Figure/Table captions (often indicate Results section)
-    r'^Figure\s+\d+\.',
-    r'^Fig\.\s*\d+\.',
-    r'^Table\s+\d+\.',
+    # STAR METHODS sub-sections that mark end of synthesis details
+    r'^\s*QUANTIFICATION\s+AND\s+STATISTICAL',
+    r'^\s*DATA\s+AND\s+CODE\s+AVAILABILITY',
 ]
+
+# Weak end patterns — only terminate after MIN_WORDS_BEFORE_WEAK_END words
+# (these can appear as subsection headers within the experimental section)
+MIN_WORDS_BEFORE_WEAK_END = 150
+
+EXPERIMENTAL_END_PATTERNS_WEAK = [
+    r'^\s*Results?\s*$',
+    r'^\s*RESULTS\s*$',
+    r'^\s*Discussions?\s*$',
+    r'^\s*DISCUSSION\s*$',
+    r'^\s*Characterizations?\s*$',
+]
+
+# Combined for backward compatibility
+EXPERIMENTAL_END_PATTERNS = EXPERIMENTAL_END_PATTERNS_STRONG + EXPERIMENTAL_END_PATTERNS_WEAK
 
 # Patterns indicating content is in Supporting Information
 SI_REDIRECT_PATTERNS = [
@@ -143,6 +170,28 @@ SI_REDIRECT_PATTERNS = [
 
 # Maximum reasonable section length (in characters)
 MAX_SECTION_LENGTH = 20000  # ~3500 words
+
+# Folders that are expected to have no experimental section
+SKIP_FOLDERS = {'theoretical', 'reviews'}
+
+# Keywords for paragraph-level fallback (at least N per paragraph to qualify)
+_SYNTH_KEYWORDS = [
+    r'was\s+(?:synthesized|prepared|calcined|heated|annealed)',
+    r'were\s+(?:synthesized|prepared|calcined|heated|annealed)',
+    r'(?:precursor|melamine|urea|dicyandiamide|DCDA)\s+(?:was|were|is)',
+    r'(?:tube|muffle)\s+furnace',
+    r'crucible',
+    r'(?:heated|calcined|annealed)\s+(?:at|to)\s+\d+\s*[°℃]',
+    r'\d+\s*[°℃]C?\s+for\s+\d+',
+    r'(?:N2|Ar|air|NH3)\s+atmosphere',
+    r'under\s+(?:N2|Ar|air|NH3|nitrogen|argon)',
+    r'heating\s+rate\s+of\s+\d+',
+    r'polycondensation',
+    r'thermal\s+(?:polymerization|condensation)',
+    r'hydrothermal|solvothermal|autoclave',
+]
+_SYNTH_RE = [re.compile(p, re.IGNORECASE) for p in _SYNTH_KEYWORDS]
+_MIN_KEYWORD_HITS = 2  # paragraph must match at least this many patterns
 
 # Subsection patterns within Experimental (for context)
 EXPERIMENTAL_SUBSECTIONS = [
@@ -165,7 +214,8 @@ class ExtractionResult:
     filename: str
     folder: str
     title: Optional[str]
-    experimental_text: Optional[str]
+    experimental_text: Optional[str]       # cleaned + trimmed (for LLM)
+    experimental_text_raw: Optional[str]   # cleaned but NOT trimmed (for comparison)
     section_header: Optional[str]
     start_page: Optional[int]
     end_page: Optional[int]
@@ -302,6 +352,33 @@ def check_si_redirect(text: str) -> bool:
     return False
 
 
+# Patterns indicating a download-error / paywall page instead of a real article
+_BROKEN_PDF_MARKERS = [
+    'javascript is disabled',
+    'please turn javascript on',
+    'request id:',
+    'access denied',
+    'this content is not available',
+    'cookie policy',
+    'subscribe to read',
+]
+
+
+def is_broken_pdf(text: str, n_pages: int) -> bool:
+    """Detect download error / paywall pages that are not real articles."""
+    if n_pages <= 2 and len(text) < 3000:
+        text_lower = text.lower()
+        hits = sum(1 for m in _BROKEN_PDF_MARKERS if m in text_lower)
+        if hits >= 2:
+            return True
+    return False
+
+
+def _strip_leading_symbols(s: str) -> str:
+    """Strip leading non-alphanumeric decorators (■, •, ►, ★, etc.) from header lines."""
+    return re.sub(r'^[\W_]+', '', s).strip()
+
+
 def find_section_start(lines: List[str], text: str, patterns: List[str]) -> Tuple[Optional[int], Optional[int], Optional[str]]:
     """Try to find section start using given patterns."""
     for i, line in enumerate(lines):
@@ -313,12 +390,39 @@ def find_section_start(lines: List[str], text: str, patterns: List[str]) -> Tupl
         if len(line_clean) > 100:
             continue
         
-        for pattern in patterns:
-            if re.match(pattern, line_clean, re.IGNORECASE):
-                start_pos = text.find(line)
-                return start_pos, i, line_clean
+        # Try both the original line and a version with leading symbols stripped
+        candidates = [line_clean]
+        stripped = _strip_leading_symbols(line_clean)
+        if stripped != line_clean:
+            candidates.append(stripped)
+        
+        for candidate in candidates:
+            for pattern in patterns:
+                if re.match(pattern, candidate, re.IGNORECASE):
+                    start_pos = text.find(line)
+                    return start_pos, i, line_clean
     
     return None, None, None
+
+
+def _extract_synthesis_paragraphs(text: str) -> Optional[str]:
+    """Fallback: extract paragraphs that describe synthesis procedures.
+
+    Used when no section header is found.  Returns concatenated paragraphs
+    or None if nothing qualifies.
+    """
+    paragraphs = re.split(r'\n\s*\n', text)
+    hits = []
+    for para in paragraphs:
+        para_clean = para.strip()
+        if len(para_clean) < 80:
+            continue
+        n_matches = sum(1 for rx in _SYNTH_RE if rx.search(para_clean))
+        if n_matches >= _MIN_KEYWORD_HITS:
+            hits.append(para_clean)
+    if not hits:
+        return None
+    return '\n\n'.join(hits)
 
 
 def find_section_boundaries(text: str, pages: List[str]) -> Tuple[Optional[int], Optional[int], Optional[str], str, str]:
@@ -346,11 +450,13 @@ def find_section_boundaries(text: str, pages: List[str]) -> Tuple[Optional[int],
     
     # Find end of experimental section
     end_pos = None
+    words_so_far = 0
     chars_searched = 0
     
     for i, line in enumerate(lines[start_line_idx + 1:], start=start_line_idx + 1):
         line_clean = line.strip()
         chars_searched += len(line) + 1
+        words_so_far += len(line_clean.split()) if line_clean else 0
         
         # Hard limit on section length
         if chars_searched > MAX_SECTION_LENGTH:
@@ -364,9 +470,30 @@ def find_section_boundaries(text: str, pages: List[str]) -> Tuple[Optional[int],
         if len(line_clean) > 100:
             continue
         
-        for pattern in EXPERIMENTAL_END_PATTERNS:
-            if re.match(pattern, line_clean, re.IGNORECASE):
-                end_pos = text.find(line, start_pos + len(section_header))
+        # Also try with leading symbols stripped for end patterns
+        candidates = [line_clean]
+        stripped = _strip_leading_symbols(line_clean)
+        if stripped != line_clean:
+            candidates.append(stripped)
+        
+        matched = False
+        for candidate in candidates:
+            # Strong patterns: always terminate
+            for pattern in EXPERIMENTAL_END_PATTERNS_STRONG:
+                if re.match(pattern, candidate, re.IGNORECASE):
+                    end_pos = text.find(line, start_pos + len(section_header))
+                    matched = True
+                    break
+            if matched:
+                break
+            # Weak patterns: only terminate if we have enough content
+            if words_so_far >= MIN_WORDS_BEFORE_WEAK_END:
+                for pattern in EXPERIMENTAL_END_PATTERNS_WEAK:
+                    if re.match(pattern, candidate, re.IGNORECASE):
+                        end_pos = text.find(line, start_pos + len(section_header))
+                        matched = True
+                        break
+            if matched:
                 break
         
         if end_pos is not None:
@@ -446,27 +573,129 @@ def find_page_numbers(text: str, start_pos: int, end_pos: int, pages: List[str])
     return start_page, end_page
 
 
+_LIGATURE_MAP = str.maketrans({
+    '\ufb00': 'ff', '\ufb01': 'fi', '\ufb02': 'fl',
+    '\ufb03': 'ffi', '\ufb04': 'ffl',
+})
+
+# Subsection headers that mark the END of synthesis-relevant content.
+# Matched against each line; may have trailing text (e.g. "2.2 Characterization. XRD patterns...")
+_TRIM_HEADERS = re.compile(
+    r'^\s*\d*\.?\d*\.?\s*'
+    r'(?:'
+    r'(?:Physicochemical\s+|Sample\s+|Structural\s+|Material\s+)?Characterizations?\b'
+    r'|Instruments?\b'
+    r'|Measurements?\b'
+    r'|Photocatalytic\b'
+    r'|Photocatalysis\b'
+    r'|Photoelectrochemical\b'
+    r'|Electrochemical\b'
+    r'|Hydrogen\s+(?:evolution|production)'
+    r'|Photo-?degradation\b'
+    r'|(?:Density.functional|DFT|Computational|Theoretical)\s+(?:theory|calculation|detail|method|studie)'
+    r'|Photocurrent\b'
+    r'|Impedance\b'
+    r'|Catalytic\s+(?:activity|performance|test)'
+    r'|(?:Quantum\s+)?(?:Efficiency|yield)\s+(?:measurement|test)'
+    r'|(?:Water\s+)?(?:Contact\s+angle|Wettability)\b'
+    r'|Nitrogen\s+(?:fixation|reduction)\s+(?:measurement|test|experiment)'
+    r')',
+    re.IGNORECASE | re.MULTILINE,
+)
+
+
 def clean_extracted_text(text: str) -> str:
-    """Clean extracted text for LLM processing."""
+    """Fix PDF artifacts; produce human-readable text."""
     if not text:
         return ""
-    
-    # Remove excessive whitespace
-    text = re.sub(r'\n{3,}', '\n\n', text)
-    text = re.sub(r' {2,}', ' ', text)
-    
-    # Remove page numbers (common patterns)
-    text = re.sub(r'\n\s*\d+\s*\n', '\n', text)
-    text = re.sub(r'\n\s*Page\s+\d+\s*\n', '\n', text, flags=re.IGNORECASE)
-    
-    # Remove common artifacts
-    text = re.sub(r'\(cid:\d+\)', '', text)  # PDF encoding artifacts
-    
-    # Remove URLs and DOIs (not needed for synthesis)
+
+    # ── Ligatures ──
+    text = text.translate(_LIGATURE_MAP)
+
+    # ── Soft hyphens ──
+    text = text.replace('\xad', '')
+
+    # ── Degree symbol variants ──
+    text = text.replace('℃', '°C')
+
+    # ── Join mid-word line breaks (e.g. "synthe-\nsized" → "synthesized") ──
+    text = re.sub(r'(\w)-\s*\n\s*(\w)', r'\1\2', text)
+
+    # ── (cid:XX) PDF encoding artifacts ──
+    text = re.sub(r'\(cid:\d+\)', '', text)
+
+    # ── Inline citation brackets [1], [2,3], [12-15] ──
+    text = re.sub(r'\s*\[\d+(?:[,\-–]\s*\d+)*\]', '', text)
+
+    # ── Inline figure/scheme refs "(Fig. 1a)", "(Scheme 1)" ──
+    text = re.sub(r'\s*\((?:Fig\.|Figure|Scheme|Table)\s*\d+[a-z]?\)', '', text, flags=re.IGNORECASE)
+    text = re.sub(r'\s*\((?:Fig\.|Figure|Scheme|Table)\s*S?\d+[a-z]?\)', '', text, flags=re.IGNORECASE)
+
+    # ── URLs and DOIs ──
     text = re.sub(r'https?://\S+', '', text)
     text = re.sub(r'doi:\s*\S+', '', text, flags=re.IGNORECASE)
-    
+
+    # ── Page numbers ──
+    text = re.sub(r'\n\s*\d+\s*\n', '\n', text)
+    text = re.sub(r'\n\s*Page\s+\d+\s*\n', '\n', text, flags=re.IGNORECASE)
+
+    # ── Whitespace normalisation ──
+    text = re.sub(r'\n{3,}', '\n\n', text)
+    text = re.sub(r' {2,}', ' ', text)
+
     return text.strip()
+
+
+def trim_to_synthesis(text: str) -> str:
+    """Remove characterisation / photocatalytic / DFT subsections.
+
+    Keeps everything from the start up to the first non-synthesis
+    subsection header.  The match is done line-by-line to avoid
+    false positives on mid-sentence occurrences like
+    "characterization revealed that...".
+    """
+    if not text:
+        return ""
+
+    lines = text.split('\n')
+    for i, line in enumerate(lines):
+        stripped = line.strip()
+        if not stripped or len(stripped) > 150:
+            continue
+        # Skip headers that combine synthesis + characterization
+        # e.g. "2.1. Preparation and characterization of SCNNSs"
+        if re.search(r'(?:preparation|synthesis)\s+and\s+characterization',
+                      stripped, re.IGNORECASE):
+            continue
+        if _TRIM_HEADERS.match(stripped):
+            trimmed = '\n'.join(lines[:i]).rstrip()
+            if len(trimmed.split()) >= 30:
+                return trimmed
+    return text
+
+
+def _try_si_extraction(pdf_path: str, main_text: str, main_pages: List[str]) -> Optional[str]:
+    """Try to extract experimental section from a supplementary PDF in the same folder."""
+    pdf_dir = Path(pdf_path).parent
+    stem = Path(pdf_path).stem
+    si_candidates = list(pdf_dir.glob(f'{stem}_sup*')) + list(pdf_dir.glob(f'{stem}_si*'))
+    if not si_candidates:
+        # Try broader patterns
+        si_candidates = [p for p in pdf_dir.glob('*_sup*.pdf')] + \
+                        [p for p in pdf_dir.glob('*_si*.pdf')] + \
+                        [p for p in pdf_dir.glob('*supporting*.pdf')]
+    for si_path in si_candidates:
+        si_text, si_pages, _ = extract_text(str(si_path))
+        if not si_text.strip():
+            continue
+        start, end, header, conf, notes = find_section_boundaries(si_text, si_pages)
+        if start is not None:
+            return si_text[start:end]
+        # If no header found in SI, try paragraph fallback on SI text
+        fallback = _extract_synthesis_paragraphs(si_text)
+        if fallback:
+            return fallback
+    return None
 
 
 def extract_experimental_section(pdf_path: str, metadata: Dict) -> ExtractionResult:
@@ -484,6 +713,7 @@ def extract_experimental_section(pdf_path: str, metadata: Dict) -> ExtractionRes
             folder=folder,
             title=title,
             experimental_text=None,
+            experimental_text_raw=None,
             section_header=None,
             start_page=None,
             end_page=None,
@@ -494,15 +724,53 @@ def extract_experimental_section(pdf_path: str, metadata: Dict) -> ExtractionRes
             notes="Failed to extract text from PDF"
         )
     
-    # Find experimental section
-    start_pos, end_pos, section_header, confidence, section_notes = find_section_boundaries(full_text, pages)
-    
-    if start_pos is None:
+    if is_broken_pdf(full_text, len(pages)):
         return ExtractionResult(
             filename=filename,
             folder=folder,
             title=title,
             experimental_text=None,
+            experimental_text_raw=None,
+            section_header=None,
+            start_page=None,
+            end_page=None,
+            char_count=0,
+            word_count=0,
+            extraction_method=method,
+            confidence="none",
+            notes="Broken PDF (download error / paywall page)"
+        )
+    
+    # Find experimental section
+    start_pos, end_pos, section_header, confidence, section_notes = find_section_boundaries(full_text, pages)
+    
+    if start_pos is None:
+        # Paragraph-level fallback: extract synthesis-describing paragraphs
+        fallback_text = _extract_synthesis_paragraphs(full_text)
+        if fallback_text:
+            fallback_text = clean_extracted_text(fallback_text)
+            wc = len(fallback_text.split())
+            return ExtractionResult(
+                filename=filename,
+                folder=folder,
+                title=title,
+                experimental_text=fallback_text,
+                experimental_text_raw=fallback_text,
+                section_header="(paragraph fallback)",
+                start_page=None,
+                end_page=None,
+                char_count=len(fallback_text),
+                word_count=wc,
+                extraction_method=method + "+paragraph_fallback",
+                confidence="low" if wc < 100 else "medium",
+                notes="No section header; synthesis paragraphs extracted by keyword"
+            )
+        return ExtractionResult(
+            filename=filename,
+            folder=folder,
+            title=title,
+            experimental_text=None,
+            experimental_text_raw=None,
             section_header=None,
             start_page=None,
             end_page=None,
@@ -517,10 +785,30 @@ def extract_experimental_section(pdf_path: str, metadata: Dict) -> ExtractionRes
     experimental_text = full_text[start_pos:end_pos]
     experimental_text = clean_extracted_text(experimental_text)
     
+    # SI fallback: if main text is very short and redirects to SI,
+    # try to find a supplementary PDF in the same folder
+    word_count = len(experimental_text.split())
+    if word_count < 80 and check_si_redirect(experimental_text):
+        si_text = _try_si_extraction(pdf_path, full_text, pages)
+        if si_text:
+            si_text = clean_extracted_text(si_text)
+            si_wc = len(si_text.split())
+            if si_wc > word_count:
+                experimental_text = experimental_text + "\n\n--- From Supporting Information ---\n\n" + si_text
+                word_count = len(experimental_text.split())
+                confidence = "medium"
+                section_notes = "Main text + SI extraction"
+    
+    # Store raw (cleaned but not trimmed) for comparison
+    raw_text = experimental_text
+    
+    # Trim non-synthesis subsections (characterisation, photocatalytic, DFT)
+    experimental_text = trim_to_synthesis(experimental_text)
+    
     # Find page numbers
     start_page, end_page = find_page_numbers(full_text, start_pos, end_pos or len(full_text), pages)
     
-    # Calculate stats
+    # Stats reflect the trimmed version (what the LLM sees)
     char_count = len(experimental_text)
     word_count = len(experimental_text.split())
     
@@ -529,6 +817,7 @@ def extract_experimental_section(pdf_path: str, metadata: Dict) -> ExtractionRes
         folder=folder,
         title=title,
         experimental_text=experimental_text,
+        experimental_text_raw=raw_text,
         section_header=section_header,
         start_page=start_page,
         end_page=end_page,
@@ -621,6 +910,12 @@ def main():
             print("SKIPPED (duplicate)")
             continue
         
+        # Skip folders that are expected to have no experimental section
+        folder_name = pdf_path.parent.name.lower()
+        if folder_name in SKIP_FOLDERS:
+            print(f"SKIPPED ({folder_name} folder)")
+            continue
+        
         # Extract experimental section
         result = extract_experimental_section(str(pdf_path), file_metadata)
         results.append(result)
@@ -658,29 +953,46 @@ def main():
         'articles': []
     }
     
+    total_raw_words = 0
+    total_trimmed_words = 0
     for result in results:
+        raw = result.experimental_text_raw or ""
+        trimmed = result.experimental_text or ""
+        raw_wc = len(raw.split()) if raw else 0
+        trimmed_wc = len(trimmed.split()) if trimmed else 0
+        total_raw_words += raw_wc
+        total_trimmed_words += trimmed_wc
         article_entry = {
             'id': f"{result.folder}/{result.filename}",
             'filename': result.filename,
             'folder': result.folder,
             'title': result.title,
-            'experimental_text': result.experimental_text if result.experimental_text else "",
+            'experimental_text': trimmed,
+            'experimental_text_raw': raw,
             'section_header': result.section_header if result.section_header else "",
-            'word_count': result.word_count,
+            'word_count': trimmed_wc,
+            'word_count_raw': raw_wc,
             'confidence': result.confidence,
             'notes': result.notes,
             'manual_entry': result.confidence in ['none', 'low']
         }
         json_data['articles'].append(article_entry)
     
+    saved_words = total_raw_words - total_trimmed_words
+    json_data['metadata']['total_words_raw'] = total_raw_words
+    json_data['metadata']['total_words_trimmed'] = total_trimmed_words
+    json_data['metadata']['words_saved_by_trimming'] = saved_words
+    
     with open(output_json, 'w', encoding='utf-8') as f:
         json.dump(json_data, f, ensure_ascii=False, indent=2)
     
-    print(f"\nJSON saved to: {output_json}")
+    print(f"\nSynthesis trimming: {total_raw_words} → {total_trimmed_words} words "
+          f"(saved {saved_words} words, {100*saved_words/max(total_raw_words,1):.0f}%)")
+    print(f"JSON saved to: {output_json}")
     
     # CSV summary
     df = pd.DataFrame([asdict(r) for r in results])
-    df = df.drop(columns=['experimental_text'])  # Don't include full text in CSV
+    df = df.drop(columns=['experimental_text', 'experimental_text_raw'])
     df.to_csv(output_csv, index=False, encoding='utf-8')
     
     print(f"CSV summary saved to: {output_csv}")

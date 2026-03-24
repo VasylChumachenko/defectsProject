@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "total_articles": 52,
-    "total_samples": 219,
-    "file_matches": 139,
+    "total_articles": 53,
+    "total_samples": 225,
+    "file_matches": 225,
     "backend": "openai",
-    "model": "gpt-4o"
+    "model": "gpt-4o-mini"
   },
   "samples": [
     {
@@ -20,8 +20,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 600,
-      "heating_rate_C_min": null,
+      "temperature_C": 600.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -39,7 +39,7 @@
       "drs_instrument": "Shimadzu, UV-2450",
       "general_notes": "The synthesis involves thermal polymerization of dicyandiamide with a two-step calcination process for defect introduction.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_003.pdf",
@@ -54,8 +54,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 530,
-      "heating_rate_C_min": 5,
+      "temperature_C": 530.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -73,7 +73,7 @@
       "drs_instrument": "Shimadzu, UV-2450",
       "general_notes": "The synthesis involves thermal polymerization of dicyandiamide with a two-step calcination process for defect introduction.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_004.pdf",
@@ -83,13 +83,13 @@
       "sample_index": 1,
       "total_samples": 2,
       "sample_name": "pristine g-C3N4",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "reference",
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "gt8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -107,7 +107,7 @@
       "drs_instrument": "TU-1901, China",
       "general_notes": "The study focuses on enhancing photocatalytic H2 generation by introducing carbon vacancies in g-C3N4 using magnesium vapor etching.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_004.pdf",
@@ -122,8 +122,8 @@
       "co_precursor": "magnesium",
       "dopant_element": "none",
       "synthesis_method": "other",
-      "temperature_C": 675,
-      "heating_rate_C_min": 10,
+      "temperature_C": 675.0,
+      "heating_rate_C_min": 10.0,
       "duration_bin": "lt2h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -141,7 +141,7 @@
       "drs_instrument": "TU-1901, China",
       "general_notes": "The study focuses on enhancing photocatalytic H2 generation by introducing carbon vacancies in g-C3N4 using magnesium vapor etching.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_007.pdf",
@@ -151,13 +151,13 @@
       "sample_index": 1,
       "total_samples": 8,
       "sample_name": "CN-D",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "reference",
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 3,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 3.0,
       "duration_bin": "4_8h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -175,7 +175,7 @@
       "drs_instrument": "U-3900 UV–vis spectrophotometer",
       "general_notes": "The synthesis involves thermal polymerization of various precursors with sulfur doping and carbon vacancies introduced through the use of ammonium thiocyanate and other sulfur-containing compounds.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_007.pdf",
@@ -185,13 +185,13 @@
       "sample_index": 2,
       "total_samples": 8,
       "sample_name": "CN-T",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "reference",
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 3,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 3.0,
       "duration_bin": "4_8h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -209,7 +209,7 @@
       "drs_instrument": "U-3900 UV–vis spectrophotometer",
       "general_notes": "The synthesis involves thermal polymerization of various precursors with sulfur doping and carbon vacancies introduced through the use of ammonium thiocyanate and other sulfur-containing compounds.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_007.pdf",
@@ -219,13 +219,13 @@
       "sample_index": 3,
       "total_samples": 8,
       "sample_name": "CN-M",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "reference",
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 3,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 3.0,
       "duration_bin": "4_8h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -243,7 +243,7 @@
       "drs_instrument": "U-3900 UV–vis spectrophotometer",
       "general_notes": "The synthesis involves thermal polymerization of various precursors with sulfur doping and carbon vacancies introduced through the use of ammonium thiocyanate and other sulfur-containing compounds.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_007.pdf",
@@ -258,8 +258,8 @@
       "co_precursor": "none",
       "dopant_element": "S",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 3,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 3.0,
       "duration_bin": "4_8h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -277,7 +277,7 @@
       "drs_instrument": "U-3900 UV–vis spectrophotometer",
       "general_notes": "The synthesis involves thermal polymerization of various precursors with sulfur doping and carbon vacancies introduced through the use of ammonium thiocyanate and other sulfur-containing compounds.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_007.pdf",
@@ -292,8 +292,8 @@
       "co_precursor": "ammonium sulfate",
       "dopant_element": "S",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 3,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 3.0,
       "duration_bin": "4_8h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -311,7 +311,7 @@
       "drs_instrument": "U-3900 UV–vis spectrophotometer",
       "general_notes": "The synthesis involves thermal polymerization of various precursors with sulfur doping and carbon vacancies introduced through the use of ammonium thiocyanate and other sulfur-containing compounds.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_007.pdf",
@@ -326,8 +326,8 @@
       "co_precursor": "ammonium thiosulfate",
       "dopant_element": "S",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 3,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 3.0,
       "duration_bin": "4_8h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -345,7 +345,7 @@
       "drs_instrument": "U-3900 UV–vis spectrophotometer",
       "general_notes": "The synthesis involves thermal polymerization of various precursors with sulfur doping and carbon vacancies introduced through the use of ammonium thiocyanate and other sulfur-containing compounds.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_007.pdf",
@@ -360,8 +360,8 @@
       "co_precursor": "ammonium thiosulfate",
       "dopant_element": "S",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 3,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 3.0,
       "duration_bin": "4_8h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -379,7 +379,7 @@
       "drs_instrument": "U-3900 UV–vis spectrophotometer",
       "general_notes": "The synthesis involves thermal polymerization of various precursors with sulfur doping and carbon vacancies introduced through the use of ammonium thiocyanate and other sulfur-containing compounds.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_007.pdf",
@@ -394,8 +394,8 @@
       "co_precursor": "ammonium thiosulfate",
       "dopant_element": "S",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 3,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 3.0,
       "duration_bin": "4_8h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -413,7 +413,7 @@
       "drs_instrument": "U-3900 UV–vis spectrophotometer",
       "general_notes": "The synthesis involves thermal polymerization of various precursors with sulfur doping and carbon vacancies introduced through the use of ammonium thiocyanate and other sulfur-containing compounds.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_010.pdf",
@@ -428,8 +428,8 @@
       "co_precursor": "cyanuric acid",
       "dopant_element": "none",
       "synthesis_method": "supramolecular",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "4_8h",
       "atmosphere": "air",
       "pre_treatment": "mixing with ethanol",
@@ -447,7 +447,7 @@
       "drs_instrument": "Shimadzu UV-2550",
       "general_notes": "The study focuses on the synthesis of ultrathin g-C3N4 nanosheets and bulk g-C3N4 using melamine and cyanuric acid as precursors, with a focus on photocatalytic NO reduction.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_010.pdf",
@@ -462,8 +462,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "4_8h",
       "atmosphere": "air",
       "pre_treatment": "mixing with ethanol",
@@ -481,7 +481,7 @@
       "drs_instrument": "Shimadzu UV-2550",
       "general_notes": "The study focuses on the synthesis of ultrathin g-C3N4 nanosheets and bulk g-C3N4 using melamine and cyanuric acid as precursors, with a focus on photocatalytic NO reduction.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_012.pdf",
@@ -491,13 +491,13 @@
       "sample_index": 1,
       "total_samples": 6,
       "sample_name": "TN 400",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "urea",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 400,
-      "heating_rate_C_min": 5,
+      "temperature_C": 400.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "N2",
       "pre_treatment": "hydrothermal",
@@ -515,7 +515,7 @@
       "drs_instrument": "Shimadzu UV-3600",
       "general_notes": "The synthesis involves a hydrothermal pre-treatment followed by calcination under nitrogen atmosphere to introduce carbon vacancies in tubular g-C3N4.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_012.pdf",
@@ -525,13 +525,13 @@
       "sample_index": 2,
       "total_samples": 6,
       "sample_name": "TN 450",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "urea",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 450,
-      "heating_rate_C_min": 5,
+      "temperature_C": 450.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "N2",
       "pre_treatment": "hydrothermal",
@@ -549,7 +549,7 @@
       "drs_instrument": "Shimadzu UV-3600",
       "general_notes": "The synthesis involves a hydrothermal pre-treatment followed by calcination under nitrogen atmosphere to introduce carbon vacancies in tubular g-C3N4.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_012.pdf",
@@ -564,8 +564,8 @@
       "co_precursor": "urea",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 500,
-      "heating_rate_C_min": 5,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "N2",
       "pre_treatment": "hydrothermal",
@@ -583,7 +583,7 @@
       "drs_instrument": "Shimadzu UV-3600",
       "general_notes": "The synthesis involves a hydrothermal pre-treatment followed by calcination under nitrogen atmosphere to introduce carbon vacancies in tubular g-C3N4.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_012.pdf",
@@ -593,13 +593,13 @@
       "sample_index": 4,
       "total_samples": 6,
       "sample_name": "TN 550",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "urea",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "N2",
       "pre_treatment": "hydrothermal",
@@ -617,7 +617,7 @@
       "drs_instrument": "Shimadzu UV-3600",
       "general_notes": "The synthesis involves a hydrothermal pre-treatment followed by calcination under nitrogen atmosphere to introduce carbon vacancies in tubular g-C3N4.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_012.pdf",
@@ -627,13 +627,13 @@
       "sample_index": 5,
       "total_samples": 6,
       "sample_name": "TN 600",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "urea",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 600,
-      "heating_rate_C_min": 5,
+      "temperature_C": 600.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "N2",
       "pre_treatment": "hydrothermal",
@@ -651,7 +651,7 @@
       "drs_instrument": "Shimadzu UV-3600",
       "general_notes": "The synthesis involves a hydrothermal pre-treatment followed by calcination under nitrogen atmosphere to introduce carbon vacancies in tubular g-C3N4.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_012.pdf",
@@ -666,8 +666,8 @@
       "co_precursor": "urea",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 500,
-      "heating_rate_C_min": null,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "4_8h",
       "atmosphere": "air",
       "pre_treatment": "hydrothermal",
@@ -685,7 +685,7 @@
       "drs_instrument": "Shimadzu UV-3600",
       "general_notes": "The synthesis involves a hydrothermal pre-treatment followed by calcination under nitrogen atmosphere to introduce carbon vacancies in tubular g-C3N4.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_013.pdf",
@@ -695,13 +695,13 @@
       "sample_index": 1,
       "total_samples": 4,
       "sample_name": "IO CN-Cv",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "SiO2 PCs",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "4_8h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -719,7 +719,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on the synthesis of g-C3N4 with carbon vacancies using silica templates and thermal polymerization methods.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_013.pdf",
@@ -734,8 +734,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "4_8h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -753,7 +753,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on the synthesis of g-C3N4 with carbon vacancies using silica templates and thermal polymerization methods.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_013.pdf",
@@ -768,8 +768,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "4_8h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -787,7 +787,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on the synthesis of g-C3N4 with carbon vacancies using silica templates and thermal polymerization methods.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_013.pdf",
@@ -797,13 +797,13 @@
       "sample_index": 4,
       "total_samples": 4,
       "sample_name": "Nanosheet CN",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "modified",
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 500,
-      "heating_rate_C_min": null,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -821,7 +821,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on the synthesis of g-C3N4 with carbon vacancies using silica templates and thermal polymerization methods.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_014.pdf",
@@ -836,8 +836,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 560,
-      "heating_rate_C_min": 5,
+      "temperature_C": 560.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -855,7 +855,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study involves plasma treatment to introduce carboxyl defects in g-C3N4 for enhanced photocatalytic activity.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_014.pdf",
@@ -870,8 +870,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "other",
-      "temperature_C": null,
-      "heating_rate_C_min": null,
+      "temperature_C": NaN,
+      "heating_rate_C_min": NaN,
       "duration_bin": "lt2h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -889,7 +889,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study involves plasma treatment to introduce carboxyl defects in g-C3N4 for enhanced photocatalytic activity.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_015.pdf",
@@ -899,13 +899,13 @@
       "sample_index": 1,
       "total_samples": 3,
       "sample_name": "0.05 OA-CN",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "modified",
       "co_precursor": "oxyacetic acid",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 540,
-      "heating_rate_C_min": 3,
+      "temperature_C": 540.0,
+      "heating_rate_C_min": 3.0,
       "duration_bin": "lt2h",
       "atmosphere": "unknown",
       "pre_treatment": "grinding",
@@ -923,7 +923,7 @@
       "drs_instrument": "unknown",
       "general_notes": "Synthesis involves thermal polymerization of urea with additives to create C-defective and porous g-C3N4.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_015.pdf",
@@ -938,8 +938,8 @@
       "co_precursor": "urea nitrate",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 540,
-      "heating_rate_C_min": 3,
+      "temperature_C": 540.0,
+      "heating_rate_C_min": 3.0,
       "duration_bin": "lt2h",
       "atmosphere": "unknown",
       "pre_treatment": "grinding",
@@ -957,7 +957,7 @@
       "drs_instrument": "unknown",
       "general_notes": "Synthesis involves thermal polymerization of urea with additives to create C-defective and porous g-C3N4.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_015.pdf",
@@ -967,13 +967,13 @@
       "sample_index": 3,
       "total_samples": 3,
       "sample_name": "0.05 OA-UN-CN",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "modified",
       "co_precursor": "oxyacetic acid",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 540,
-      "heating_rate_C_min": 3,
+      "temperature_C": 540.0,
+      "heating_rate_C_min": 3.0,
       "duration_bin": "lt2h",
       "atmosphere": "unknown",
       "pre_treatment": "grinding",
@@ -991,7 +991,7 @@
       "drs_instrument": "unknown",
       "general_notes": "Synthesis involves thermal polymerization of urea with additives to create C-defective and porous g-C3N4.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_016.pdf",
@@ -1001,13 +1001,13 @@
       "sample_index": 1,
       "total_samples": 4,
       "sample_name": "S-PDCN-x",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "doped",
       "co_precursor": "cyanuric acid",
       "dopant_element": "S",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -1025,7 +1025,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal polycondensation of melamine and cyanuric acid, with thiourea used for S-doping.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_016.pdf",
@@ -1040,8 +1040,8 @@
       "co_precursor": "cyanuric acid",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -1059,7 +1059,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal polycondensation of melamine and cyanuric acid, with thiourea used for S-doping.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_016.pdf",
@@ -1074,8 +1074,8 @@
       "co_precursor": "none",
       "dopant_element": "S",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -1093,7 +1093,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal polycondensation of melamine and cyanuric acid, with thiourea used for S-doping.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cdefects/cdefects_016.pdf",
@@ -1108,8 +1108,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -1127,7 +1127,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal polycondensation of melamine and cyanuric acid, with thiourea used for S-doping.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_004.pdf",
@@ -1137,13 +1137,13 @@
       "sample_index": 1,
       "total_samples": 4,
       "sample_name": "g-C3N4",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "reference",
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 600,
-      "heating_rate_C_min": 5,
+      "temperature_C": 600.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -1161,7 +1161,7 @@
       "drs_instrument": "Shimadzu, Japan",
       "general_notes": "The study involves the synthesis of Ba2+ doped g-C3N4 with cyano group defects for enhanced photocatalytic activity in hydrogen production and wastewater degradation.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_004.pdf",
@@ -1176,8 +1176,8 @@
       "co_precursor": "BaCl2",
       "dopant_element": "Ba",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 600,
-      "heating_rate_C_min": 5,
+      "temperature_C": 600.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "sonication",
@@ -1195,7 +1195,7 @@
       "drs_instrument": "Shimadzu, Japan",
       "general_notes": "The study involves the synthesis of Ba2+ doped g-C3N4 with cyano group defects for enhanced photocatalytic activity in hydrogen production and wastewater degradation.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_004.pdf",
@@ -1205,13 +1205,13 @@
       "sample_index": 3,
       "total_samples": 4,
       "sample_name": "7%-BaCN-C3N4",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "doped",
       "co_precursor": "BaCl2",
       "dopant_element": "Ba",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 600,
-      "heating_rate_C_min": 5,
+      "temperature_C": 600.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "sonication",
@@ -1229,7 +1229,7 @@
       "drs_instrument": "Shimadzu, Japan",
       "general_notes": "The study involves the synthesis of Ba2+ doped g-C3N4 with cyano group defects for enhanced photocatalytic activity in hydrogen production and wastewater degradation.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_004.pdf",
@@ -1239,13 +1239,13 @@
       "sample_index": 4,
       "total_samples": 4,
       "sample_name": "9%-BaCN-C3N4",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "doped",
       "co_precursor": "BaCl2",
       "dopant_element": "Ba",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 600,
-      "heating_rate_C_min": 5,
+      "temperature_C": 600.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "sonication",
@@ -1263,7 +1263,7 @@
       "drs_instrument": "Shimadzu, Japan",
       "general_notes": "The study involves the synthesis of Ba2+ doped g-C3N4 with cyano group defects for enhanced photocatalytic activity in hydrogen production and wastewater degradation.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_007.pdf",
@@ -1278,8 +1278,8 @@
       "co_precursor": "CaH2",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "4_8h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -1297,7 +1297,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on CaH2-assisted structural engineering to create porous defective g-C3N4 for enhanced photocatalytic hydrogen evolution.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_007.pdf",
@@ -1312,8 +1312,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "4_8h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -1331,7 +1331,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on CaH2-assisted structural engineering to create porous defective g-C3N4 for enhanced photocatalytic hydrogen evolution.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_007.pdf",
@@ -1346,8 +1346,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "4_8h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -1365,7 +1365,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on CaH2-assisted structural engineering to create porous defective g-C3N4 for enhanced photocatalytic hydrogen evolution.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_010.pdf",
@@ -1375,13 +1375,13 @@
       "sample_index": 1,
       "total_samples": 5,
       "sample_name": "MS-450",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "modified",
       "co_precursor": "LiCl and KCl",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 450,
-      "heating_rate_C_min": 5,
+      "temperature_C": 450.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "grinding",
@@ -1399,7 +1399,7 @@
       "drs_instrument": "UV-2550PC spectrophotometer (Shimadzu Corporation, Japan)",
       "general_notes": "The study involves the synthesis of g-C3N4 using a eutectic mixture as a template to modify the structure and properties of the material.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_010.pdf",
@@ -1414,8 +1414,8 @@
       "co_precursor": "LiCl and KCl",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 500,
-      "heating_rate_C_min": 5,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "grinding",
@@ -1433,7 +1433,7 @@
       "drs_instrument": "UV-2550PC spectrophotometer (Shimadzu Corporation, Japan)",
       "general_notes": "The study involves the synthesis of g-C3N4 using a eutectic mixture as a template to modify the structure and properties of the material.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_010.pdf",
@@ -1443,13 +1443,13 @@
       "sample_index": 3,
       "total_samples": 5,
       "sample_name": "MS-550",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "modified",
       "co_precursor": "LiCl and KCl",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "grinding",
@@ -1467,7 +1467,7 @@
       "drs_instrument": "UV-2550PC spectrophotometer (Shimadzu Corporation, Japan)",
       "general_notes": "The study involves the synthesis of g-C3N4 using a eutectic mixture as a template to modify the structure and properties of the material.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_010.pdf",
@@ -1482,8 +1482,8 @@
       "co_precursor": "LiCl and KCl",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 600,
-      "heating_rate_C_min": 5,
+      "temperature_C": 600.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "grinding",
@@ -1501,7 +1501,7 @@
       "drs_instrument": "UV-2550PC spectrophotometer (Shimadzu Corporation, Japan)",
       "general_notes": "The study involves the synthesis of g-C3N4 using a eutectic mixture as a template to modify the structure and properties of the material.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_010.pdf",
@@ -1511,13 +1511,13 @@
       "sample_index": 5,
       "total_samples": 5,
       "sample_name": "B-CN",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "reference",
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 520,
-      "heating_rate_C_min": 5,
+      "temperature_C": 520.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -1535,7 +1535,7 @@
       "drs_instrument": "UV-2550PC spectrophotometer (Shimadzu Corporation, Japan)",
       "general_notes": "The study involves the synthesis of g-C3N4 using a eutectic mixture as a template to modify the structure and properties of the material.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_011.pdf",
@@ -1550,8 +1550,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -1569,7 +1569,7 @@
       "drs_instrument": "Shimadzu UV-2550",
       "general_notes": "The synthesis involves thermal polycondensation of urea and dicyandiamide, followed by doping with phosphorus using NaH2PO2 under Ar atmosphere.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_011.pdf",
@@ -1584,8 +1584,8 @@
       "co_precursor": "NaH2PO2",
       "dopant_element": "P",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 300,
-      "heating_rate_C_min": 10,
+      "temperature_C": 300.0,
+      "heating_rate_C_min": 10.0,
       "duration_bin": "lt2h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -1603,7 +1603,7 @@
       "drs_instrument": "Shimadzu UV-2550",
       "general_notes": "The synthesis involves thermal polycondensation of urea and dicyandiamide, followed by doping with phosphorus using NaH2PO2 under Ar atmosphere.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_011.pdf",
@@ -1618,8 +1618,8 @@
       "co_precursor": "NaH2PO2",
       "dopant_element": "P",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 350,
-      "heating_rate_C_min": 10,
+      "temperature_C": 350.0,
+      "heating_rate_C_min": 10.0,
       "duration_bin": "lt2h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -1637,7 +1637,7 @@
       "drs_instrument": "Shimadzu UV-2550",
       "general_notes": "The synthesis involves thermal polycondensation of urea and dicyandiamide, followed by doping with phosphorus using NaH2PO2 under Ar atmosphere.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_011.pdf",
@@ -1652,8 +1652,8 @@
       "co_precursor": "NaH2PO2",
       "dopant_element": "P",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 400,
-      "heating_rate_C_min": 10,
+      "temperature_C": 400.0,
+      "heating_rate_C_min": 10.0,
       "duration_bin": "lt2h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -1671,7 +1671,7 @@
       "drs_instrument": "Shimadzu UV-2550",
       "general_notes": "The synthesis involves thermal polycondensation of urea and dicyandiamide, followed by doping with phosphorus using NaH2PO2 under Ar atmosphere.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_011.pdf",
@@ -1686,8 +1686,8 @@
       "co_precursor": "NaH2PO2",
       "dopant_element": "P",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 425,
-      "heating_rate_C_min": 10,
+      "temperature_C": 425.0,
+      "heating_rate_C_min": 10.0,
       "duration_bin": "lt2h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -1705,7 +1705,7 @@
       "drs_instrument": "Shimadzu UV-2550",
       "general_notes": "The synthesis involves thermal polycondensation of urea and dicyandiamide, followed by doping with phosphorus using NaH2PO2 under Ar atmosphere.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_013.pdf",
@@ -1715,13 +1715,13 @@
       "sample_index": 1,
       "total_samples": 6,
       "sample_name": "SiO2/g-C3N4",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "modified",
       "co_precursor": "silicon dioxide",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -1739,7 +1739,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal polymerization with templates and molten salts to create porous g-C3N4 structures.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_013.pdf",
@@ -1749,13 +1749,13 @@
       "sample_index": 2,
       "total_samples": 6,
       "sample_name": "mDCN-M-1",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "modified",
       "co_precursor": "KCl and LiCl",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "N2",
       "pre_treatment": "grinding with molten salt",
@@ -1773,7 +1773,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal polymerization with templates and molten salts to create porous g-C3N4 structures.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_013.pdf",
@@ -1783,13 +1783,13 @@
       "sample_index": 3,
       "total_samples": 6,
       "sample_name": "mDCN-M-2",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "modified",
       "co_precursor": "KCl and LiCl",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "N2",
       "pre_treatment": "grinding with molten salt",
@@ -1807,7 +1807,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal polymerization with templates and molten salts to create porous g-C3N4 structures.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_013.pdf",
@@ -1817,13 +1817,13 @@
       "sample_index": 4,
       "total_samples": 6,
       "sample_name": "mDCN-M-3",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "modified",
       "co_precursor": "KCl and LiCl",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "N2",
       "pre_treatment": "grinding with molten salt",
@@ -1841,7 +1841,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal polymerization with templates and molten salts to create porous g-C3N4 structures.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_013.pdf",
@@ -1851,13 +1851,13 @@
       "sample_index": 5,
       "total_samples": 6,
       "sample_name": "mDCN",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "modified",
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -1875,7 +1875,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal polymerization with templates and molten salts to create porous g-C3N4 structures.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_013.pdf",
@@ -1890,8 +1890,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -1909,7 +1909,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal polymerization with templates and molten salts to create porous g-C3N4 structures.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_014.pdf",
@@ -1924,8 +1924,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 1,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 1.0,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -1943,7 +1943,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on the synthesis of defective g-C3N4 using NaBH4 reduction for enhanced H2 production.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_014.pdf",
@@ -1953,13 +1953,13 @@
       "sample_index": 2,
       "total_samples": 5,
       "sample_name": "DCN-1",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "NaBH4",
       "dopant_element": "none",
       "synthesis_method": "other",
-      "temperature_C": 300,
-      "heating_rate_C_min": null,
+      "temperature_C": 300.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "lt2h",
       "atmosphere": "unknown",
       "pre_treatment": "grinding",
@@ -1977,7 +1977,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on the synthesis of defective g-C3N4 using NaBH4 reduction for enhanced H2 production.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_014.pdf",
@@ -1987,13 +1987,13 @@
       "sample_index": 3,
       "total_samples": 5,
       "sample_name": "DCN-2",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "NaBH4",
       "dopant_element": "none",
       "synthesis_method": "other",
-      "temperature_C": 300,
-      "heating_rate_C_min": null,
+      "temperature_C": 300.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "lt2h",
       "atmosphere": "unknown",
       "pre_treatment": "grinding",
@@ -2011,7 +2011,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on the synthesis of defective g-C3N4 using NaBH4 reduction for enhanced H2 production.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_014.pdf",
@@ -2026,8 +2026,8 @@
       "co_precursor": "NaBH4",
       "dopant_element": "none",
       "synthesis_method": "other",
-      "temperature_C": 300,
-      "heating_rate_C_min": null,
+      "temperature_C": 300.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "lt2h",
       "atmosphere": "unknown",
       "pre_treatment": "grinding",
@@ -2045,7 +2045,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on the synthesis of defective g-C3N4 using NaBH4 reduction for enhanced H2 production.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "cyanodefects/cyanodefects_014.pdf",
@@ -2055,13 +2055,13 @@
       "sample_index": 5,
       "total_samples": 5,
       "sample_name": "DCN-4",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "NaBH4",
       "dopant_element": "none",
       "synthesis_method": "other",
-      "temperature_C": 300,
-      "heating_rate_C_min": null,
+      "temperature_C": 300.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "lt2h",
       "atmosphere": "unknown",
       "pre_treatment": "grinding",
@@ -2079,7 +2079,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on the synthesis of defective g-C3N4 using NaBH4 reduction for enhanced H2 production.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/cdoped_003.pdf",
@@ -2089,13 +2089,13 @@
       "sample_index": 1,
       "total_samples": 4,
       "sample_name": "CN",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "reference",
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 750,
-      "heating_rate_C_min": 5,
+      "temperature_C": 750.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "2_4h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -2113,7 +2113,7 @@
       "drs_instrument": "Hitachi U-4100",
       "general_notes": "The synthesis involves thermal polymerization of melamine with various dopants under an inert argon atmosphere, followed by grinding and further calcination.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/cdoped_003.pdf",
@@ -2128,8 +2128,8 @@
       "co_precursor": "urea",
       "dopant_element": "N",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 750,
-      "heating_rate_C_min": null,
+      "temperature_C": 750.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "Ar",
       "pre_treatment": "freeze-drying",
@@ -2147,7 +2147,7 @@
       "drs_instrument": "Hitachi U-4100",
       "general_notes": "The synthesis involves thermal polymerization of melamine with various dopants under an inert argon atmosphere, followed by grinding and further calcination.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/cdoped_003.pdf",
@@ -2157,13 +2157,13 @@
       "sample_index": 3,
       "total_samples": 4,
       "sample_name": "BCN",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "doped",
       "co_precursor": "barbiturate",
       "dopant_element": "N",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 750,
-      "heating_rate_C_min": null,
+      "temperature_C": 750.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -2181,7 +2181,7 @@
       "drs_instrument": "Hitachi U-4100",
       "general_notes": "The synthesis involves thermal polymerization of melamine with various dopants under an inert argon atmosphere, followed by grinding and further calcination.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/cdoped_003.pdf",
@@ -2191,13 +2191,13 @@
       "sample_index": 4,
       "total_samples": 4,
       "sample_name": "TCN",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "doped",
       "co_precursor": "thiourea",
       "dopant_element": "N",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 750,
-      "heating_rate_C_min": null,
+      "temperature_C": 750.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -2215,7 +2215,7 @@
       "drs_instrument": "Hitachi U-4100",
       "general_notes": "The synthesis involves thermal polymerization of melamine with various dopants under an inert argon atmosphere, followed by grinding and further calcination.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/cdoped_004.pdf",
@@ -2225,13 +2225,13 @@
       "sample_index": 1,
       "total_samples": 1,
       "sample_name": "pristine g-C3N4",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "reference",
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 20,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 20.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -2249,7 +2249,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal polymerization of urea at 550°C for 4 hours to produce pristine g-C3N4.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/codoped_001.pdf",
@@ -2264,8 +2264,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "gt8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -2283,7 +2283,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal polymerization of melamine with metal nitrates as dopant sources, followed by calcination at 550°C.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/codoped_001.pdf",
@@ -2298,8 +2298,8 @@
       "co_precursor": "none",
       "dopant_element": "Fe",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "gt8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -2317,7 +2317,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal polymerization of melamine with metal nitrates as dopant sources, followed by calcination at 550°C.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/codoped_001.pdf",
@@ -2332,8 +2332,8 @@
       "co_precursor": "none",
       "dopant_element": "Co",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "gt8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -2351,7 +2351,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal polymerization of melamine with metal nitrates as dopant sources, followed by calcination at 550°C.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/codoped_001.pdf",
@@ -2366,8 +2366,8 @@
       "co_precursor": "none",
       "dopant_element": "Fe, Co",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "gt8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -2385,7 +2385,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal polymerization of melamine with metal nitrates as dopant sources, followed by calcination at 550°C.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/codoped_002.pdf",
@@ -2400,8 +2400,8 @@
       "co_precursor": "SiO2",
       "dopant_element": "none",
       "synthesis_method": "other",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -2419,7 +2419,7 @@
       "drs_instrument": "Shimadzu UV-2550",
       "general_notes": "The study focuses on the synthesis of alveolate-like g-C3N4 with nitrogen vacancies via cobalt introduction for enhanced photocatalytic hydrogen evolution.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/codoped_002.pdf",
@@ -2434,8 +2434,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -2453,7 +2453,7 @@
       "drs_instrument": "Shimadzu UV-2550",
       "general_notes": "The study focuses on the synthesis of alveolate-like g-C3N4 with nitrogen vacancies via cobalt introduction for enhanced photocatalytic hydrogen evolution.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/codoped_002.pdf",
@@ -2463,13 +2463,13 @@
       "sample_index": 3,
       "total_samples": 6,
       "sample_name": "5% Co/ACN",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "doped",
       "co_precursor": "Co(NO3)2·6H2O",
       "dopant_element": "Co",
       "synthesis_method": "other",
-      "temperature_C": 500,
-      "heating_rate_C_min": null,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "4_8h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -2487,7 +2487,7 @@
       "drs_instrument": "Shimadzu UV-2550",
       "general_notes": "The study focuses on the synthesis of alveolate-like g-C3N4 with nitrogen vacancies via cobalt introduction for enhanced photocatalytic hydrogen evolution.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/codoped_002.pdf",
@@ -2497,13 +2497,13 @@
       "sample_index": 4,
       "total_samples": 6,
       "sample_name": "10% Co/ACN",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "doped",
       "co_precursor": "Co(NO3)2·6H2O",
       "dopant_element": "Co",
       "synthesis_method": "other",
-      "temperature_C": 500,
-      "heating_rate_C_min": null,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "4_8h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -2521,7 +2521,7 @@
       "drs_instrument": "Shimadzu UV-2550",
       "general_notes": "The study focuses on the synthesis of alveolate-like g-C3N4 with nitrogen vacancies via cobalt introduction for enhanced photocatalytic hydrogen evolution.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/codoped_002.pdf",
@@ -2531,13 +2531,13 @@
       "sample_index": 5,
       "total_samples": 6,
       "sample_name": "15% Co/ACN",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "doped",
       "co_precursor": "Co(NO3)2·6H2O",
       "dopant_element": "Co",
       "synthesis_method": "other",
-      "temperature_C": 500,
-      "heating_rate_C_min": null,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "4_8h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -2555,7 +2555,7 @@
       "drs_instrument": "Shimadzu UV-2550",
       "general_notes": "The study focuses on the synthesis of alveolate-like g-C3N4 with nitrogen vacancies via cobalt introduction for enhanced photocatalytic hydrogen evolution.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/codoped_002.pdf",
@@ -2565,13 +2565,13 @@
       "sample_index": 6,
       "total_samples": 6,
       "sample_name": "20% Co/ACN",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "doped",
       "co_precursor": "Co(NO3)2·6H2O",
       "dopant_element": "Co",
       "synthesis_method": "other",
-      "temperature_C": 500,
-      "heating_rate_C_min": null,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "4_8h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -2589,7 +2589,7 @@
       "drs_instrument": "Shimadzu UV-2550",
       "general_notes": "The study focuses on the synthesis of alveolate-like g-C3N4 with nitrogen vacancies via cobalt introduction for enhanced photocatalytic hydrogen evolution.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/cudoped_001.pdf",
@@ -2604,8 +2604,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 10,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 10.0,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -2623,7 +2623,7 @@
       "drs_instrument": "Shimadzu UV-2600",
       "general_notes": "The study uses CO2 plasma immersion to introduce defects and dope g-C3N4 with Cu for enhanced photocatalytic activity.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/cudoped_001.pdf",
@@ -2633,13 +2633,13 @@
       "sample_index": 2,
       "total_samples": 5,
       "sample_name": "CueCNeCO2-3min",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "doped",
       "co_precursor": "CuSO4·5H2O",
       "dopant_element": "Cu",
       "synthesis_method": "other",
-      "temperature_C": null,
-      "heating_rate_C_min": null,
+      "temperature_C": NaN,
+      "heating_rate_C_min": NaN,
       "duration_bin": "lt2h",
       "atmosphere": "CO2",
       "pre_treatment": "none",
@@ -2657,7 +2657,7 @@
       "drs_instrument": "Shimadzu UV-2600",
       "general_notes": "The study uses CO2 plasma immersion to introduce defects and dope g-C3N4 with Cu for enhanced photocatalytic activity.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/cudoped_001.pdf",
@@ -2672,8 +2672,8 @@
       "co_precursor": "CuSO4·5H2O",
       "dopant_element": "Cu",
       "synthesis_method": "other",
-      "temperature_C": null,
-      "heating_rate_C_min": null,
+      "temperature_C": NaN,
+      "heating_rate_C_min": NaN,
       "duration_bin": "lt2h",
       "atmosphere": "CO2",
       "pre_treatment": "none",
@@ -2691,7 +2691,7 @@
       "drs_instrument": "Shimadzu UV-2600",
       "general_notes": "The study uses CO2 plasma immersion to introduce defects and dope g-C3N4 with Cu for enhanced photocatalytic activity.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/cudoped_001.pdf",
@@ -2706,8 +2706,8 @@
       "co_precursor": "CuSO4·5H2O",
       "dopant_element": "Cu",
       "synthesis_method": "other",
-      "temperature_C": null,
-      "heating_rate_C_min": null,
+      "temperature_C": NaN,
+      "heating_rate_C_min": NaN,
       "duration_bin": "lt2h",
       "atmosphere": "CO2",
       "pre_treatment": "none",
@@ -2725,7 +2725,7 @@
       "drs_instrument": "Shimadzu UV-2600",
       "general_notes": "The study uses CO2 plasma immersion to introduce defects and dope g-C3N4 with Cu for enhanced photocatalytic activity.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/cudoped_001.pdf",
@@ -2740,8 +2740,8 @@
       "co_precursor": "CuSO4·5H2O",
       "dopant_element": "Cu",
       "synthesis_method": "other",
-      "temperature_C": null,
-      "heating_rate_C_min": null,
+      "temperature_C": NaN,
+      "heating_rate_C_min": NaN,
       "duration_bin": "lt2h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -2759,7 +2759,7 @@
       "drs_instrument": "Shimadzu UV-2600",
       "general_notes": "The study uses CO2 plasma immersion to introduce defects and dope g-C3N4 with Cu for enhanced photocatalytic activity.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/idoped_001.pdf",
@@ -2774,8 +2774,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -2793,7 +2793,7 @@
       "drs_instrument": "Shimadzu UV-2500",
       "general_notes": "The synthesis involves in-situ decomposition-thermal polymerization of dicyandiamide with KIO3 as a dopant source under nitrogen atmosphere.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/idoped_001.pdf",
@@ -2808,8 +2808,8 @@
       "co_precursor": "KIO3",
       "dopant_element": "I",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -2827,7 +2827,7 @@
       "drs_instrument": "Shimadzu UV-2500",
       "general_notes": "The synthesis involves in-situ decomposition-thermal polymerization of dicyandiamide with KIO3 as a dopant source under nitrogen atmosphere.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/ladoped_001.pdf",
@@ -2842,8 +2842,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "2_4h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -2861,7 +2861,7 @@
       "drs_instrument": "JASCO UV-vis-NIR-V-57",
       "general_notes": "The synthesis involves thermal polymerization of melamine with and without La doping, followed by washing to remove residues.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/ladoped_001.pdf",
@@ -2876,8 +2876,8 @@
       "co_precursor": "none",
       "dopant_element": "La",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "2_4h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -2895,7 +2895,7 @@
       "drs_instrument": "JASCO UV-vis-NIR-V-57",
       "general_notes": "The synthesis involves thermal polymerization of melamine with and without La doping, followed by washing to remove residues.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/nddoped_001.pdf",
@@ -2910,8 +2910,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 7,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 7.0,
       "duration_bin": "4_8h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -2929,7 +2929,7 @@
       "drs_instrument": "Avaspec-3648",
       "general_notes": "The study focuses on the synthesis of g-C3N4 with nitrogen vacancies and hydrogen substitution to modify optoelectronic properties for applications in LEDs and photodetectors.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/nddoped_001.pdf",
@@ -2944,8 +2944,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 530,
-      "heating_rate_C_min": 2,
+      "temperature_C": 530.0,
+      "heating_rate_C_min": 2.0,
       "duration_bin": "4_8h",
       "atmosphere": "H2",
       "pre_treatment": "none",
@@ -2963,7 +2963,7 @@
       "drs_instrument": "Avaspec-3648",
       "general_notes": "The study focuses on the synthesis of g-C3N4 with nitrogen vacancies and hydrogen substitution to modify optoelectronic properties for applications in LEDs and photodetectors.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/nddoped_001.pdf",
@@ -2973,13 +2973,13 @@
       "sample_index": 3,
       "total_samples": 3,
       "sample_name": "gCN",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "reference",
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 7,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 7.0,
       "duration_bin": "4_8h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -2997,7 +2997,7 @@
       "drs_instrument": "Avaspec-3648",
       "general_notes": "The study focuses on the synthesis of g-C3N4 with nitrogen vacancies and hydrogen substitution to modify optoelectronic properties for applications in LEDs and photodetectors.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/odoped_002.pdf",
@@ -3012,7 +3012,7 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
+      "temperature_C": 550.0,
       "heating_rate_C_min": 2.2,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
@@ -3031,7 +3031,7 @@
       "drs_instrument": "UV-2600",
       "general_notes": "The study investigates the effect of oxygen doping on g-C3N4 photocatalysis by varying ultrasonic oxidation times.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/odoped_002.pdf",
@@ -3046,8 +3046,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "other",
-      "temperature_C": null,
-      "heating_rate_C_min": null,
+      "temperature_C": NaN,
+      "heating_rate_C_min": NaN,
       "duration_bin": "lt2h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -3065,7 +3065,7 @@
       "drs_instrument": "UV-2600",
       "general_notes": "The study investigates the effect of oxygen doping on g-C3N4 photocatalysis by varying ultrasonic oxidation times.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/odoped_002.pdf",
@@ -3080,8 +3080,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "other",
-      "temperature_C": null,
-      "heating_rate_C_min": null,
+      "temperature_C": NaN,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -3099,7 +3099,7 @@
       "drs_instrument": "UV-2600",
       "general_notes": "The study investigates the effect of oxygen doping on g-C3N4 photocatalysis by varying ultrasonic oxidation times.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/odoped_002.pdf",
@@ -3114,8 +3114,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "other",
-      "temperature_C": null,
-      "heating_rate_C_min": null,
+      "temperature_C": NaN,
+      "heating_rate_C_min": NaN,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -3133,7 +3133,7 @@
       "drs_instrument": "UV-2600",
       "general_notes": "The study investigates the effect of oxygen doping on g-C3N4 photocatalysis by varying ultrasonic oxidation times.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/ptdoped_001.pdf",
@@ -3148,8 +3148,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "2_4h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -3167,7 +3167,7 @@
       "drs_instrument": "Solid Spec 3700 UV/vis spectrometer",
       "general_notes": "The study involves the synthesis of g-C3N4 and Pt/g-C3N4 composites using thermal polymerization and plasma treatment methods, with a focus on photocatalytic hydrogen production.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/ptdoped_001.pdf",
@@ -3182,8 +3182,8 @@
       "co_precursor": "H2PtCl6",
       "dopant_element": "Pt",
       "synthesis_method": "other",
-      "temperature_C": null,
-      "heating_rate_C_min": null,
+      "temperature_C": NaN,
+      "heating_rate_C_min": NaN,
       "duration_bin": "lt2h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -3201,7 +3201,7 @@
       "drs_instrument": "Solid Spec 3700 UV/vis spectrometer",
       "general_notes": "The study involves the synthesis of g-C3N4 and Pt/g-C3N4 composites using thermal polymerization and plasma treatment methods, with a focus on photocatalytic hydrogen production.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/ptdoped_001.pdf",
@@ -3216,8 +3216,8 @@
       "co_precursor": "H2PtCl6",
       "dopant_element": "Pt",
       "synthesis_method": "other",
-      "temperature_C": null,
-      "heating_rate_C_min": null,
+      "temperature_C": NaN,
+      "heating_rate_C_min": NaN,
       "duration_bin": "lt2h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -3235,7 +3235,7 @@
       "drs_instrument": "Solid Spec 3700 UV/vis spectrometer",
       "general_notes": "The study involves the synthesis of g-C3N4 and Pt/g-C3N4 composites using thermal polymerization and plasma treatment methods, with a focus on photocatalytic hydrogen production.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/ptdoped_001.pdf",
@@ -3250,8 +3250,8 @@
       "co_precursor": "H2PtCl6",
       "dopant_element": "Pt",
       "synthesis_method": "other",
-      "temperature_C": null,
-      "heating_rate_C_min": null,
+      "temperature_C": NaN,
+      "heating_rate_C_min": NaN,
       "duration_bin": "lt2h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -3269,7 +3269,7 @@
       "drs_instrument": "Solid Spec 3700 UV/vis spectrometer",
       "general_notes": "The study involves the synthesis of g-C3N4 and Pt/g-C3N4 composites using thermal polymerization and plasma treatment methods, with a focus on photocatalytic hydrogen production.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/ptdoped_001.pdf",
@@ -3284,8 +3284,8 @@
       "co_precursor": "H2PtCl6",
       "dopant_element": "Pt",
       "synthesis_method": "other",
-      "temperature_C": null,
-      "heating_rate_C_min": null,
+      "temperature_C": NaN,
+      "heating_rate_C_min": NaN,
       "duration_bin": "lt2h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -3303,7 +3303,7 @@
       "drs_instrument": "Solid Spec 3700 UV/vis spectrometer",
       "general_notes": "The study involves the synthesis of g-C3N4 and Pt/g-C3N4 composites using thermal polymerization and plasma treatment methods, with a focus on photocatalytic hydrogen production.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/ptdoped_001.pdf",
@@ -3313,13 +3313,13 @@
       "sample_index": 6,
       "total_samples": 7,
       "sample_name": "CN-A150",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "other",
-      "temperature_C": null,
-      "heating_rate_C_min": null,
+      "temperature_C": NaN,
+      "heating_rate_C_min": NaN,
       "duration_bin": "lt2h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -3337,7 +3337,7 @@
       "drs_instrument": "Solid Spec 3700 UV/vis spectrometer",
       "general_notes": "The study involves the synthesis of g-C3N4 and Pt/g-C3N4 composites using thermal polymerization and plasma treatment methods, with a focus on photocatalytic hydrogen production.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "elementdoped/ptdoped_001.pdf",
@@ -3347,13 +3347,13 @@
       "sample_index": 7,
       "total_samples": 7,
       "sample_name": "Pt/CN-PR",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "doped",
       "co_precursor": "H2PtCl6",
       "dopant_element": "Pt",
       "synthesis_method": "other",
-      "temperature_C": null,
-      "heating_rate_C_min": null,
+      "temperature_C": NaN,
+      "heating_rate_C_min": NaN,
       "duration_bin": "gt8h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -3371,7 +3371,7 @@
       "drs_instrument": "Solid Spec 3700 UV/vis spectrometer",
       "general_notes": "The study involves the synthesis of g-C3N4 and Pt/g-C3N4 composites using thermal polymerization and plasma treatment methods, with a focus on photocatalytic hydrogen production.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_002.pdf",
@@ -3386,7 +3386,7 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
+      "temperature_C": 550.0,
       "heating_rate_C_min": 2.3,
       "duration_bin": "4_8h",
       "atmosphere": "air",
@@ -3405,7 +3405,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal polymerization of dicyandiamide with NH4Cl as a dynamic gas template and phosphorus doping using H3PO4 or H3PO2.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_002.pdf",
@@ -3420,7 +3420,7 @@
       "co_precursor": "NH4Cl",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
+      "temperature_C": 550.0,
       "heating_rate_C_min": 2.3,
       "duration_bin": "4_8h",
       "atmosphere": "air",
@@ -3439,7 +3439,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal polymerization of dicyandiamide with NH4Cl as a dynamic gas template and phosphorus doping using H3PO4 or H3PO2.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_002.pdf",
@@ -3454,7 +3454,7 @@
       "co_precursor": "NH4Cl",
       "dopant_element": "P",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
+      "temperature_C": 550.0,
       "heating_rate_C_min": 2.3,
       "duration_bin": "4_8h",
       "atmosphere": "air",
@@ -3473,7 +3473,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal polymerization of dicyandiamide with NH4Cl as a dynamic gas template and phosphorus doping using H3PO4 or H3PO2.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_002.pdf",
@@ -3488,7 +3488,7 @@
       "co_precursor": "NH4Cl",
       "dopant_element": "P",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
+      "temperature_C": 550.0,
       "heating_rate_C_min": 2.3,
       "duration_bin": "4_8h",
       "atmosphere": "air",
@@ -3507,7 +3507,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal polymerization of dicyandiamide with NH4Cl as a dynamic gas template and phosphorus doping using H3PO4 or H3PO2.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_002.pdf",
@@ -3522,7 +3522,7 @@
       "co_precursor": "NH4Cl",
       "dopant_element": "P",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
+      "temperature_C": 550.0,
       "heating_rate_C_min": 2.3,
       "duration_bin": "4_8h",
       "atmosphere": "air",
@@ -3541,7 +3541,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal polymerization of dicyandiamide with NH4Cl as a dynamic gas template and phosphorus doping using H3PO4 or H3PO2.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_002.pdf",
@@ -3556,7 +3556,7 @@
       "co_precursor": "NH4Cl",
       "dopant_element": "P",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
+      "temperature_C": 550.0,
       "heating_rate_C_min": 2.3,
       "duration_bin": "4_8h",
       "atmosphere": "air",
@@ -3575,7 +3575,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal polymerization of dicyandiamide with NH4Cl as a dynamic gas template and phosphorus doping using H3PO4 or H3PO2.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_002.pdf",
@@ -3590,7 +3590,7 @@
       "co_precursor": "NH4Cl",
       "dopant_element": "P",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
+      "temperature_C": 550.0,
       "heating_rate_C_min": 2.3,
       "duration_bin": "4_8h",
       "atmosphere": "air",
@@ -3609,7 +3609,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal polymerization of dicyandiamide with NH4Cl as a dynamic gas template and phosphorus doping using H3PO4 or H3PO2.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_005.pdf",
@@ -3619,13 +3619,13 @@
       "sample_index": 1,
       "total_samples": 4,
       "sample_name": "Bulk g-C3N4",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "reference",
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": null,
-      "heating_rate_C_min": null,
+      "temperature_C": NaN,
+      "heating_rate_C_min": NaN,
       "duration_bin": "gt8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -3643,7 +3643,7 @@
       "drs_instrument": "Shimadzu UV-3150",
       "general_notes": "The study focuses on creating porous g-C3N4 with nitrogen vacancies using SBA-15 as a template and HPHT treatment to enhance photocatalytic properties.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_005.pdf",
@@ -3658,8 +3658,8 @@
       "co_precursor": "SBA-15",
       "dopant_element": "none",
       "synthesis_method": "other",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "gt8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -3677,7 +3677,7 @@
       "drs_instrument": "Shimadzu UV-3150",
       "general_notes": "The study focuses on creating porous g-C3N4 with nitrogen vacancies using SBA-15 as a template and HPHT treatment to enhance photocatalytic properties.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_005.pdf",
@@ -3687,13 +3687,13 @@
       "sample_index": 3,
       "total_samples": 4,
       "sample_name": "PNCN-2",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "SBA-15",
       "dopant_element": "none",
       "synthesis_method": "other",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "gt8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -3711,7 +3711,7 @@
       "drs_instrument": "Shimadzu UV-3150",
       "general_notes": "The study focuses on creating porous g-C3N4 with nitrogen vacancies using SBA-15 as a template and HPHT treatment to enhance photocatalytic properties.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_005.pdf",
@@ -3721,13 +3721,13 @@
       "sample_index": 4,
       "total_samples": 4,
       "sample_name": "PCN",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "modified",
       "co_precursor": "SBA-15",
       "dopant_element": "none",
       "synthesis_method": "other",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "gt8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -3745,7 +3745,7 @@
       "drs_instrument": "Shimadzu UV-3150",
       "general_notes": "The study focuses on creating porous g-C3N4 with nitrogen vacancies using SBA-15 as a template and HPHT treatment to enhance photocatalytic properties.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_008.pdf",
@@ -3760,8 +3760,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 520,
-      "heating_rate_C_min": 5,
+      "temperature_C": 520.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -3779,7 +3779,7 @@
       "drs_instrument": "Lambda750S, PerkinElmer, USA",
       "general_notes": "The study investigates the effect of KOH doping on g-C3N4 for enhanced H2O2 photogeneration, focusing on the synergistic effect of N defects and K modification.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_008.pdf",
@@ -3794,8 +3794,8 @@
       "co_precursor": "KOH",
       "dopant_element": "K",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 520,
-      "heating_rate_C_min": 5,
+      "temperature_C": 520.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -3813,7 +3813,7 @@
       "drs_instrument": "Lambda750S, PerkinElmer, USA",
       "general_notes": "The study investigates the effect of KOH doping on g-C3N4 for enhanced H2O2 photogeneration, focusing on the synergistic effect of N defects and K modification.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_008.pdf",
@@ -3828,8 +3828,8 @@
       "co_precursor": "KOH",
       "dopant_element": "K",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 520,
-      "heating_rate_C_min": 5,
+      "temperature_C": 520.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -3847,7 +3847,7 @@
       "drs_instrument": "Lambda750S, PerkinElmer, USA",
       "general_notes": "The study investigates the effect of KOH doping on g-C3N4 for enhanced H2O2 photogeneration, focusing on the synergistic effect of N defects and K modification.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_008.pdf",
@@ -3862,8 +3862,8 @@
       "co_precursor": "KOH",
       "dopant_element": "K",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 520,
-      "heating_rate_C_min": 5,
+      "temperature_C": 520.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -3881,7 +3881,7 @@
       "drs_instrument": "Lambda750S, PerkinElmer, USA",
       "general_notes": "The study investigates the effect of KOH doping on g-C3N4 for enhanced H2O2 photogeneration, focusing on the synergistic effect of N defects and K modification.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_008.pdf",
@@ -3896,8 +3896,8 @@
       "co_precursor": "KOH",
       "dopant_element": "K",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 520,
-      "heating_rate_C_min": 5,
+      "temperature_C": 520.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -3915,7 +3915,7 @@
       "drs_instrument": "Lambda750S, PerkinElmer, USA",
       "general_notes": "The study investigates the effect of KOH doping on g-C3N4 for enhanced H2O2 photogeneration, focusing on the synergistic effect of N defects and K modification.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_009.pdf",
@@ -3925,13 +3925,13 @@
       "sample_index": 1,
       "total_samples": 5,
       "sample_name": "BCN",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "reference",
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -3949,7 +3949,7 @@
       "drs_instrument": "Agilent Technologies Model-Cary 5000",
       "general_notes": "The study focuses on defect-engineered g-C3N4 using ethylene glycol to introduce nitrogen defects, enhancing photocatalytic activity for tetracycline degradation.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_009.pdf",
@@ -3964,8 +3964,8 @@
       "co_precursor": "ethylene glycol",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -3983,7 +3983,7 @@
       "drs_instrument": "Agilent Technologies Model-Cary 5000",
       "general_notes": "The study focuses on defect-engineered g-C3N4 using ethylene glycol to introduce nitrogen defects, enhancing photocatalytic activity for tetracycline degradation.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_009.pdf",
@@ -3993,13 +3993,13 @@
       "sample_index": 3,
       "total_samples": 5,
       "sample_name": "2EGCN",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "ethylene glycol",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -4017,7 +4017,7 @@
       "drs_instrument": "Agilent Technologies Model-Cary 5000",
       "general_notes": "The study focuses on defect-engineered g-C3N4 using ethylene glycol to introduce nitrogen defects, enhancing photocatalytic activity for tetracycline degradation.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_009.pdf",
@@ -4032,8 +4032,8 @@
       "co_precursor": "ethylene glycol",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -4051,7 +4051,7 @@
       "drs_instrument": "Agilent Technologies Model-Cary 5000",
       "general_notes": "The study focuses on defect-engineered g-C3N4 using ethylene glycol to introduce nitrogen defects, enhancing photocatalytic activity for tetracycline degradation.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_009.pdf",
@@ -4066,8 +4066,8 @@
       "co_precursor": "ethylene glycol",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -4085,7 +4085,7 @@
       "drs_instrument": "Agilent Technologies Model-Cary 5000",
       "general_notes": "The study focuses on defect-engineered g-C3N4 using ethylene glycol to introduce nitrogen defects, enhancing photocatalytic activity for tetracycline degradation.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_010.pdf",
@@ -4100,8 +4100,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 500,
-      "heating_rate_C_min": 4,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": 4.0,
       "duration_bin": "2_4h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -4119,7 +4119,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on the synthesis of g-C3N4 with nitrogen defects using ammonium persulfate as a co-precursor to enhance photocatalytic activity.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_010.pdf",
@@ -4134,8 +4134,8 @@
       "co_precursor": "ammonium persulfate",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 600,
-      "heating_rate_C_min": 4,
+      "temperature_C": 600.0,
+      "heating_rate_C_min": 4.0,
       "duration_bin": "2_4h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -4153,7 +4153,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on the synthesis of g-C3N4 with nitrogen defects using ammonium persulfate as a co-precursor to enhance photocatalytic activity.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_010.pdf",
@@ -4163,13 +4163,13 @@
       "sample_index": 3,
       "total_samples": 5,
       "sample_name": "D1-g-C3N4",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "ammonium persulfate",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 500,
-      "heating_rate_C_min": 4,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": 4.0,
       "duration_bin": "2_4h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -4187,7 +4187,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on the synthesis of g-C3N4 with nitrogen defects using ammonium persulfate as a co-precursor to enhance photocatalytic activity.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_010.pdf",
@@ -4197,13 +4197,13 @@
       "sample_index": 4,
       "total_samples": 5,
       "sample_name": "D2-g-C3N4",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "ammonium persulfate",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 4,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 4.0,
       "duration_bin": "2_4h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -4221,7 +4221,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on the synthesis of g-C3N4 with nitrogen defects using ammonium persulfate as a co-precursor to enhance photocatalytic activity.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_010.pdf",
@@ -4231,13 +4231,13 @@
       "sample_index": 5,
       "total_samples": 5,
       "sample_name": "D4-g-C3N4",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "ammonium persulfate",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 650,
-      "heating_rate_C_min": 4,
+      "temperature_C": 650.0,
+      "heating_rate_C_min": 4.0,
       "duration_bin": "2_4h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -4255,7 +4255,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on the synthesis of g-C3N4 with nitrogen defects using ammonium persulfate as a co-precursor to enhance photocatalytic activity.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_021.pdf",
@@ -4270,8 +4270,8 @@
       "co_precursor": "acetic acid",
       "dopant_element": "none",
       "synthesis_method": "solvothermal_exfoliation",
-      "temperature_C": 520,
-      "heating_rate_C_min": 3,
+      "temperature_C": 520.0,
+      "heating_rate_C_min": 3.0,
       "duration_bin": "4_8h",
       "atmosphere": "N2",
       "pre_treatment": "reflux in acetic acid",
@@ -4289,7 +4289,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves hierarchical construction and defects engineering of g-C3N4 using acetic acid as a co-precursor in a hydrothermal process.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_021.pdf",
@@ -4304,8 +4304,8 @@
       "co_precursor": "acetic acid",
       "dopant_element": "none",
       "synthesis_method": "solvothermal_exfoliation",
-      "temperature_C": 520,
-      "heating_rate_C_min": 3,
+      "temperature_C": 520.0,
+      "heating_rate_C_min": 3.0,
       "duration_bin": "4_8h",
       "atmosphere": "N2",
       "pre_treatment": "reflux in acetic acid",
@@ -4323,7 +4323,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves hierarchical construction and defects engineering of g-C3N4 using acetic acid as a co-precursor in a hydrothermal process.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_021.pdf",
@@ -4338,8 +4338,8 @@
       "co_precursor": "acetic acid",
       "dopant_element": "none",
       "synthesis_method": "solvothermal_exfoliation",
-      "temperature_C": 520,
-      "heating_rate_C_min": 3,
+      "temperature_C": 520.0,
+      "heating_rate_C_min": 3.0,
       "duration_bin": "4_8h",
       "atmosphere": "N2",
       "pre_treatment": "reflux in acetic acid",
@@ -4357,7 +4357,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves hierarchical construction and defects engineering of g-C3N4 using acetic acid as a co-precursor in a hydrothermal process.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_021.pdf",
@@ -4372,8 +4372,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 520,
-      "heating_rate_C_min": 3,
+      "temperature_C": 520.0,
+      "heating_rate_C_min": 3.0,
       "duration_bin": "4_8h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -4391,7 +4391,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves hierarchical construction and defects engineering of g-C3N4 using acetic acid as a co-precursor in a hydrothermal process.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_030.pdf",
@@ -4406,7 +4406,7 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "solvothermal_exfoliation",
-      "temperature_C": 500,
+      "temperature_C": 500.0,
       "heating_rate_C_min": 2.5,
       "duration_bin": "gt8h",
       "atmosphere": "N2",
@@ -4425,7 +4425,7 @@
       "drs_instrument": "Shimadzu UV-2450",
       "general_notes": "The study focuses on the synthesis of N vacancy modified g-C3N4 using a hydrothermal method followed by thermal treatment in N2 atmosphere.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_030.pdf",
@@ -4440,7 +4440,7 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "solvothermal_exfoliation",
-      "temperature_C": 550,
+      "temperature_C": 550.0,
       "heating_rate_C_min": 2.5,
       "duration_bin": "gt8h",
       "atmosphere": "N2",
@@ -4459,7 +4459,7 @@
       "drs_instrument": "Shimadzu UV-2450",
       "general_notes": "The study focuses on the synthesis of N vacancy modified g-C3N4 using a hydrothermal method followed by thermal treatment in N2 atmosphere.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_030.pdf",
@@ -4474,7 +4474,7 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "solvothermal_exfoliation",
-      "temperature_C": 600,
+      "temperature_C": 600.0,
       "heating_rate_C_min": 2.5,
       "duration_bin": "gt8h",
       "atmosphere": "N2",
@@ -4493,7 +4493,7 @@
       "drs_instrument": "Shimadzu UV-2450",
       "general_notes": "The study focuses on the synthesis of N vacancy modified g-C3N4 using a hydrothermal method followed by thermal treatment in N2 atmosphere.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_030.pdf",
@@ -4508,8 +4508,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -4527,7 +4527,7 @@
       "drs_instrument": "Shimadzu UV-2450",
       "general_notes": "The study focuses on the synthesis of N vacancy modified g-C3N4 using a hydrothermal method followed by thermal treatment in N2 atmosphere.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_038.pdf",
@@ -4542,8 +4542,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -4561,7 +4561,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on enhancing photocatalytic nitrogen fixation by introducing AgI into g-C3N4, creating nitrogen vacancies through an in-situ decomposition-thermal polymerization method.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_038.pdf",
@@ -4576,8 +4576,8 @@
       "co_precursor": "AgIO3",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -4595,7 +4595,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on enhancing photocatalytic nitrogen fixation by introducing AgI into g-C3N4, creating nitrogen vacancies through an in-situ decomposition-thermal polymerization method.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_038.pdf",
@@ -4610,8 +4610,8 @@
       "co_precursor": "AgIO3",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -4629,7 +4629,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on enhancing photocatalytic nitrogen fixation by introducing AgI into g-C3N4, creating nitrogen vacancies through an in-situ decomposition-thermal polymerization method.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_038.pdf",
@@ -4644,8 +4644,8 @@
       "co_precursor": "AgIO3",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -4663,7 +4663,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on enhancing photocatalytic nitrogen fixation by introducing AgI into g-C3N4, creating nitrogen vacancies through an in-situ decomposition-thermal polymerization method.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_039.pdf",
@@ -4678,8 +4678,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -4697,7 +4697,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal treatment of melamine to form bulk g-C3N4, followed by further thermal treatment to create nano-fragments with nitrogen vacancies.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_039.pdf",
@@ -4712,8 +4712,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 650,
-      "heating_rate_C_min": 10,
+      "temperature_C": 650.0,
+      "heating_rate_C_min": 10.0,
       "duration_bin": "2_4h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -4731,7 +4731,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal treatment of melamine to form bulk g-C3N4, followed by further thermal treatment to create nano-fragments with nitrogen vacancies.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_039.pdf",
@@ -4741,13 +4741,13 @@
       "sample_index": 3,
       "total_samples": 6,
       "sample_name": "nano-CN2",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 650,
-      "heating_rate_C_min": 10,
+      "temperature_C": 650.0,
+      "heating_rate_C_min": 10.0,
       "duration_bin": "4_8h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -4765,7 +4765,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal treatment of melamine to form bulk g-C3N4, followed by further thermal treatment to create nano-fragments with nitrogen vacancies.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_039.pdf",
@@ -4775,13 +4775,13 @@
       "sample_index": 4,
       "total_samples": 6,
       "sample_name": "nano-CN3",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 650,
-      "heating_rate_C_min": 10,
+      "temperature_C": 650.0,
+      "heating_rate_C_min": 10.0,
       "duration_bin": "4_8h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -4799,7 +4799,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal treatment of melamine to form bulk g-C3N4, followed by further thermal treatment to create nano-fragments with nitrogen vacancies.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_039.pdf",
@@ -4809,13 +4809,13 @@
       "sample_index": 5,
       "total_samples": 6,
       "sample_name": "nano-CN4",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 650,
-      "heating_rate_C_min": 10,
+      "temperature_C": 650.0,
+      "heating_rate_C_min": 10.0,
       "duration_bin": "4_8h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -4833,7 +4833,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal treatment of melamine to form bulk g-C3N4, followed by further thermal treatment to create nano-fragments with nitrogen vacancies.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_039.pdf",
@@ -4843,13 +4843,13 @@
       "sample_index": 6,
       "total_samples": 6,
       "sample_name": "nano-CN5",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 650,
-      "heating_rate_C_min": 10,
+      "temperature_C": 650.0,
+      "heating_rate_C_min": 10.0,
       "duration_bin": "gt8h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -4867,7 +4867,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves thermal treatment of melamine to form bulk g-C3N4, followed by further thermal treatment to create nano-fragments with nitrogen vacancies.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_040.pdf",
@@ -4877,13 +4877,13 @@
       "sample_index": 1,
       "total_samples": 4,
       "sample_name": "bg-CN",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "reference",
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -4901,7 +4901,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on the synthesis of porous g-C3N4 with nitrogen vacancies to enhance photocatalytic activity.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_040.pdf",
@@ -4916,8 +4916,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -4935,7 +4935,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on the synthesis of porous g-C3N4 with nitrogen vacancies to enhance photocatalytic activity.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_040.pdf",
@@ -4950,8 +4950,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 600,
-      "heating_rate_C_min": null,
+      "temperature_C": 600.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -4969,7 +4969,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on the synthesis of porous g-C3N4 with nitrogen vacancies to enhance photocatalytic activity.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_040.pdf",
@@ -4979,13 +4979,13 @@
       "sample_index": 4,
       "total_samples": 4,
       "sample_name": "NVCN-3",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 650,
-      "heating_rate_C_min": null,
+      "temperature_C": 650.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -5003,7 +5003,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The study focuses on the synthesis of porous g-C3N4 with nitrogen vacancies to enhance photocatalytic activity.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_042.pdf",
@@ -5018,8 +5018,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -5037,7 +5037,7 @@
       "drs_instrument": "Lambda 950 UV/Vis/NIR Perkin-Elmer, USA",
       "general_notes": "The synthesis involves the use of oxalyl dihydrazide (ODH) to introduce nitrogen vacancies in g-C3N4, enhancing its photocatalytic properties under visible light.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_042.pdf",
@@ -5052,8 +5052,8 @@
       "co_precursor": "oxalyl dihydrazide (ODH)",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -5071,7 +5071,7 @@
       "drs_instrument": "Lambda 950 UV/Vis/NIR Perkin-Elmer, USA",
       "general_notes": "The synthesis involves the use of oxalyl dihydrazide (ODH) to introduce nitrogen vacancies in g-C3N4, enhancing its photocatalytic properties under visible light.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_042.pdf",
@@ -5086,8 +5086,8 @@
       "co_precursor": "oxalyl dihydrazide (ODH)",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -5105,7 +5105,7 @@
       "drs_instrument": "Lambda 950 UV/Vis/NIR Perkin-Elmer, USA",
       "general_notes": "The synthesis involves the use of oxalyl dihydrazide (ODH) to introduce nitrogen vacancies in g-C3N4, enhancing its photocatalytic properties under visible light.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_042.pdf",
@@ -5115,13 +5115,13 @@
       "sample_index": 4,
       "total_samples": 5,
       "sample_name": "ODH-CN3",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "oxalyl dihydrazide (ODH)",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -5139,7 +5139,7 @@
       "drs_instrument": "Lambda 950 UV/Vis/NIR Perkin-Elmer, USA",
       "general_notes": "The synthesis involves the use of oxalyl dihydrazide (ODH) to introduce nitrogen vacancies in g-C3N4, enhancing its photocatalytic properties under visible light.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_042.pdf",
@@ -5149,13 +5149,13 @@
       "sample_index": 5,
       "total_samples": 5,
       "sample_name": "ODH-CN4",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "oxalyl dihydrazide (ODH)",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -5173,7 +5173,7 @@
       "drs_instrument": "Lambda 950 UV/Vis/NIR Perkin-Elmer, USA",
       "general_notes": "The synthesis involves the use of oxalyl dihydrazide (ODH) to introduce nitrogen vacancies in g-C3N4, enhancing its photocatalytic properties under visible light.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_044.pdf",
@@ -5188,8 +5188,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 3,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 3.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -5207,7 +5207,7 @@
       "drs_instrument": "Hitachi U-3900",
       "general_notes": "The study focuses on creating nitrogen vacancies in g-C3N4 using GO as a template to enhance photocatalytic H2 production.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_044.pdf",
@@ -5217,13 +5217,13 @@
       "sample_index": 2,
       "total_samples": 4,
       "sample_name": "NS-CNM-0.1",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "GO",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 3,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 3.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -5241,7 +5241,7 @@
       "drs_instrument": "Hitachi U-3900",
       "general_notes": "The study focuses on creating nitrogen vacancies in g-C3N4 using GO as a template to enhance photocatalytic H2 production.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_044.pdf",
@@ -5251,13 +5251,13 @@
       "sample_index": 3,
       "total_samples": 4,
       "sample_name": "NS-CNM-0.2",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "GO",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 3,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 3.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -5275,7 +5275,7 @@
       "drs_instrument": "Hitachi U-3900",
       "general_notes": "The study focuses on creating nitrogen vacancies in g-C3N4 using GO as a template to enhance photocatalytic H2 production.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_044.pdf",
@@ -5285,13 +5285,13 @@
       "sample_index": 4,
       "total_samples": 4,
       "sample_name": "NS-CNM-0.3",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "GO",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 3,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 3.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -5309,7 +5309,7 @@
       "drs_instrument": "Hitachi U-3900",
       "general_notes": "The study focuses on creating nitrogen vacancies in g-C3N4 using GO as a template to enhance photocatalytic H2 production.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_045.pdf",
@@ -5324,8 +5324,8 @@
       "co_precursor": "cyanuric acid",
       "dopant_element": "none",
       "synthesis_method": "supramolecular",
-      "temperature_C": 500,
-      "heating_rate_C_min": null,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -5343,7 +5343,7 @@
       "drs_instrument": "Shimadzu UV-2550",
       "general_notes": "The synthesis involves supramolecular preassembly of melamine and cyanuric acid, followed by calcination to form flower-like g-C3N4 structures.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_045.pdf",
@@ -5358,8 +5358,8 @@
       "co_precursor": "cyanuric acid",
       "dopant_element": "none",
       "synthesis_method": "supramolecular",
-      "temperature_C": 500,
-      "heating_rate_C_min": null,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -5377,7 +5377,7 @@
       "drs_instrument": "Shimadzu UV-2550",
       "general_notes": "The synthesis involves supramolecular preassembly of melamine and cyanuric acid, followed by calcination to form flower-like g-C3N4 structures.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_045.pdf",
@@ -5392,8 +5392,8 @@
       "co_precursor": "cyanuric acid",
       "dopant_element": "none",
       "synthesis_method": "supramolecular",
-      "temperature_C": 500,
-      "heating_rate_C_min": null,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "4_8h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -5411,7 +5411,7 @@
       "drs_instrument": "Shimadzu UV-2550",
       "general_notes": "The synthesis involves supramolecular preassembly of melamine and cyanuric acid, followed by calcination to form flower-like g-C3N4 structures.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_045.pdf",
@@ -5426,8 +5426,8 @@
       "co_precursor": "cyanuric acid",
       "dopant_element": "none",
       "synthesis_method": "supramolecular",
-      "temperature_C": 500,
-      "heating_rate_C_min": null,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "4_8h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -5445,7 +5445,7 @@
       "drs_instrument": "Shimadzu UV-2550",
       "general_notes": "The synthesis involves supramolecular preassembly of melamine and cyanuric acid, followed by calcination to form flower-like g-C3N4 structures.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_045.pdf",
@@ -5460,8 +5460,8 @@
       "co_precursor": "cyanuric acid",
       "dopant_element": "none",
       "synthesis_method": "supramolecular",
-      "temperature_C": 500,
-      "heating_rate_C_min": null,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "gt8h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -5479,7 +5479,7 @@
       "drs_instrument": "Shimadzu UV-2550",
       "general_notes": "The synthesis involves supramolecular preassembly of melamine and cyanuric acid, followed by calcination to form flower-like g-C3N4 structures.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_045.pdf",
@@ -5494,8 +5494,8 @@
       "co_precursor": "cyanuric acid",
       "dopant_element": "none",
       "synthesis_method": "supramolecular",
-      "temperature_C": 500,
-      "heating_rate_C_min": null,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "gt8h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -5513,7 +5513,7 @@
       "drs_instrument": "Shimadzu UV-2550",
       "general_notes": "The synthesis involves supramolecular preassembly of melamine and cyanuric acid, followed by calcination to form flower-like g-C3N4 structures.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_045.pdf",
@@ -5528,8 +5528,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 500,
-      "heating_rate_C_min": null,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "gt8h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -5547,7 +5547,7 @@
       "drs_instrument": "Shimadzu UV-2550",
       "general_notes": "The synthesis involves supramolecular preassembly of melamine and cyanuric acid, followed by calcination to form flower-like g-C3N4 structures.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_046.pdf",
@@ -5562,8 +5562,8 @@
       "co_precursor": "AC",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 500,
-      "heating_rate_C_min": null,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -5581,7 +5581,7 @@
       "drs_instrument": "Shimadzu UV-3600",
       "general_notes": "The study focuses on creating nitrogen vacancies in g-C3N4 to enhance photocatalytic activity for NO oxidation.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_046.pdf",
@@ -5591,13 +5591,13 @@
       "sample_index": 2,
       "total_samples": 7,
       "sample_name": "AC-CN2",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "AC",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 500,
-      "heating_rate_C_min": null,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -5615,7 +5615,7 @@
       "drs_instrument": "Shimadzu UV-3600",
       "general_notes": "The study focuses on creating nitrogen vacancies in g-C3N4 to enhance photocatalytic activity for NO oxidation.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_046.pdf",
@@ -5625,13 +5625,13 @@
       "sample_index": 3,
       "total_samples": 7,
       "sample_name": "AC-CN3",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "AC",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 500,
-      "heating_rate_C_min": null,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -5649,7 +5649,7 @@
       "drs_instrument": "Shimadzu UV-3600",
       "general_notes": "The study focuses on creating nitrogen vacancies in g-C3N4 to enhance photocatalytic activity for NO oxidation.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_046.pdf",
@@ -5659,13 +5659,13 @@
       "sample_index": 4,
       "total_samples": 7,
       "sample_name": "AC-CN4",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "AC",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 500,
-      "heating_rate_C_min": null,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -5683,7 +5683,7 @@
       "drs_instrument": "Shimadzu UV-3600",
       "general_notes": "The study focuses on creating nitrogen vacancies in g-C3N4 to enhance photocatalytic activity for NO oxidation.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_046.pdf",
@@ -5693,13 +5693,13 @@
       "sample_index": 5,
       "total_samples": 7,
       "sample_name": "AC-CN5",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "AC",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 500,
-      "heating_rate_C_min": null,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -5717,7 +5717,7 @@
       "drs_instrument": "Shimadzu UV-3600",
       "general_notes": "The study focuses on creating nitrogen vacancies in g-C3N4 to enhance photocatalytic activity for NO oxidation.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_046.pdf",
@@ -5727,13 +5727,13 @@
       "sample_index": 6,
       "total_samples": 7,
       "sample_name": "AC-CN6",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "AC",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 500,
-      "heating_rate_C_min": null,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -5751,7 +5751,7 @@
       "drs_instrument": "Shimadzu UV-3600",
       "general_notes": "The study focuses on creating nitrogen vacancies in g-C3N4 to enhance photocatalytic activity for NO oxidation.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_046.pdf",
@@ -5766,8 +5766,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 500,
-      "heating_rate_C_min": null,
+      "temperature_C": 500.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -5785,7 +5785,7 @@
       "drs_instrument": "Shimadzu UV-3600",
       "general_notes": "The study focuses on creating nitrogen vacancies in g-C3N4 to enhance photocatalytic activity for NO oxidation.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_048.pdf",
@@ -5795,13 +5795,13 @@
       "sample_index": 1,
       "total_samples": 5,
       "sample_name": "CNNA (0.3)",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "nitric acid",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "air",
       "pre_treatment": "nitric acid pretreatment",
@@ -5819,7 +5819,7 @@
       "drs_instrument": "Shimadzu UV-3600 UV-vis-NIR spectrophotometer",
       "general_notes": "The study focuses on nitrogen vacancy engineering in g-C3N4 using nitric acid pretreatment to enhance photocatalytic properties.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_048.pdf",
@@ -5834,8 +5834,8 @@
       "co_precursor": "nitric acid",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "air",
       "pre_treatment": "nitric acid pretreatment",
@@ -5853,7 +5853,7 @@
       "drs_instrument": "Shimadzu UV-3600 UV-vis-NIR spectrophotometer",
       "general_notes": "The study focuses on nitrogen vacancy engineering in g-C3N4 using nitric acid pretreatment to enhance photocatalytic properties.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_048.pdf",
@@ -5863,13 +5863,13 @@
       "sample_index": 3,
       "total_samples": 5,
       "sample_name": "CNNA (1.5)",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "nitric acid",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "air",
       "pre_treatment": "nitric acid pretreatment",
@@ -5887,7 +5887,7 @@
       "drs_instrument": "Shimadzu UV-3600 UV-vis-NIR spectrophotometer",
       "general_notes": "The study focuses on nitrogen vacancy engineering in g-C3N4 using nitric acid pretreatment to enhance photocatalytic properties.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_048.pdf",
@@ -5897,13 +5897,13 @@
       "sample_index": 4,
       "total_samples": 5,
       "sample_name": "CNNA (2.1)",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "nitric acid",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "air",
       "pre_treatment": "nitric acid pretreatment",
@@ -5921,7 +5921,7 @@
       "drs_instrument": "Shimadzu UV-3600 UV-vis-NIR spectrophotometer",
       "general_notes": "The study focuses on nitrogen vacancy engineering in g-C3N4 using nitric acid pretreatment to enhance photocatalytic properties.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_048.pdf",
@@ -5936,8 +5936,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -5955,7 +5955,7 @@
       "drs_instrument": "Shimadzu UV-3600 UV-vis-NIR spectrophotometer",
       "general_notes": "The study focuses on nitrogen vacancy engineering in g-C3N4 using nitric acid pretreatment to enhance photocatalytic properties.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_055.pdf",
@@ -5970,8 +5970,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -5989,7 +5989,7 @@
       "drs_instrument": "Cary 5000 UV–vis spectrophotometer",
       "general_notes": "The study investigates the effect of nitrogen content in g-C3N4 on its catalytic performance for H2O2 decomposition, using different synthesis atmospheres to create variations in nitrogen content and defect structures.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_055.pdf",
@@ -6004,8 +6004,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -6023,7 +6023,7 @@
       "drs_instrument": "Cary 5000 UV–vis spectrophotometer",
       "general_notes": "The study investigates the effect of nitrogen content in g-C3N4 on its catalytic performance for H2O2 decomposition, using different synthesis atmospheres to create variations in nitrogen content and defect structures.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_057.pdf",
@@ -6033,13 +6033,13 @@
       "sample_index": 1,
       "total_samples": 4,
       "sample_name": "CN",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "reference",
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": null,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": NaN,
       "duration_bin": "gt8h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -6057,7 +6057,7 @@
       "drs_instrument": "Varian Cary 100 Scan UV−visible spectrophotometer",
       "general_notes": "The study focuses on the synthesis of porous g-C3N4 microtubes with tunable N-vacancy concentrations using a supramolecular approach involving melamine and calcination under nitrogen atmosphere.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_057.pdf",
@@ -6072,7 +6072,7 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "supramolecular",
-      "temperature_C": 550,
+      "temperature_C": 550.0,
       "heating_rate_C_min": 2.5,
       "duration_bin": "gt8h",
       "atmosphere": "N2",
@@ -6091,7 +6091,7 @@
       "drs_instrument": "Varian Cary 100 Scan UV−visible spectrophotometer",
       "general_notes": "The study focuses on the synthesis of porous g-C3N4 microtubes with tunable N-vacancy concentrations using a supramolecular approach involving melamine and calcination under nitrogen atmosphere.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_057.pdf",
@@ -6106,7 +6106,7 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "supramolecular",
-      "temperature_C": 550,
+      "temperature_C": 550.0,
       "heating_rate_C_min": 2.5,
       "duration_bin": "gt8h",
       "atmosphere": "N2",
@@ -6125,7 +6125,7 @@
       "drs_instrument": "Varian Cary 100 Scan UV−visible spectrophotometer",
       "general_notes": "The study focuses on the synthesis of porous g-C3N4 microtubes with tunable N-vacancy concentrations using a supramolecular approach involving melamine and calcination under nitrogen atmosphere.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_057.pdf",
@@ -6140,7 +6140,7 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "supramolecular",
-      "temperature_C": 550,
+      "temperature_C": 550.0,
       "heating_rate_C_min": 2.5,
       "duration_bin": "gt8h",
       "atmosphere": "N2",
@@ -6159,7 +6159,7 @@
       "drs_instrument": "Varian Cary 100 Scan UV−visible spectrophotometer",
       "general_notes": "The study focuses on the synthesis of porous g-C3N4 microtubes with tunable N-vacancy concentrations using a supramolecular approach involving melamine and calcination under nitrogen atmosphere.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_060.pdf",
@@ -6174,8 +6174,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 4,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 4.0,
       "duration_bin": "4_8h",
       "atmosphere": "N2/H2",
       "pre_treatment": "none",
@@ -6193,7 +6193,7 @@
       "drs_instrument": "UV-3600",
       "general_notes": "The synthesis involves high-temperature thermal condensation polymerization with varying amounts of TAP as a modifier.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_060.pdf",
@@ -6208,8 +6208,8 @@
       "co_precursor": "cyanuric acid",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 4,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 4.0,
       "duration_bin": "4_8h",
       "atmosphere": "N2/H2",
       "pre_treatment": "none",
@@ -6227,7 +6227,7 @@
       "drs_instrument": "UV-3600",
       "general_notes": "The synthesis involves high-temperature thermal condensation polymerization with varying amounts of TAP as a modifier.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_060.pdf",
@@ -6237,13 +6237,13 @@
       "sample_index": 3,
       "total_samples": 6,
       "sample_name": "GCN-0.25TAP",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "modified",
       "co_precursor": "cyanuric acid",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 4,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 4.0,
       "duration_bin": "4_8h",
       "atmosphere": "N2/H2",
       "pre_treatment": "none",
@@ -6261,7 +6261,7 @@
       "drs_instrument": "UV-3600",
       "general_notes": "The synthesis involves high-temperature thermal condensation polymerization with varying amounts of TAP as a modifier.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_060.pdf",
@@ -6271,13 +6271,13 @@
       "sample_index": 4,
       "total_samples": 6,
       "sample_name": "GCN-0.5TAP",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "modified",
       "co_precursor": "cyanuric acid",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 4,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 4.0,
       "duration_bin": "4_8h",
       "atmosphere": "N2/H2",
       "pre_treatment": "none",
@@ -6295,7 +6295,7 @@
       "drs_instrument": "UV-3600",
       "general_notes": "The synthesis involves high-temperature thermal condensation polymerization with varying amounts of TAP as a modifier.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_060.pdf",
@@ -6305,13 +6305,13 @@
       "sample_index": 5,
       "total_samples": 6,
       "sample_name": "GCN-0.75TAP",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "modified",
       "co_precursor": "cyanuric acid",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 4,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 4.0,
       "duration_bin": "4_8h",
       "atmosphere": "N2/H2",
       "pre_treatment": "none",
@@ -6329,7 +6329,7 @@
       "drs_instrument": "UV-3600",
       "general_notes": "The synthesis involves high-temperature thermal condensation polymerization with varying amounts of TAP as a modifier.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_060.pdf",
@@ -6339,13 +6339,13 @@
       "sample_index": 6,
       "total_samples": 6,
       "sample_name": "GCN-1TAP",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "modified",
       "co_precursor": "cyanuric acid",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 4,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 4.0,
       "duration_bin": "4_8h",
       "atmosphere": "N2/H2",
       "pre_treatment": "none",
@@ -6363,7 +6363,7 @@
       "drs_instrument": "UV-3600",
       "general_notes": "The synthesis involves high-temperature thermal condensation polymerization with varying amounts of TAP as a modifier.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_062.pdf",
@@ -6378,7 +6378,7 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
+      "temperature_C": 550.0,
       "heating_rate_C_min": 2.3,
       "duration_bin": "4_8h",
       "atmosphere": "air",
@@ -6397,7 +6397,7 @@
       "drs_instrument": "Hitachi UV-3010",
       "general_notes": "The study focuses on the synthesis of g-C3N4 with nitrogen defects using acid treatment and solvothermal methods.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_062.pdf",
@@ -6407,12 +6407,12 @@
       "sample_index": 2,
       "total_samples": 5,
       "sample_name": "CN-5",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "ethanol",
       "dopant_element": "none",
       "synthesis_method": "solvothermal_exfoliation",
-      "temperature_C": 550,
+      "temperature_C": 550.0,
       "heating_rate_C_min": 2.3,
       "duration_bin": "gt8h",
       "atmosphere": "N2",
@@ -6431,7 +6431,7 @@
       "drs_instrument": "Hitachi UV-3010",
       "general_notes": "The study focuses on the synthesis of g-C3N4 with nitrogen defects using acid treatment and solvothermal methods.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_062.pdf",
@@ -6441,12 +6441,12 @@
       "sample_index": 3,
       "total_samples": 5,
       "sample_name": "CN-10",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "ethanol",
       "dopant_element": "none",
       "synthesis_method": "solvothermal_exfoliation",
-      "temperature_C": 550,
+      "temperature_C": 550.0,
       "heating_rate_C_min": 2.3,
       "duration_bin": "gt8h",
       "atmosphere": "N2",
@@ -6465,7 +6465,7 @@
       "drs_instrument": "Hitachi UV-3010",
       "general_notes": "The study focuses on the synthesis of g-C3N4 with nitrogen defects using acid treatment and solvothermal methods.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_062.pdf",
@@ -6475,12 +6475,12 @@
       "sample_index": 4,
       "total_samples": 5,
       "sample_name": "CN-15",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "ethanol",
       "dopant_element": "none",
       "synthesis_method": "solvothermal_exfoliation",
-      "temperature_C": 550,
+      "temperature_C": 550.0,
       "heating_rate_C_min": 2.3,
       "duration_bin": "gt8h",
       "atmosphere": "N2",
@@ -6499,7 +6499,7 @@
       "drs_instrument": "Hitachi UV-3010",
       "general_notes": "The study focuses on the synthesis of g-C3N4 with nitrogen defects using acid treatment and solvothermal methods.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_062.pdf",
@@ -6509,12 +6509,12 @@
       "sample_index": 5,
       "total_samples": 5,
       "sample_name": "CN-20",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "ethanol",
       "dopant_element": "none",
       "synthesis_method": "solvothermal_exfoliation",
-      "temperature_C": 550,
+      "temperature_C": 550.0,
       "heating_rate_C_min": 2.3,
       "duration_bin": "gt8h",
       "atmosphere": "N2",
@@ -6533,7 +6533,7 @@
       "drs_instrument": "Hitachi UV-3010",
       "general_notes": "The study focuses on the synthesis of g-C3N4 with nitrogen defects using acid treatment and solvothermal methods.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_067.pdf",
@@ -6543,13 +6543,13 @@
       "sample_index": 1,
       "total_samples": 3,
       "sample_name": "CCN-P",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "modified",
       "co_precursor": "NaCl/KCl",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "Ar",
       "pre_treatment": "tablet pressing",
@@ -6567,7 +6567,7 @@
       "drs_instrument": "Perkin Elmer Lambda 950",
       "general_notes": "The synthesis involves thermal polymerization of melamine with or without pressure regulation, using NaCl/KCl as co-precursors for modified samples.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_067.pdf",
@@ -6577,13 +6577,13 @@
       "sample_index": 2,
       "total_samples": 3,
       "sample_name": "CCN-NP",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "modified",
       "co_precursor": "NaCl/KCl",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -6601,7 +6601,7 @@
       "drs_instrument": "Perkin Elmer Lambda 950",
       "general_notes": "The synthesis involves thermal polymerization of melamine with or without pressure regulation, using NaCl/KCl as co-precursors for modified samples.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_067.pdf",
@@ -6616,8 +6616,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "4_8h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -6635,7 +6635,7 @@
       "drs_instrument": "Perkin Elmer Lambda 950",
       "general_notes": "The synthesis involves thermal polymerization of melamine with or without pressure regulation, using NaCl/KCl as co-precursors for modified samples.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_069.pdf",
@@ -6645,13 +6645,13 @@
       "sample_index": 1,
       "total_samples": 4,
       "sample_name": "HN-CN",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "defective",
       "co_precursor": "ethylene glycol",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "gt8h",
       "atmosphere": "N2",
       "pre_treatment": "protonation with nitric acid",
@@ -6669,7 +6669,7 @@
       "drs_instrument": "Lambda 1050+",
       "general_notes": "The study investigates the synthesis of g-C3N4 with varying defect levels and atmospheres to enhance photocatalytic activity.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_069.pdf",
@@ -6684,8 +6684,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "gt8h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -6703,7 +6703,7 @@
       "drs_instrument": "Lambda 1050+",
       "general_notes": "The study investigates the synthesis of g-C3N4 with varying defect levels and atmospheres to enhance photocatalytic activity.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_069.pdf",
@@ -6718,8 +6718,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "gt8h",
       "atmosphere": "N2",
       "pre_treatment": "none",
@@ -6737,7 +6737,7 @@
       "drs_instrument": "Lambda 1050+",
       "general_notes": "The study investigates the synthesis of g-C3N4 with varying defect levels and atmospheres to enhance photocatalytic activity.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_069.pdf",
@@ -6752,8 +6752,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 5,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 5.0,
       "duration_bin": "gt8h",
       "atmosphere": "air",
       "pre_treatment": "protonation with nitric acid",
@@ -6771,7 +6771,7 @@
       "drs_instrument": "Lambda 1050+",
       "general_notes": "The study investigates the synthesis of g-C3N4 with varying defect levels and atmospheres to enhance photocatalytic activity.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_073.pdf",
@@ -6786,8 +6786,8 @@
       "co_precursor": "ammonium acetate",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 3,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 3.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -6805,7 +6805,7 @@
       "drs_instrument": "Shimadz UV-Vis spectrometer",
       "general_notes": "The study focuses on the structural distortion of g-C3N4 induced by N-defects for enhanced photocatalytic hydrogen evolution.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_073.pdf",
@@ -6820,8 +6820,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 3,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 3.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "none",
@@ -6839,7 +6839,7 @@
       "drs_instrument": "Shimadz UV-Vis spectrometer",
       "general_notes": "The study focuses on the structural distortion of g-C3N4 induced by N-defects for enhanced photocatalytic hydrogen evolution.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_077.pdf",
@@ -6854,8 +6854,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
-      "heating_rate_C_min": 10,
+      "temperature_C": 550.0,
+      "heating_rate_C_min": 10.0,
       "duration_bin": "4_8h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -6873,7 +6873,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves a two-step thermal polymerization process under an argon atmosphere.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_077.pdf",
@@ -6883,13 +6883,13 @@
       "sample_index": 2,
       "total_samples": 2,
       "sample_name": "p-C3N4",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "modified",
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 620,
-      "heating_rate_C_min": 10,
+      "temperature_C": 620.0,
+      "heating_rate_C_min": 10.0,
       "duration_bin": "4_8h",
       "atmosphere": "Ar",
       "pre_treatment": "none",
@@ -6907,7 +6907,7 @@
       "drs_instrument": "unknown",
       "general_notes": "The synthesis involves a two-step thermal polymerization process under an argon atmosphere.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_080.pdf",
@@ -6922,8 +6922,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 600,
-      "heating_rate_C_min": 10,
+      "temperature_C": 600.0,
+      "heating_rate_C_min": 10.0,
       "duration_bin": "4_8h",
       "atmosphere": "air",
       "pre_treatment": "none",
@@ -6941,7 +6941,7 @@
       "drs_instrument": "Jasco V-670",
       "general_notes": "The study focuses on the reductive modification of g-C3N4 with metals to enhance photocatalytic hydrogen evolution.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_080.pdf",
@@ -6956,8 +6956,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 300,
-      "heating_rate_C_min": 10,
+      "temperature_C": 300.0,
+      "heating_rate_C_min": 10.0,
       "duration_bin": "4_8h",
       "atmosphere": "reducing",
       "pre_treatment": "none",
@@ -6975,7 +6975,7 @@
       "drs_instrument": "Jasco V-670",
       "general_notes": "The study focuses on the reductive modification of g-C3N4 with metals to enhance photocatalytic hydrogen evolution.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_080.pdf",
@@ -6990,8 +6990,8 @@
       "co_precursor": "none",
       "dopant_element": "Pt",
       "synthesis_method": "other",
-      "temperature_C": 300,
-      "heating_rate_C_min": 10,
+      "temperature_C": 300.0,
+      "heating_rate_C_min": 10.0,
       "duration_bin": "4_8h",
       "atmosphere": "reducing",
       "pre_treatment": "none",
@@ -7009,7 +7009,7 @@
       "drs_instrument": "Jasco V-670",
       "general_notes": "The study focuses on the reductive modification of g-C3N4 with metals to enhance photocatalytic hydrogen evolution.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_080.pdf",
@@ -7024,8 +7024,8 @@
       "co_precursor": "none",
       "dopant_element": "Ru",
       "synthesis_method": "other",
-      "temperature_C": 300,
-      "heating_rate_C_min": 10,
+      "temperature_C": 300.0,
+      "heating_rate_C_min": 10.0,
       "duration_bin": "4_8h",
       "atmosphere": "reducing",
       "pre_treatment": "none",
@@ -7043,7 +7043,7 @@
       "drs_instrument": "Jasco V-670",
       "general_notes": "The study focuses on the reductive modification of g-C3N4 with metals to enhance photocatalytic hydrogen evolution.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_080.pdf",
@@ -7058,8 +7058,8 @@
       "co_precursor": "none",
       "dopant_element": "Ir",
       "synthesis_method": "other",
-      "temperature_C": 300,
-      "heating_rate_C_min": 10,
+      "temperature_C": 300.0,
+      "heating_rate_C_min": 10.0,
       "duration_bin": "4_8h",
       "atmosphere": "reducing",
       "pre_treatment": "none",
@@ -7077,7 +7077,7 @@
       "drs_instrument": "Jasco V-670",
       "general_notes": "The study focuses on the reductive modification of g-C3N4 with metals to enhance photocatalytic hydrogen evolution.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_083.pdf",
@@ -7092,7 +7092,7 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
+      "temperature_C": 550.0,
       "heating_rate_C_min": 2.2,
       "duration_bin": "4_8h",
       "atmosphere": "Ar",
@@ -7111,7 +7111,7 @@
       "drs_instrument": "Shimadzu UV-2600I",
       "general_notes": "The study focuses on defect-amplified photocatalysis using sulfuric-acid-treated g-C3N4 for enhanced phenol degradation.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_083.pdf",
@@ -7126,7 +7126,7 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
+      "temperature_C": 550.0,
       "heating_rate_C_min": 2.2,
       "duration_bin": "4_8h",
       "atmosphere": "Ar",
@@ -7145,7 +7145,7 @@
       "drs_instrument": "Shimadzu UV-2600I",
       "general_notes": "The study focuses on defect-amplified photocatalysis using sulfuric-acid-treated g-C3N4 for enhanced phenol degradation.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_086.pdf",
@@ -7160,8 +7160,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 520,
-      "heating_rate_C_min": 2,
+      "temperature_C": 520.0,
+      "heating_rate_C_min": 2.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "grinding",
@@ -7179,7 +7179,7 @@
       "drs_instrument": "U-3900, Hitachi, Japan",
       "general_notes": "The synthesis involves thermal polymerization of urea and melamine, followed by a molten salt method for nanosheet formation.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_086.pdf",
@@ -7194,8 +7194,8 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 520,
-      "heating_rate_C_min": 2,
+      "temperature_C": 520.0,
+      "heating_rate_C_min": 2.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "grinding",
@@ -7213,7 +7213,7 @@
       "drs_instrument": "U-3900, Hitachi, Japan",
       "general_notes": "The synthesis involves thermal polymerization of urea and melamine, followed by a molten salt method for nanosheet formation.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_086.pdf",
@@ -7228,8 +7228,8 @@
       "co_precursor": "melamine",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 520,
-      "heating_rate_C_min": 2,
+      "temperature_C": 520.0,
+      "heating_rate_C_min": 2.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "grinding",
@@ -7247,7 +7247,7 @@
       "drs_instrument": "U-3900, Hitachi, Japan",
       "general_notes": "The synthesis involves thermal polymerization of urea and melamine, followed by a molten salt method for nanosheet formation.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_086.pdf",
@@ -7257,13 +7257,13 @@
       "sample_index": 4,
       "total_samples": 5,
       "sample_name": "g-C3N4-U20M",
-      "file_match": null,
+      "file_match": NaN,
       "sample_type": "modified",
       "co_precursor": "melamine",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 520,
-      "heating_rate_C_min": 2,
+      "temperature_C": 520.0,
+      "heating_rate_C_min": 2.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "grinding",
@@ -7281,7 +7281,7 @@
       "drs_instrument": "U-3900, Hitachi, Japan",
       "general_notes": "The synthesis involves thermal polymerization of urea and melamine, followed by a molten salt method for nanosheet formation.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_086.pdf",
@@ -7296,8 +7296,8 @@
       "co_precursor": "melamine",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 520,
-      "heating_rate_C_min": 2,
+      "temperature_C": 520.0,
+      "heating_rate_C_min": 2.0,
       "duration_bin": "4_8h",
       "atmosphere": "unknown",
       "pre_treatment": "grinding",
@@ -7315,7 +7315,7 @@
       "drs_instrument": "U-3900, Hitachi, Japan",
       "general_notes": "The synthesis involves thermal polymerization of urea and melamine, followed by a molten salt method for nanosheet formation.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_087.pdf",
@@ -7330,7 +7330,7 @@
       "co_precursor": "none",
       "dopant_element": "none",
       "synthesis_method": "thermal_polymerization",
-      "temperature_C": 550,
+      "temperature_C": 550.0,
       "heating_rate_C_min": 7.5,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
@@ -7349,7 +7349,7 @@
       "drs_instrument": "Shimadzu UV2600",
       "general_notes": "The study involves the synthesis of g-C3N4 with nitrogen vacancies and oxygen doping using a sonication-hydrothermal method.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_087.pdf",
@@ -7364,8 +7364,8 @@
       "co_precursor": "none",
       "dopant_element": "O",
       "synthesis_method": "solvothermal_exfoliation",
-      "temperature_C": null,
-      "heating_rate_C_min": null,
+      "temperature_C": NaN,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "sonication",
@@ -7383,7 +7383,7 @@
       "drs_instrument": "Shimadzu UV2600",
       "general_notes": "The study involves the synthesis of g-C3N4 with nitrogen vacancies and oxygen doping using a sonication-hydrothermal method.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_087.pdf",
@@ -7398,8 +7398,8 @@
       "co_precursor": "none",
       "dopant_element": "O",
       "synthesis_method": "solvothermal_exfoliation",
-      "temperature_C": null,
-      "heating_rate_C_min": null,
+      "temperature_C": NaN,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "sonication",
@@ -7417,7 +7417,7 @@
       "drs_instrument": "Shimadzu UV2600",
       "general_notes": "The study involves the synthesis of g-C3N4 with nitrogen vacancies and oxygen doping using a sonication-hydrothermal method.",
       "extraction_status": "success",
-      "error_message": ""
+      "error_message": NaN
     },
     {
       "article_id": "ndefects/ndefects_087.pdf",
@@ -7432,8 +7432,8 @@
       "co_precursor": "none",
       "dopant_element": "O",
       "synthesis_method": "solvothermal_exfoliation",
-      "temperature_C": null,
-      "heating_rate_C_min": null,
+      "temperature_C": NaN,
+      "heating_rate_C_min": NaN,
       "duration_bin": "2_4h",
       "atmosphere": "unknown",
       "pre_treatment": "sonication",
@@ -7450,6 +7450,210 @@
       "morphology_form": "bulk",
       "drs_instrument": "Shimadzu UV2600",
       "general_notes": "The study involves the synthesis of g-C3N4 with nitrogen vacancies and oxygen doping using a sonication-hydrothermal method.",
+      "extraction_status": "success",
+      "error_message": NaN
+    },
+    {
+      "article_id": "ndefects/ndefects_001.pdf",
+      "filename": "ndefects_001.pdf",
+      "folder": "ndefects",
+      "title": "Precisely Tailoring Nitrogen Defects in Carbon Nitride for Efficient Photocatalytic Overall Water Splitting",
+      "sample_index": 1,
+      "total_samples": 6,
+      "sample_name": "pristine C3N4",
+      "file_match": "c3n4",
+      "sample_type": "reference",
+      "co_precursor": "none",
+      "dopant_element": "none",
+      "synthesis_method": "thermal_polymerization",
+      "temperature_C": 550,
+      "heating_rate_C_min": null,
+      "duration_bin": "2_4h",
+      "atmosphere": "air",
+      "pre_treatment": "none",
+      "post_treatment": "none",
+      "defect_type": "none",
+      "defect_formation_method": "none",
+      "special_notes": "none",
+      "precursor_family": "melamine",
+      "calcination_temperature_bin": "520_560",
+      "atmosphere_class": "air",
+      "primary_route": "direct_thermal",
+      "defect_introduction_mode": "none_or_baseline",
+      "dopant_class": "none",
+      "morphology_form": "bulk",
+      "drs_instrument": "unknown",
+      "general_notes": "The synthesis involved thermal polymerization of melamine with NaCl modification for various samples.",
+      "extraction_status": "success",
+      "error_message": ""
+    },
+    {
+      "article_id": "ndefects/ndefects_001.pdf",
+      "filename": "ndefects_001.pdf",
+      "folder": "ndefects",
+      "title": "Precisely Tailoring Nitrogen Defects in Carbon Nitride for Efficient Photocatalytic Overall Water Splitting",
+      "sample_index": 2,
+      "total_samples": 6,
+      "sample_name": "C3N4−Cl0.5",
+      "file_match": "c3n4-cl05",
+      "sample_type": "modified",
+      "co_precursor": "NaCl",
+      "dopant_element": "none",
+      "synthesis_method": "thermal_polymerization",
+      "temperature_C": 550,
+      "heating_rate_C_min": null,
+      "duration_bin": "2_4h",
+      "atmosphere": "air",
+      "pre_treatment": "none",
+      "post_treatment": "none",
+      "defect_type": "none",
+      "defect_formation_method": "none",
+      "special_notes": "none",
+      "precursor_family": "melamine",
+      "calcination_temperature_bin": "520_560",
+      "atmosphere_class": "air",
+      "primary_route": "direct_thermal",
+      "defect_introduction_mode": "none_or_baseline",
+      "dopant_class": "none",
+      "morphology_form": "bulk",
+      "drs_instrument": "unknown",
+      "general_notes": "The synthesis involved thermal polymerization of melamine with NaCl modification for various samples.",
+      "extraction_status": "success",
+      "error_message": ""
+    },
+    {
+      "article_id": "ndefects/ndefects_001.pdf",
+      "filename": "ndefects_001.pdf",
+      "folder": "ndefects",
+      "title": "Precisely Tailoring Nitrogen Defects in Carbon Nitride for Efficient Photocatalytic Overall Water Splitting",
+      "sample_index": 3,
+      "total_samples": 6,
+      "sample_name": "C3N4−Cl2",
+      "file_match": "c3n4-cl2",
+      "sample_type": "modified",
+      "co_precursor": "NaCl",
+      "dopant_element": "none",
+      "synthesis_method": "thermal_polymerization",
+      "temperature_C": 550,
+      "heating_rate_C_min": null,
+      "duration_bin": "2_4h",
+      "atmosphere": "air",
+      "pre_treatment": "none",
+      "post_treatment": "none",
+      "defect_type": "none",
+      "defect_formation_method": "none",
+      "special_notes": "none",
+      "precursor_family": "melamine",
+      "calcination_temperature_bin": "520_560",
+      "atmosphere_class": "air",
+      "primary_route": "direct_thermal",
+      "defect_introduction_mode": "none_or_baseline",
+      "dopant_class": "none",
+      "morphology_form": "bulk",
+      "drs_instrument": "unknown",
+      "general_notes": "The synthesis involved thermal polymerization of melamine with NaCl modification for various samples.",
+      "extraction_status": "success",
+      "error_message": ""
+    },
+    {
+      "article_id": "ndefects/ndefects_001.pdf",
+      "filename": "ndefects_001.pdf",
+      "folder": "ndefects",
+      "title": "Precisely Tailoring Nitrogen Defects in Carbon Nitride for Efficient Photocatalytic Overall Water Splitting",
+      "sample_index": 4,
+      "total_samples": 6,
+      "sample_name": "C3N4−Cl4",
+      "file_match": "c3n4-cl4",
+      "sample_type": "modified",
+      "co_precursor": "NaCl",
+      "dopant_element": "none",
+      "synthesis_method": "thermal_polymerization",
+      "temperature_C": 550,
+      "heating_rate_C_min": null,
+      "duration_bin": "2_4h",
+      "atmosphere": "air",
+      "pre_treatment": "none",
+      "post_treatment": "none",
+      "defect_type": "none",
+      "defect_formation_method": "none",
+      "special_notes": "none",
+      "precursor_family": "melamine",
+      "calcination_temperature_bin": "520_560",
+      "atmosphere_class": "air",
+      "primary_route": "direct_thermal",
+      "defect_introduction_mode": "none_or_baseline",
+      "dopant_class": "none",
+      "morphology_form": "bulk",
+      "drs_instrument": "unknown",
+      "general_notes": "The synthesis involved thermal polymerization of melamine with NaCl modification for various samples.",
+      "extraction_status": "success",
+      "error_message": ""
+    },
+    {
+      "article_id": "ndefects/ndefects_001.pdf",
+      "filename": "ndefects_001.pdf",
+      "folder": "ndefects",
+      "title": "Precisely Tailoring Nitrogen Defects in Carbon Nitride for Efficient Photocatalytic Overall Water Splitting",
+      "sample_index": 5,
+      "total_samples": 6,
+      "sample_name": "C3N4−Cl5",
+      "file_match": "c3n4-cl5",
+      "sample_type": "modified",
+      "co_precursor": "NaCl",
+      "dopant_element": "none",
+      "synthesis_method": "thermal_polymerization",
+      "temperature_C": 550,
+      "heating_rate_C_min": null,
+      "duration_bin": "2_4h",
+      "atmosphere": "air",
+      "pre_treatment": "none",
+      "post_treatment": "none",
+      "defect_type": "none",
+      "defect_formation_method": "none",
+      "special_notes": "none",
+      "precursor_family": "melamine",
+      "calcination_temperature_bin": "520_560",
+      "atmosphere_class": "air",
+      "primary_route": "direct_thermal",
+      "defect_introduction_mode": "none_or_baseline",
+      "dopant_class": "none",
+      "morphology_form": "bulk",
+      "drs_instrument": "unknown",
+      "general_notes": "The synthesis involved thermal polymerization of melamine with NaCl modification for various samples.",
+      "extraction_status": "success",
+      "error_message": ""
+    },
+    {
+      "article_id": "ndefects/ndefects_001.pdf",
+      "filename": "ndefects_001.pdf",
+      "folder": "ndefects",
+      "title": "Precisely Tailoring Nitrogen Defects in Carbon Nitride for Efficient Photocatalytic Overall Water Splitting",
+      "sample_index": 6,
+      "total_samples": 6,
+      "sample_name": "C3N4−Cl6",
+      "file_match": "c3n4-cl6",
+      "sample_type": "modified",
+      "co_precursor": "NaCl",
+      "dopant_element": "none",
+      "synthesis_method": "thermal_polymerization",
+      "temperature_C": 550,
+      "heating_rate_C_min": null,
+      "duration_bin": "2_4h",
+      "atmosphere": "air",
+      "pre_treatment": "none",
+      "post_treatment": "none",
+      "defect_type": "none",
+      "defect_formation_method": "none",
+      "special_notes": "none",
+      "precursor_family": "melamine",
+      "calcination_temperature_bin": "520_560",
+      "atmosphere_class": "air",
+      "primary_route": "direct_thermal",
+      "defect_introduction_mode": "none_or_baseline",
+      "dopant_class": "none",
+      "morphology_form": "bulk",
+      "drs_instrument": "unknown",
+      "general_notes": "The synthesis involved thermal polymerization of melamine with NaCl modification for various samples.",
       "extraction_status": "success",
       "error_message": ""
     }
